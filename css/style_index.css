@@ -113,7 +113,7 @@ header button {
 .showcase .bottom {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 30px;
 }
 
@@ -125,10 +125,10 @@ header button {
 .resto {
     min-height: 320px;
     text-align: center;
-    margin: 50px 30px;
     background-color: #EEEEEE;
     border-radius: 15px;
     padding: 50px;
+    margin: 20px;
 }
 
 .resto img {
