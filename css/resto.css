@@ -72,16 +72,43 @@ header button {
     font-family: "Montserrat", sans-serif !important;
 }
 
-/* 2ND SECTION */
+/* EWAN Q */
 
-.second-title {
-    text-align: center;
-    margin-bottom: 20px;
-    color: var(--dark-green);
+.main {
+    margin: 10px 0;
+    display: flex;
+    justify-content: end;
 }
 
+.main img {
+    width: 460px;
+    z-index: 0;
+    margin-left: -30px;
+}
+
+.main .bite {
+    position: absolute;
+    top: 42%;
+    left: -15px;
+    font-size: 170px;
+    font-family: "Montserrat", sans-serif !important;
+    z-index: -1;
+    text-align: left;
+}
+
+.main .best {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    font-size: 170px;
+    font-family: "Montserrat", sans-serif !important;
+    z-index: -1;
+    text-align: right;
+}
+
+/* 2ND SECTION */
 .second {
-    min-height: auto;
+    min-height: 100vh;
     padding:50px;
 }
 
@@ -109,13 +136,20 @@ header button {
         text-decoration: none;
         color: currentColor;
     }
+
+    &:hover img {
+        filter: none !important;
+    }
 }
 
 .resto1 img, .resto2 img, .resto3 img, .resto4 img, .resto5 img {
     width: 200px;
+    padding: 20px;
     border-radius: 15px;
     display: block;
     margin: auto;
+    filter: grayscale(100%);
+    transition: filter 0.5s ease;
 }
 
 .rating {
@@ -131,7 +165,7 @@ header button {
 
 .location {
     display: flex;
-    align-items: bottom;
+    align-items: center;
     margin-top: 10px;
 }
 
@@ -145,6 +179,7 @@ header button {
     width: fit-content;
     height: fit-content;
     position: relative;
+    
   }
 
 .input-search {
@@ -152,10 +187,10 @@ header button {
     width: 50px;
     border-style: none;
     padding: 10px;
-    font-size: 18px;
-    letter-spacing: 2px;
+    font-size: 16px;
+    letter-spacing: 1px;
     outline: none;
-    border-radius: 25px;
+    border-radius: 50%;
     transition: all .5s ease-in-out;
     background-color: var(--green);
     padding-right: 40px;
@@ -164,8 +199,8 @@ header button {
 
 .input-search::placeholder {
     color:rgba(92, 92, 92, 0.5);
-    font-size: 18px;
-    letter-spacing: 2px;
+    font-size: 16px;
+    letter-spacing: 1px;
     font-weight: 100;
 }
 
@@ -239,4 +274,21 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         background-color: var(--grayish-green);
         color: white;
     }
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 50px;
+    padding: 30px;
+    width: 100%;
+    background-color: black;
+    color: #F7F7F7;
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+}
+
+footer .logo, footer .logo span {
+    font-size: 20px;
 }
