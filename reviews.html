@@ -9,6 +9,8 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
     <script src="js/scripts.js" defer></script>
+
+
 </head>
 
 <!-- USER VIEW -->
@@ -31,7 +33,7 @@
         <div class="resto-page">
             <div class="resto-info">
                 <div class="resto-name-n-logo">
-                    <img src="css/imgs/placeholder.png">
+                    <img src="imgs/placeholder.png">
                     <h1>Restaurant Name</h1>
                 </div>
                 <div class="location">        
@@ -72,158 +74,203 @@
                     </div>
                 </div>
 
-                <div class="review1">
-                    <div class="top-part">
-                        <div class="un-rating">
-                            <div class="user">
-                                <img src="css/imgs/pfp.png">
-                                <h4>username</h4>
+                <div id="outputReview" class="output-review"></div>
+
+                <div class="all-reviews">
+                    <div class="review1">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="imgs/pfp.png">
+                                    <h4>username</h4>
+                                </div>
+                                <p><b>Created:</b> dd/month/yyyy</p>
                             </div>
-                            <p><b>Created:</b> dd/month/yyyy</p>
+        
+                            <div class="rating">
+                                <b>0.0</b>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="un-review">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
+                        </div>
+
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+    
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="review1">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="imgs/pfp.png">
+                                    <h4>username</h4>
+                                </div>
+                                <p><b>Created:</b> dd/month/yyyy</p>
+                            </div>
+        
+                            <div class="rating">
+                                <b>0.0</b>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="un-review">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
                         </div>
     
-                        <div class="rating">
-                            <b>0.0</b>
-                            <i class="fa-regular fa-star"></i>
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+    
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="un-review">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
-                    </div>
-
-                    <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="far fa-thumbs-up"></i></span>
-                        Helpful 
-                     </button>
-
-                     <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="fa-regular fa-thumbs-down"></i></span>
-                        Not Helpful 
-                     </button>
-                </div>
-
-                <div class="review1">
-                    <div class="top-part">
-                        <div class="un-rating">
-                            <div class="user">
-                                <img src="css/imgs/pfp.png">
-                                <h4>username</h4>
+    
+                    <div class="review1">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="imgs/pfp.png">
+                                    <h4>username</h4>
+                                </div>
+                                <p><b>Created:</b> dd/month/yyyy</p>
                             </div>
-                            <p><b>Created:</b> dd/month/yyyy</p>
+        
+                            <div class="rating">
+                                <b>0.0</b>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="un-review">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
                         </div>
     
-                        <div class="rating">
-                            <b>0.0</b>
-                            <i class="fa-regular fa-star"></i>
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+    
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="un-review">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
-                    </div>
-
-                    <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="far fa-thumbs-up"></i></span>
-                        Helpful 
-                     </button>
-
-                     <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="fa-regular fa-thumbs-down"></i></span>
-                        Not Helpful 
-                     </button>
-                </div>
-
-                <div class="review1">
-                    <div class="top-part">
-                        <div class="un-rating">
-                            <div class="user">
-                                <img src="css/imgs/pfp.png">
-                                <h4>username</h4>
+    
+                    <div class="review1">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="imgs/pfp.png">
+                                    <h4>username</h4>
+                                </div>
+                                <p><b>Created:</b> dd/month/yyyy</p>
                             </div>
-                            <p><b>Created:</b> dd/month/yyyy</p>
+        
+                            <div class="rating">
+                                <b>0.0</b>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="un-review">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
                         </div>
     
-                        <div class="rating">
-                            <b>0.0</b>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="un-review">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
-                    </div>
-
-                    <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="far fa-thumbs-up"></i></span>
-                        Helpful 
-                     </button>
-
-                     <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="fa-regular fa-thumbs-down"></i></span>
-                        Not Helpful 
-                     </button>
-                </div>
-
-                <div class="review1">
-                    <div class="top-part">
-                        <div class="un-rating">
-                            <div class="user">
-                                <img src="css/imgs/pfp.png">
-                                <h4>username</h4>
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
                             </div>
-                            <p><b>Created:</b> dd/month/yyyy</p>
-                        </div>
     
-                        <div class="rating">
-                            <b>0.0</b>
-                            <i class="fa-regular fa-star"></i>
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="un-review">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod enim id facilis omnis modi non magni ut, nesciunt alias quo dignissimos reprehenderit nulla reiciendis sapiente quaerat, est quidem incidunt!</p>
-                    </div>
-
-                    <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="far fa-thumbs-up"></i></span>
-                        Helpful 
-                     </button>
-
-                     <button class="like__btn">
-                        <span id="count">0</span>
-                        <span id="icon"><i class="fa-regular fa-thumbs-down"></i></span>
-                        Not Helpful 
-                     </button>
                 </div>
             </div>
-        </div>
+                </div>
+                
         
         <!--  REVIEW BOX  -->
         
         <div class="review-preview">
             <div class="wrapper" data-target="p-1">
                  <h3>Overall Rating:</h3>
-                 <form action="#">
-                     <div class="rating1">
+                <form action="#">
+                    <div class="rating1">
                          <input type="number" name="rating1" hidden>
                          <i class='bx bx-star star' style="--i: 0;"></i>
                          <i class='bx bx-star star' style="--i: 1;"></i>
                          <i class='bx bx-star star' style="--i: 2;"></i>
                          <i class='bx bx-star star' style="--i: 3;"></i>
                          <i class='bx bx-star star' style="--i: 4;"></i>
-                     </div>
-                     <textarea name="opinion" cols="30" rows="5" placeholder="Write Review..."></textarea>
-                     <div class="btn-group">
-                         <button type="submit" class="btn submit">Submit</button>
-                         <button class="btn cancel">Cancel</button>
-                     </div>
-                 </form>
-             </div>
-         </div>
+                    </div>
+                    <textarea name="opinion" cols="30" rows="5" placeholder="Write Review..."></textarea>
+                    <div class="btn-group">
+                        <button type="submit" class="btn submit">Submit</button>
+                        <button class="btn cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </section>
 
     <footer>
@@ -242,6 +289,5 @@
             <p>emeEme@gmail.com</p>
         </div>
     </footer>
-
 </body>
 </html>
