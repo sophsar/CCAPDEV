@@ -197,6 +197,11 @@ header button {
     }
 }
 
+.active-button {
+    color: blue; /* Change to your desired color */
+}
+
+
 /* REVIEW BOX */
 
 .review-box {
@@ -437,7 +442,7 @@ textarea {
 
 /**/
 
-.resto-reviews {
+.all-reviews {
     max-height: 100vh;
     overflow-y: scroll;
 }
@@ -455,3 +460,69 @@ textarea {
     box-shadow: inset 0 0 10px 10px rgb(126, 126, 126);
     border: solid 3px transparent;
 }
+
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.like___btn {
+    width: auto;
+    height: auto;
+    text-align: center;
+  }
+  
+  .wrapper1 .like-button {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-decoration: none;
+    overflow: hidden;
+  }
+  
+  .wrapper1 .like-button .like-overlay {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--dark-green);
+    transform: scale(0);
+    transition: all 0.4s;
+    z-index: 0;
+  }
+  
+  .wrapper1 .like-button i.fa-regular {
+    display: block;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .wrapper1 .like-button i.fa-solid {
+    display: none;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .wrapper1 .like-button.is-active .like-overlay {
+    transform: scale(1);
+  }
+  
+  .wrapper1 .like-button.is-active i.fa-regular {
+    display: none;
+  }
+  
+  .wrapper1 .like-button.is-active i.fa-solid {
+    display: block;
+  }
