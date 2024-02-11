@@ -1,0 +1,69 @@
+.button {
+    height: 40px;
+}
+
+.signupforbonappetaft{
+    margin-top:60px;
+    color:#12372A;
+    text-align: center;
+}
+.text{
+    text-align: center;
+}
+
+input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-size: 15px;
+    border-bottom:1px solid rgba(255,255,255,.5);
+}
+.label-input-pair {
+    position: relative;
+    margin-top: 25px;
+}
+.signupinfo{
+    margin-top: 25px;
+    text-align: center;
+    color: grey;
+}
+.signup-button {
+    text-align: center;
+}
+
+.signup-button button {
+    margin-top:30px;
+    width: 256px;
+    border-radius: 20px;
+    background-color: #12372A;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+.name {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+#firstName{ width: 100px;}
+#lastName{ width:150px;}
+#username{ width: 250px;}
+#email{ width: 250px;}
+#password{ width:250px;}
+#dob { color: grey; width: 185px;}
+label[for="dob"] { color: slategray;}
+label[for="owner"] { color: black;}
+#login{text-align: center; font-size: 13px; margin-bottom: 50px; margin-top: 20px;}
+#usernameoremail{width:250px;}
+#signup{text-align: center; font-size: 13px; margin-bottom: 105px; margin-top: 20px;}
+
+
+
+
+/*LOGIN*/
+.login-parent{
+    margin-top: 90px;
+    color:#12372A;
+    text-align: center;
+}
