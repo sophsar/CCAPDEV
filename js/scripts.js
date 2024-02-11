@@ -1,43 +1,3 @@
-let previewContainer = document.querySelector('.review-preview');
-let previewBox = previewContainer.querySelectorAll('.preview');
-
-document.querySelectorAll('.review-container .review-button').forEach(review =>{
-  review.onclick = () =>{
-    previewContainer.style.display = 'flex';
-    let name = review.getAttribute('data-name');
-    previewBox.forEach(preview =>{
-      let target = preview.getAttribute('data-target');
-      if(name == target){
-        preview.classList.add('active');
-      }
-    });
-  };
-});
-
-const allStar = document.querySelectorAll('.rating1 .star')
-const ratingValue = document.querySelector('.rating1 input')
-
-allStar.forEach((item, idx)=> {
-	item.addEventListener('click', function () {
-		let click = 0
-		ratingValue.value = idx + 1
-
-		allStar.forEach(i=> {
-			i.classList.replace('bxs-star', 'bx-star')
-			i.classList.remove('active')
-		})
-		for(let i=0; i<allStar.length; i++) {
-			if(i <= idx) {
-				allStar[i].classList.replace('bx-star', 'bxs-star')
-				allStar[i].classList.add('active')
-			} else {
-				allStar[i].style.setProperty('--i', click)
-				click++
-			}
-		}
-	})
-})
-
 // review replys
 const replyBtns = document.querySelectorAll(".reply-button");
 let publishBtns = document.querySelectorAll(".publish");
@@ -56,7 +16,7 @@ replyBtns.forEach((btn) => {
         let profilePic = document.createElement("img");
         let userName = document.createElement("h4");
 
-        profilePic.src = "images/pfp.png";
+        profilePic.src = "imgs/pfp.png";
         user.className = "user";
         userName.textContent = "username";
         user.appendChild(profilePic);
@@ -114,3 +74,56 @@ replyBtns.forEach((btn) => {
         });
     });
 });
+
+/* leaving review */
+
+let previewContainer = document.querySelector('.review-preview');
+let previewBox = previewContainer.querySelectorAll('.preview');
+
+document.querySelectorAll('.review-container .review-button').forEach(review =>{
+  review.onclick = () =>{
+    previewContainer.style.display = 'flex';
+    let name = review.getAttribute('data-name');
+    previewBox.forEach(preview =>{
+      let target = preview.getAttribute('data-target');
+      if(name == target){
+        preview.classList.add('active');
+      }
+    });
+  };
+});
+
+const allStar = document.querySelectorAll('.rating1 .star')
+const ratingValue = document.querySelector('.rating1 input')
+
+allStar.forEach((item, idx)=> {
+	item.addEventListener('click', function () {
+		let click = 0
+		ratingValue.value = idx + 1
+
+		allStar.forEach(i=> {
+			i.classList.replace('bxs-star', 'bx-star')
+			i.classList.remove('active')
+		})
+		for(let i=0; i<allStar.length; i++) {
+			if(i <= idx) {
+				allStar[i].classList.replace('bx-star', 'bxs-star')
+				allStar[i].classList.add('active')
+			} else {
+				allStar[i].style.setProperty('--i', click)
+				click++
+			}
+		}
+	})
+})
+
+/* buttons */
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.like-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            this.classList.toggle('is-active');
+        });
+    });
+});
+
