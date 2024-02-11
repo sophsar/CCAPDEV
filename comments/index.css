@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind&family=Montserrat:wght@300;400;500;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Hind", sans-serif;
+
+}
+
+
+body {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f2f2f2;
+    /* background: #353935; */
+}
+
+.comment-container {
+    margin-top: 10px;
+    font-family: monospace;
+    width: auto;
+    border-radius: 15px;
+    display: none;
+}
+
+.commentbox {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 20px;
+    background-color: rgb(227, 227, 227);
+    border-radius: 15px;
+}
+
+.commentbox input[type=text] {
+    background-color: transparent;
+}
+
+.commentbox > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* float: left; */
+    margin-right: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.comments {
+    background-color: rgb(227, 227, 227);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+}
+
+.content {
+    width: 100%;
+}
+
+.owner {
+    border: none;
+    outline: none;
+    margin: 5px 0;
+    color: #808080;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.commentinput > input {
+    border: none;
+    padding: 10px;
+    padding-left: 0;
+    outline: none;
+    border-bottom: 2px solid rgb(59, 59, 59);
+    margin-bottom: 10px;
+    width: 95%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #808080;
+}
+
+.buttons > button {
+    padding: 5px 10px;
+    background: lightgrey;
+    color: #808080;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.buttons > button.abled {
+    background: blue;
+    color: #fff;
+}
+
+.policy {
+    margin: 20px 0;
+    font-size: 0.8em;
+    font-family: Arial, sans-serif;
+    color: #808080;
+}
+
+.policy a {
+    text-decoration: none;
+    color: blue;
+}
+
+.parents {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 10px 0;
+}
+
+.parents h1 {
+    font-size: 0.9em;
+}
+
+.parents p {
+    margin: 10px 0;
+    font-size: 0.9em;
+}
+
+.parents > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.parents-name-and-date {
+    min-width: 385px;
+}
+
+.parents-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+}
+
+.parents-2 {
+    word-wrap: break-word;
+}
+
+.date {
+    color: #808080;
+    font-size: 0.8em;
+}
+
+
+/* */
+
+.review1 {
+    background-color: rgb(236, 236, 236);
+    min-height: 20vh;
+    margin-bottom: 20px;
+    width: 500px;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+.fa-star {
+    font-size: 13px;
+}
+
+.top-part {
+    display: flex;
+    justify-content: space-between;
+}
+
+.un-review {
+    margin-top: 10px;
+}
+
+.user img {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reply-button {
+    width: 10px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0 0;
+    color: darkgreen;
+    gap: 5px;
+
+    &:hover {
+        color: green;
+    }
+}
