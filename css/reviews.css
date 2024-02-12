@@ -88,27 +88,33 @@ header button {
 .resto-name-n-logo img {
     width: 200px;
     display: block;
-    margin: auto;
-    border: 1px solid black;
+    margin: 20px 0;
 }
 
-.location, .phone-no, .resto-hours {
+.location, .phone-no, .resto-hours, .description  {
     display: flex;
-    align-items: center;
+    align-items: top;
+    margin-top: 10px;
     width: 200px;
-}
 
-.location p, .phone-no p, .resto-hours p {
-    margin-left: 10px;
-}
+    & i {
+        margin-top:2px;
+    }
 
-.description {
-    margin-top: 5px;
+    & p {
+        margin-left: 10px;
+        display: flex;
+        align-items: top;
+    }
 }
 
 .resto-info {
-    width: 200px;
-    margin-right: 50px;
+    width: auto;
+    margin-right: 20px;
+    background-color: rgb(236, 236, 236);
+    min-height: 20vh;
+    padding: 15px 20px;
+    border-radius: 15px;
 }
 
 .resto-page {
@@ -145,13 +151,21 @@ header button {
     width: auto;
 }
 
-.review1 {
+.un-review {
     background-color: rgb(236, 236, 236);
     min-height: 20vh;
     margin-bottom: 20px;
     width: 500px;
     padding: 15px 20px;
     border-radius: 15px;
+    overflow-wrap: break-word;
+}
+
+.un-review1 img {
+    background-color: white;
+    padding: 10px;
+    width: 200px;
+    border-radius: 10PX;
 }
 
 .fa-star {
@@ -161,10 +175,6 @@ header button {
 .top-part {
     display: flex;
     justify-content: space-between;
-}
-
-.un-review {
-    margin-top: 10px;
 }
 
 .user img {
@@ -207,6 +217,7 @@ header button {
 .review-box {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .review-button {
@@ -340,6 +351,8 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     display: none;
     align-items: center;
     justify-content: center;
+    position:fixed;
+    z-index: 4;
 }
 
 .wrapper {
@@ -357,6 +370,21 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 	margin-bottom: 1rem;
 }
 
+input[type="file"]::file-selector-button {
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    background-color: var(--grayish-green);
+    color: white;
+    margin-bottom: 20px;
+}
+  
+input[type="file"]::file-selector-button:hover {
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
+}
+
 .rating1 {
 	display: flex;
 	justify-content: center;
@@ -364,14 +392,63 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 	grid-gap: .5rem;
 	font-size: 2rem;
 	color: var(--yellow);
-	margin-bottom: 2rem;
+    margin-bottom: 5px;
 }
+
 .rating1 .star {
 	cursor: pointer;
 }
+
 .rating1 .star.active {
-	opacity: 0;
-	animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+    opacity: 0;
+    animation: animate .5s calc(var(--i) * .05s) ease-in-out forwards;
+}
+
+/* Set the position of each star based on --i */
+
+.star:nth-child(1) {
+    --i: 0;
+}
+
+.star:nth-child(2) {
+    --i: 1;
+}
+
+.star:nth-child(3) {
+    --i: 2;
+}
+
+.star:nth-child(4) {
+    --i: 3;
+}
+
+.star:nth-child(5) {
+    --i: 4;
+}
+
+.star:nth-child(6) {
+    --i: 5;
+}
+
+.star:nth-child(7) {
+    --i: 6;
+}
+
+.star:nth-child(8) {
+    --i: 7;
+}
+
+.star:nth-child(9) {
+    --i: 8;
+}
+
+.star:nth-child(10) {
+    --i: 9;
+}
+
+
+textarea {
+    margin-top: 10px;
 }
 
 @keyframes animate {
@@ -443,8 +520,9 @@ textarea {
 /**/
 
 .all-reviews {
-    max-height: 100vh;
+    max-height: 59vh;
     overflow-y: scroll;
+    position: relative;
 }
 
 ::-webkit-scrollbar {
@@ -462,10 +540,11 @@ textarea {
 }
 
 .buttons {
-    margin-top: 10px;
     display: flex;
     gap: 5px;
+    margin-top: 10px;
 }
+t
 
 .like___btn {
     width: auto;
@@ -495,12 +574,12 @@ textarea {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: var(--dark-green);
     transform: scale(0);
+    background-color: var(--dark-green);
     transition: all 0.4s;
     z-index: 0;
   }
-  
+
   .wrapper1 .like-button i.fa-regular {
     display: block;
     color: #fff;
