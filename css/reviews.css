@@ -649,3 +649,9 @@ t
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+  
+
+.fa-ellipsis {
+    margin-left: 10px;
+}
