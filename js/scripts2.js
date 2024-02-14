@@ -5,7 +5,7 @@ function filterRestaurants(searchPhrase) {
     const allRestaurants = document.querySelectorAll('.restaurants a');
     allRestaurants.forEach(restaurant => {
         const name = restaurant.querySelector('.name-and-rating h4').textContent.toLowerCase();
-        const description = restaurant.querySelector('p').textContent.toLowerCase();
+        const description = restaurant.querySelector('.rev-content').textContent.toLowerCase();
         if (name.includes(searchPhrase.toLowerCase()) || description.includes(searchPhrase.toLowerCase())) {
             restaurant.style.display = 'block';
         } else {
