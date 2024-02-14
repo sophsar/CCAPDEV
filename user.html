@@ -68,8 +68,8 @@
                             <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Edit description..."></textarea>
         
                             <div class="btn-group">
-                                <button type="button" class="btn submit" id="submit">Submit</button>
-                                <button class="btn cancel">Cancel</button>
+                                <button type="button" class="btn submit" id="submit"onclick="hideContainer()">Submit</button>
+                                <button class="btn cancel" onclick="hideContainer()">Cancel</button>
                             </div>
                     </div>
                 </div>
@@ -119,7 +119,13 @@
                             <div class="un-rating">
                                 <div class="user">
                                     <img src="images/pfp (1).png">
-                                    <h4>Foodie123</h4><i class="fa-solid fa-ellipsis"></i>
+                                    <h4>Foodie123</h4>&nbsp;
+                                    <i class="fa-solid fa-trash-can"></i> 
+                                    <div class="review-container">
+                                        <div class="review-button" data-name="p-1">
+                                            <i class="fa-solid fa-ellipsis"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +164,13 @@
                             <div class="un-rating">
                                 <div class="user">
                                     <img src="images/pfp (1).png">
-                                    <h4>Foodie123</h4><i class="fa-solid fa-ellipsis"></i>
+                                    <h4>YDUGAs</h4>&nbsp;
+                                        <i class="fa-solid fa-trash-can"></i> 
+                                        <div class="review-container">
+                                            <div class="review-button" data-name="p-1">
+                                                <i class="fa-solid fa-ellipsis"></i>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +209,13 @@
                             <div class="un-rating">
                                 <div class="user">
                                     <img src="images/pfp (1).png">
-                                    <h4>Foodie123</h4><i class="fa-solid fa-ellipsis"></i>
+                                    <h4>Foodie123</h4>&nbsp;
+                                    <i class="fa-solid fa-trash-can"></i> 
+                                    <div class="review-container">
+                                        <div class="review-button" data-name="p-1">
+                                            <i class="fa-solid fa-ellipsis"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -236,7 +254,13 @@
                             <div class="un-rating">
                                 <div class="user">
                                     <img src="images/pfp (1).png">
-                                    <h4>Foodie123</h4><i class="fa-solid fa-ellipsis"></i>
+                                    <h4>Foodie123</h4>&nbsp;
+                                    <i class="fa-solid fa-trash-can"></i> 
+                                    <div class="review-container">
+                                        <div class="review-button" data-name="p-1">
+                                            <i class="fa-solid fa-ellipsis"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +299,13 @@
                             <div class="un-rating">
                                 <div class="user">
                                     <img src="images/pfp (1).png">
-                                    <h4>Foodie123</h4><i class="fa-solid fa-ellipsis"></i>
+                                    <h4>Foodie123</h4>&nbsp;
+                                    <i class="fa-solid fa-trash-can"></i> 
+                                    <div class="review-container">
+                                        <div class="review-button" data-name="p-1">
+                                            <i class="fa-solid fa-ellipsis"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -314,10 +344,9 @@
                 
         
         <!--  REVIEW BOX  -->
-        
         <div class="review-preview">
-            <div class="wrapper" data-target="p-1">
-                 <h3>Overall Rating:</h3>
+            <div class="wrapper" data-target="p-2">
+                 <h3>EDIT RATING:</h3>
 
                     <div class="rating1" id="rating1">
                          <input type="number" name="rating1" hidden>
@@ -334,8 +363,8 @@
                     <input type="file" id="photo-upload" accept="image/*">
 
                     <div class="btn-group">
-                        <button type="submit" class="btn submit" id="submit">Submit</button>
-                        <button class="btn cancel">Cancel</button>
+                        <button type="button" class="btn submit" id="submit" onclick="hideContainer2()">Submit</button>
+                        <button class="btn cancel" onclick="hideContainer2()">Cancel</button>
                     </div>
             </div>
         </div>
@@ -376,4 +405,14 @@
             reader.readAsDataURL(file);
         }
     }
+
+    function hideContainer() {
+    const previewContainer = document.querySelector('.edit-preview');
+    previewContainer.style.display = 'none';
+}
+
+function hideContainer2() {
+    const previewContainer = document.querySelector('.review-preview');
+    previewContainer.style.display = 'none';
+}
 </script>
