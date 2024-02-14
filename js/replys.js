@@ -19,7 +19,7 @@ replyBtns.forEach((btn) => {
 
         profilePic.src = "images/pfp.png";
         user.className = "user";
-        userName.textContent = "username";
+        userName.textContent = "owner";
         user.appendChild(profilePic);
         user.appendChild(userName);
 
