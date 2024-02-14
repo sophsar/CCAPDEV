@@ -1,11 +1,29 @@
+.motherclass {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    background-color:#12372A;
+}
+
+.leftportionwhole {
+    width: 35%;
+}
+.rightportionwhole {
+    width: 65%;
+    height:650px;
+    border-radius: 60px;
+    border-radius:0 40px 40px 0;
+    background-color: aliceblue;
+}
+
 .button {
     height: 40px;
 }
-
 .signupforbonappetaft{
-    margin-top:60px;
+    margin-top:30px;
     color:#12372A;
-    text-align: center;
+    margin-left: 200px;
 }
 .text{
     text-align: center;
@@ -21,18 +39,29 @@ input {
 .label-input-pair {
     position: relative;
     margin-top: 25px;
+    margin-left: 20px;
 }
+
 .signupinfo{
     margin-top: 25px;
-    text-align: center;
     color: grey;
 }
-.signup-button {
-    text-align: center;
+.secondpart {
+    display: flex;
+    justify-content: space-between;
+    align-items: row;
+}
+
+.right{
+    width:50%;
+}
+
+.owner, .signup-button {
+    margin-top:25px;
+    display: flex;
 }
 
 .signup-button button {
-    margin-top:30px;
     width: 256px;
     border-radius: 20px;
     background-color: #12372A;
@@ -40,11 +69,23 @@ input {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    margin-left: 20px;
+}
+
+.uploadavatar-button .button {
+    font-size: 11px;
+    width: 150px;
+    border-radius: 20px;
+    background-color: #12372A;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    cursor: pointer;
+    margin-left: 60px;
 }
 .name {
     margin-top: 20px;
     display: flex;
-    justify-content: center;
 }
 #firstName{ width: 100px;}
 #lastName{ width:150px;}
@@ -53,17 +94,53 @@ input {
 #password{ width:250px;}
 #dob { color: grey; width: 185px;}
 label[for="dob"] { color: slategray;}
-label[for="owner"] { color: black;}
-#login{text-align: center; font-size: 13px; margin-bottom: 50px; margin-top: 20px;}
+label[for="owner"] { font-size:14px; color: black;margin-left: 10px;}
+#login{font-size: 13px;margin-left:60px;}
 #usernameoremail{width:250px;}
 #signup{text-align: center; font-size: 13px; margin-bottom: 105px; margin-top: 20px;}
 
+#burger {
+    position: absolute;
+    top: 30px;
+    right: 62px; 
+    width: 380px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
 
+.logo{
+    font-size:40px;
+    margin-left: 308px;
+    margin-top: 50px;
+}
 
+.left{
+    margin-top: 25px;
+    width:50%;
+    padding-left: 23%;
+    color: grey;
+}
 
-/*LOGIN*/
-.login-parent{
-    margin-top: 90px;
-    color:#12372A;
-    text-align: center;
+.pfp img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-left: 25px;
+}
+
+#description {
+    margin-top: 10px;
+    background-color: aliceblue; /* Alice Blue */
+    border: 1px solid grey; /* Grey */
+    color: #000; /* Black */
+}
+
+textarea {
+	width: 85%;
+	background: var(--light);
+	padding: 1rem;
+	border-radius: .5rem;
+	border: none;
+	outline: none;
+	resize: none;
+	margin-bottom: .5rem;
 }
