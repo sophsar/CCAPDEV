@@ -86,7 +86,7 @@ header button {
 }
 
 .resto-name-n-logo img {
-    width: 200px;
+    width: 100%;
     display: block;
     margin: 20px 0;
 }
@@ -95,7 +95,7 @@ header button {
     display: flex;
     align-items: top;
     margin-top: 10px;
-    width: 200px;
+    width: 100%;
 
     & i {
         margin-top:2px;
@@ -109,7 +109,7 @@ header button {
 }
 
 .resto-info {
-    width: auto;
+    width: 20%;
     margin-right: 20px;
     background-color: rgb(236, 236, 236);
     min-height: 20vh;
@@ -123,6 +123,7 @@ header button {
     border: 2px solid black;
     border-radius: 10px;
     padding: 20px;
+    min-width: 90%;
 }
 
 .write-review {
@@ -148,14 +149,14 @@ header button {
 
 .resto-reviews {
     display: block;
-    width: auto;
+    width: 80%;
 }
 
 .un-review {
     background-color: rgb(236, 236, 236);
     min-height: 20vh;
     margin-bottom: 20px;
-    width: 500px;
+    width: 100%;
     padding: 15px 20px;
     border-radius: 15px;
     overflow-wrap: break-word;
@@ -220,7 +221,7 @@ header button {
     gap: 10px;
 }
 
-.review-button {
+.review-button, .review-button2 {
     min-height: 5vh;
     margin-bottom: 20px;
     width: 250px;
@@ -518,9 +519,12 @@ textarea {
 }
 
 /**/
+#all-reviews {
+    padding: 0;
+}
 
 .all-reviews {
-    max-height: 59vh;
+    max-height: 100svh;
     overflow-y: scroll;
     position: relative;
 }
@@ -604,4 +608,8 @@ t
   
   .wrapper1 .like-button.is-active i.fa-solid {
     display: block;
+  }
+
+  .container a {
+    text-decoration: none;
   }

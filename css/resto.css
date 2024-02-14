@@ -165,12 +165,13 @@ header button {
 
 .rating {
     font-size: 13px;
+    width: 60%;
 }
 
 .name-and-rating {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: top;
     margin: 10px 0;
 }
 

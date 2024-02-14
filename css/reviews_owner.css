@@ -85,7 +85,7 @@ header button {
 
 .second {
     min-height: auto;
-    width: 95%;
+    width: 90%;
     padding: 50px;
     display: flex;
     justify-content: center;
@@ -114,8 +114,12 @@ header button {
 }
 
 .resto-info {
-    min-width: 20%;
-    margin-right: 50px;
+    width: 20%;
+    margin-right: 20px;
+    background-color: rgb(236, 236, 236);
+    min-height: 20vh;
+    padding: 15px 20px;
+    border-radius: 15px;
 }
 
 .resto-page {
@@ -124,6 +128,7 @@ header button {
     border: 2px solid black;
     border-radius: 10px;
     padding: 20px;
+    min-width: 90%;
 }
 
 .write-review {
@@ -149,7 +154,7 @@ header button {
 
 .resto-reviews {
     display: block;
-    min-width: 70%;
+    width: 80%;
 }
 
 .review1 {
