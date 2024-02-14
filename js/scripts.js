@@ -1,3 +1,4 @@
+
 /* leaving a review */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -274,4 +275,3 @@ document.addEventListener('DOMContentLoaded', function() {
     // Populate restaurant info
     populateRestaurantInfo(name, location, phone, hours, description, image);
 });
-
