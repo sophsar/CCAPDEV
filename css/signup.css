@@ -9,7 +9,7 @@
 .leftportionwhole {
     width: 35%;
 }
-.rightportionwhole {
+.rightportionwhole, .rightportionwhole2 {
     width: 65%;
     height:650px;
     border-radius: 60px;
@@ -17,6 +17,10 @@
     background-color: aliceblue;
 }
 
+
+.rightportionwhole2{
+    padding-top: 5%;
+}
 .button {
     height: 40px;
 }
@@ -56,7 +60,7 @@ input {
     width:50%;
 }
 
-.owner, .signup-button {
+.owner, .signup-button, .login-button {
     margin-top:25px;
     display: flex;
 }
@@ -143,4 +147,40 @@ textarea {
 	outline: none;
 	resize: none;
 	margin-bottom: .5rem;
+}
+
+
+/*LOGIN*/
+.logininfo{
+text-align: center;
+}
+
+.login-button button{
+    width: 256px;
+    border-radius: 20px;
+    background-color: #12372A;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-left: 40%;
+}
+
+.login-button {
+    margin-left: 33%;
+}
+
+.label-input-pair2 {
+    position: relative;
+    margin-top: 25px;
+}
+
+.login{
+    width: 100%;
+    margin-left: 33%;
+}
+
+.loginforbonappetaft{
+    margin-top:30px;
+    color:#12372A;
+    margin-left: 39%;
 }
