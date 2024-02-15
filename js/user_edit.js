@@ -28,16 +28,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.querySelector(".cancel"); // Select the cancel button
 
     submitBtn.addEventListener("click", () => {
-        const photoUpload = document.getElementById("profile-picture");
-        const editedPfp = document.getElementById("editedpfp");
-        const description = document.getElementById("description"); // textarea
-        const desc = document.getElementById("desc"); // paragraph
+    const photoUpload = document.getElementById("profile-picture");
+    const editedPfp = document.getElementById("editedpfp");
+    const description = document.getElementById("description"); // textarea
+    const desc = document.getElementById("desc"); // paragraph
 
-        editedPfp.src = photoUpload.src;
-        //desc.textContent = description.textContent; 
+    // Check if the profile picture is not the default image
+    if (photoUpload.src !== "images/pfp (1).png") {
+        editedPfp.src = photoUpload.src; // Update profile picture
+    }
 
-        previewContainer.style.display = 'none';
-    });
+    // Check if the description is not blank
+    if (description.value.trim() !== "") {
+        desc.textContent = description.value; // Update description
+    }
+
+    previewContainer.style.display = 'none'; // Hide the review preview container
+});
+
     
     
     // Event listener for the Cancel button
