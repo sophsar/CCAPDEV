@@ -152,6 +152,10 @@ header button {
     width: 80%;
 }
 
+.resto-reviews a {
+    text-decoration: none;
+}
+
 .un-review {
     background-color: rgb(236, 236, 236);
     min-height: 20vh;
