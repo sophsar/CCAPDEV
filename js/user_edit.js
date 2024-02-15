@@ -1,5 +1,4 @@
-
-/* leaving a review */
+/* editing a profile */
 
 document.addEventListener('DOMContentLoaded', function() {
     // Select the review preview container and the preview box
@@ -54,6 +53,76 @@ document.addEventListener('DOMContentLoaded', function() {
         reviewText.value = "";
         previewContainer.style.display = 'none'; // Hide the review preview container
     });    
-  
-    
+});
+
+/* udpating profile picture */
+
+function updateProfilePicture(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const profilePicture = document.getElementById('profile-picture');
+            profilePicture.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function hideContainer() {
+const previewContainer = document.querySelector('.edit-preview');
+previewContainer.style.display = 'none';
+}
+
+function hideContainer2() {
+const previewContainer = document.querySelector('.review-preview');
+previewContainer.style.display = 'none';
+}
+
+/* deleting review */
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Add event listener to all trash icons
+    const trashIcons = document.querySelectorAll('.trash-icon');
+    trashIcons.forEach(trashIcon => {
+      trashIcon.addEventListener('click', function() {
+        // Find the parent .un-review div and remove it
+        const unReviewDiv = this.closest('.un-review');
+        if (unReviewDiv) {
+          unReviewDiv.remove();
+        }
+      });
+    });
   });
+
+/* editing a review */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const ellipsisIcons = document.querySelectorAll('.fa-solid.fa-ellipsis');
+    ellipsisIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+            const reviewContainer = icon.closest('.un-review');
+            const ratingElement = reviewContainer.querySelector('.un-review1 strong');
+            const currentRating = parseInt(ratingElement.textContent.match(/\d+/)[0]);
+            const newRating = parseInt(prompt("Enter a new rating (1 - 5):"));
+            if (newRating >= 1 && newRating <= 5) {
+                ratingElement.innerHTML = `Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
+                const reviewContentElement = reviewContainer.querySelector('.rev-content');
+                const newReviewContent = prompt("Enter updated review:");
+                if (newReviewContent !== null) {
+                    reviewContentElement.textContent = newReviewContent;
+                }
+                const reviewDateElement = reviewContainer.querySelector('.un-review1 p:last-child');
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleString();
+                reviewDateElement.textContent = `Review sent on: ${formattedDate}`;
+                const editedMark = document.createElement('span');
+                editedMark.textContent = " (edited)";
+                editedMark.style.color = "red";
+                reviewDateElement.appendChild(editedMark);
+            } else {
+                alert("Invalid rating! Please enter a number between 1 and 5.");
+            }
+        });
+    });
+});
