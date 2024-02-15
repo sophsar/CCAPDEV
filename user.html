@@ -119,11 +119,10 @@
                                 <div class="user">
                                     <img src="images/pfp (1).png">
                                     <h4>Foodie123</h4>&nbsp;
-                                    <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                    <div class="review-container">
-                                        <div class="review-button" data-name="p-1">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </div>
+
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
                                     </div>
                                 </div>
                             </div>
@@ -164,12 +163,10 @@
                                 <div class="user">
                                     <img src="images/pfp (1).png">
                                     <h4>YDUGAs</h4>&nbsp;
-                                    <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                        <div class="review-container">
-                                            <div class="review-button" data-name="p-1">
-                                                <i class="fa-solid fa-ellipsis"></i>
-                                            </div>
-                                        </div>
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis" ></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -209,11 +206,9 @@
                                 <div class="user">
                                     <img src="images/pfp (1).png">
                                     <h4>Foodie123</h4>&nbsp;
-                                    <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                    <div class="review-container">
-                                        <div class="review-button" data-name="p-1">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </div>
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
                                     </div>
                                 </div>
                             </div>
@@ -254,11 +249,9 @@
                                 <div class="user">
                                     <img src="images/pfp (1).png">
                                     <h4>Foodie123</h4>&nbsp;
-                                    <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                    <div class="review-container">
-                                        <div class="review-button" data-name="p-1">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </div>
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
                                     </div>
                                 </div>
                             </div>
@@ -299,11 +292,9 @@
                                 <div class="user">
                                     <img src="images/pfp (1).png">
                                     <h4>Foodie123</h4>&nbsp;
-                                    <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                    <div class="review-container">
-                                        <div class="review-button" data-name="p-1">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </div>
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
                                     </div>
                                 </div>
                             </div>
@@ -390,28 +381,3 @@
 
 </body>
 </html>
-
-
-<script>
-    function updateProfilePicture(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const profilePicture = document.getElementById('profile-picture');
-                profilePicture.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
-    function hideContainer() {
-    const previewContainer = document.querySelector('.edit-preview');
-    previewContainer.style.display = 'none';
-}
-
-function hideContainer2() {
-    const previewContainer = document.querySelector('.review-preview');
-    previewContainer.style.display = 'none';
-}
-</script>
