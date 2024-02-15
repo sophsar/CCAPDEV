@@ -136,4 +136,8 @@
     z-index: 4;
 }
 
-
+.edit-n-delete {
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+}
