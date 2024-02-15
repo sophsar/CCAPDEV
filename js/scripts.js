@@ -184,13 +184,11 @@ submitBtn.addEventListener("click", () => {
     }
   });
 
-/* searching for a review */
-
 // Function to filter reviews based on search phrase
 function filterReviews(searchPhrase) {
-    const allReviews = document.querySelectorAll('.all-reviews');
+    const allReviews = document.querySelectorAll('.un-review');
     allReviews.forEach(review => {
-        const reviewText = review.textContent.toLowerCase();
+        const reviewText = review.querySelector('.rev-content').textContent.toLowerCase();
         if (reviewText.includes(searchPhrase.toLowerCase())) {
             review.style.display = 'block';
         } else {
@@ -212,7 +210,6 @@ btnSearch.addEventListener('click', function() {
     const searchPhrase = inputSearch.value.trim();
     filterReviews(searchPhrase);
 });
-
 
 /* buttons */
 
