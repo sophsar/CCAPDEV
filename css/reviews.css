@@ -95,17 +95,22 @@ header button {
     display: flex;
     align-items: top;
     margin-top: 10px;
-    width: 100%;
+}
 
-    & i {
-        margin-top:2px;
-    }
+.desc {
+    max-width: 100%;
+    padding-right: 10px;
+}
 
-    & p {
-        margin-left: 10px;
-        display: flex;
-        align-items: top;
-    }
+.location i, .phone-no i, .resto-hours i, .description p {
+    margin-top: 2px;
+}
+
+.location p, .phone-no p, .resto-hours p, .description p {
+    margin-left: 10px;
+    display: block;
+    align-items: top;
+    word-wrap: break-word;
 }
 
 .resto-info {

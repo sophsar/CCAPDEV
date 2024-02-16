@@ -99,10 +99,21 @@ header button {
     border: 1px solid black;
 }
 
-.location, .phone-no, .resto-hours {
+.location, .phone-no, .resto-hours, .description  {
     display: flex;
-    align-items: center;
-    width: 200px;
+    align-items: top;
+    margin-top: 10px;
+    width: 100%;
+
+    & i {
+        margin-top:2px;
+    }
+
+    & p {
+        margin-left: 10px;
+        display: flex;
+        align-items: top;
+    }
 }
 
 .location p, .phone-no p, .resto-hours p {
