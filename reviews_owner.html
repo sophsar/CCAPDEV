@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bon AppéTaft - Home</title>
+    <title>Bon AppéTaft - My Restaurant</title>
     <link rel="stylesheet" href="css/reviews_owner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="css/style_index.css">
-    <link rel="stylesheet" href="css/user_edit.css">
-    <link rel="stylesheet" href="css/reviews.css">
 </head>
 
 <!-- OWNER VIEW -->
@@ -23,53 +20,20 @@
                 <a href="reviews_owner.html" class="current"><li>My Restaurant</li></a>
             </ul>
         </nav>
-        <button>Logout</button>
+        <a href="index.html"><button>Logout</button></a>       
     </header>
 
     
     <section class="second">
         <div class="resto-page">
             <div class="resto-info">
-                <div class="edit-box">
-                    <div class="container">
-                        <div class="edit-container">
-                        <div class="edit-button" data-name="p-2">
-                            <div class="text1">
-                                <i class="fa-solid fa-gear"></i>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
+                <div class="resto-name-n-logo">
+                    <img src="images/the-barn.png">
+                    <h1>The Barn</h1>
                 </div>
-                    <div class="resto-name-n-logo">
-                        <div class="editedpfp" data-name="p-2">
-                            <img id="editedpfp" src="images/placeholder.png">
-                        </div>
-                        <h1>Restaurant Name</h1>
-                    </div>
-
-    
-                    <div class="edit-preview">
-                        <div class="edit-wrapper" data-target="p-2">
-                            <h3 style="color: #12372A;">EDIT RESTAURANT</h3>        
-                                <div class="pfp">
-                                    <img id="profile-picture" src="images\pfp.png">
-                                </div>
-                                <div class="uploadavatar-button">
-                                    <input type="file" id="photo-upload" accept="image/*" onchange="updateProfilePicture(event)">
-                                </div> 
-                                <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Edit description..."></textarea>
-            
-                                <div class="btn-group">
-                                    <button type="button" class="btn submit" id="submit"onclick="hideContainer()">Submit</button>
-                                    <button class="btn cancel" onclick="hideContainer()">Cancel</button>
-                                </div>
-                        </div>
-                    </div>
-
                 <div class="location">        
                     <i class="fa-solid fa-location-dot"></i>
-                    <p>Location</p>
+                    <p>No. 2226 Fidel Reyes St., Manila, Philippines</p>
                 </div>
                 <div class="phone-no">
                     <i class="fa-solid fa-mobile-screen"></i>
@@ -77,16 +41,11 @@
                 </div>
                 <div class="resto-hours">
                     <i class="fa-regular fa-clock"></i>
-                    <p>00:00 - 00:00</p>
+                    <p>10:00 AM - 02:00 PM</p>
                 </div>
-               
                 <div class="description">
                     <i class="fa-solid fa-circle-info"></i>
-                    <div class="desc" data-name="p-2">
-                        <h3>About</h3>
-                        <p id="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptate pariatur aliquid quasi totam accusamus distinctio! Quibusdam alias animi molestias velit, enim quos, laudantium nulla doloribus deleniti tenetur sint nemo!</p>
-                    </div>
-                    
+                    <p>Indulge in fine dining at our upscale brasserie, where culinary excellence awaits.</p>
                 </div>
             </div>
 
@@ -245,31 +204,5 @@
         </div>
     </footer>
     <script src="js/replys.js"></script>
-    <script src="js/owner_edit.js"></script>
-
 </body>
 </html>
-
-<script>
-    function updateProfilePicture(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const profilePicture = document.getElementById('profile-picture');
-                profilePicture.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
-    function hideContainer() {
-    const previewContainer = document.querySelector('.edit-preview');
-    previewContainer.style.display = 'none';
-}
-
-function hideContainer2() {
-    const previewContainer = document.querySelector('.review-preview');
-    previewContainer.style.display = 'none';
-}
-</script>
