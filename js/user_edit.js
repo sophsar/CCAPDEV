@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         review.onclick = () => {
             previewContainer.style.display = 'flex'; // Show the review preview container
             const name = review.getAttribute('data-name'); // Get the data-name attribute value
-  
+
             // Check if the preview box matches the clicked review button
             if (previewBox.getAttribute('data-target') === name && lol.getAttribute('data-target')&& lol1.getAttribute('data-target') ) {
                 previewBox.classList.add('active'); // Add the active class to the preview box
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
   
-    const submitBtn = document.getElementById("submit");
+    const submitBtn = document.getElementById("editSubmit");
     const cancelBtn = document.querySelector(".cancel"); // Select the cancel button
 
     submitBtn.addEventListener("click", () => {
