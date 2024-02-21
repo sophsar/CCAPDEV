@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon AppéTaft - Login</title>
+    <link rel="stylesheet" href="css/style_index.css">
+    <link rel="stylesheet" href="css/signup.css">
+    <script src="script.js"></script>
+</head>
+<body>
+<div class="grandmother">
+    <div class="motherclass">
+
+    <div class="rightportionwhole2">
+    <p class="logo">BON <strong>APPÉTaft</strong></p>
+    <p class="text"><strong>Culinary exploration meets community. </strong></p>
+    <div class="signup-parent">
+        <div class="loginforbonappetaft">
+            <h3>Login to your account</h3>
+        </div>
+    </div>
+    
+    <div class="secondpart">
+        <div class="login">
+            <div class="signupinfo">
+                <div class="label-input-pair2">
+            
+                <div class="label-input-pair">
+                    <input placeholder=" Username or Email" type="username-email" id="username-email" name="username-email" required>
+                </div>
+                <div class="label-input-pair">
+                    <input placeholder=" Password" type="text" id="password" name="password" required>
+                </div>
+                <div class="owner">
+                    <label for="remember">Would you like to remember details?</label>
+                    <input type="checkbox" id="owner" name="owner" value="owner">
+                </div>
+            </div>
+           
+              <div class="signup-button">
+                <a href="index_user.html"><button type="submit">Login</button></a>       
+            </div>
+            <p id="login"> Dont have an account?<a href="signup.html">Signup</a> </p>
+        </div>
+    </div>
+    </div>
+
+        <div class="leftportionwhole">
+            <img id="burger" src="images\burger.png">
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+    document.getElementById("signupButton").onclick = function () {
+        // redirect to index_user page can be removed later on
+        window.location.href = "index_user.html";
+    };
+
+    document.getElementById('photo-upload').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-picture').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

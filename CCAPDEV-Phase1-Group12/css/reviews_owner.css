@@ -1,0 +1,647 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind&family=Montserrat:wght@300;400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Hind", sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+:root {
+    --yellow: #FFBD13;
+    --bg-color: #E6E6E6;
+    --dark-green: #12372A;
+    --green: #436850;
+    --grayish-green: #ADBC9F;
+    --grayish-yellow: #FBFADA;
+	--light: #F5F5F5;
+	--white: #FFF;
+}
+
+/*  HEADER SECTION */
+
+header {
+    width: 100%;
+    padding: 30px 30px 0 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: 500;
+    font-size: 24px;
+    color: #12372A;
+}
+
+.logo span {
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+nav {
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul a {
+    color: black;
+    text-decoration: none;
+    transition: text-decoration 0.5s ease, font-weight 0.3s ease;
+}
+
+nav ul a:hover, nav ul .current {
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+nav ul .current {
+    color: var(--green);
+}
+
+nav ul li {
+    margin: 0 40px;
+    font-family: "Montserrat", sans-serif !important;
+}
+
+header button {
+    border-radius: 20px;
+    padding: 5px 20px;
+    border: none;
+    background-color: #12372A;
+    color: white;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif !important;
+}
+
+/* SECOND SECTION */
+
+.second {
+    min-height: auto;
+    width: 90%;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.resto-name-n-logo img {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    border: 1px solid black;
+}
+
+.location, .phone-no, .resto-hours, .description  {
+    display: flex;
+    align-items: top;
+    margin-top: 10px;
+    width: 100%;
+
+    & i {
+        margin-top:2px;
+    }
+
+    & p {
+        margin-left: 10px;
+        display: flex;
+        align-items: top;
+    }
+}
+
+.location p, .phone-no p, .resto-hours p {
+    margin-left: 10px;
+}
+
+.description {
+    margin-top: 5px;
+}
+
+.resto-info {
+    width: 20%;
+    margin-right: 20px;
+    background-color: rgb(236, 236, 236);
+    min-height: 20vh;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+.resto-page {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 90%;
+}
+
+.write-review {
+    background-color: white;
+    border: 1px solid var(--dark-green);
+    padding: 5px 15px;
+    font-size: 15px;
+    border-radius: 20px;
+    margin: 10px 0px;
+
+    &:hover {
+        border: none;
+        background-color: var(--green);
+        color: white;
+    }
+
+    &:active {
+        border: none;
+        background-color: var(--grayish-green);
+        color: white;
+    }
+}
+
+.resto-reviews {
+    display: block;
+    width: 80%;
+}
+
+.review1 {
+    background-color: rgb(236, 236, 236);
+    min-height: 20vh;
+    margin-bottom: 20px;
+    min-width: 95%;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+.fa-star {
+    font-size: 13px;
+}
+
+.top-part {
+    display: flex;
+    justify-content: space-between;
+}
+
+.un-review {
+    margin-top: 10px;
+}
+
+.user img {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reply-button {
+    width: 10px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0 0;
+    color: var(--dark-green);
+    gap: 5px;
+
+    &:hover {
+        color: var(--green);
+    }
+}
+
+/* REVIEW BOX */
+
+.review-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-button {
+    min-height: 5vh;
+    margin-bottom: 20px;
+    width: 250px;
+    background-color: rgb(236, 236, 236);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.text {
+    color: rgb(115, 115, 115);
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    cursor: context-menu;
+}
+
+.text i {
+    margin-right: 7px;
+    font-size: 12px;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 50px;
+    padding: 30px;
+    width: 100%;
+    color: #FBFADA;
+    background-color: #12372A;
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+}
+
+footer .logo, footer .logo span {
+    font-size: 20px;
+    color: #FBFADA;
+}
+
+/* REVIEW */
+
+.review-preview {
+    position: fixed;
+    top:0; 
+    left:0;
+    min-height: 100vh;
+    width: 100%;
+    background: rgba(84, 84, 84, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+	background: var(--white);
+	padding: 2rem;
+	max-width: 576px;
+	width: 100%;
+	border-radius: .75rem;
+	text-align: center;
+}
+
+.wrapper h3 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+
+.rating1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: .5rem;
+	font-size: 2rem;
+	color: var(--yellow);
+	margin-bottom: 2rem;
+}
+.rating1 .star {
+	cursor: pointer;
+}
+.rating1 .star.active {
+	opacity: 0;
+	animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+}
+
+@keyframes animate {
+	0% {
+		opacity: 0;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.2);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+
+.rating1 .star:hover {
+	transform: scale(1.1);
+}
+
+textarea {
+	width: 100%;
+	background: var(--light);
+	padding: 1rem;
+	border-radius: .5rem;
+	border: none;
+	outline: none;
+	resize: none;
+	margin-bottom: .5rem;
+}
+
+.btn-group {
+	display: flex;
+	grid-gap: .5rem;
+	align-items: center;
+}
+
+.btn-group .btn {
+    padding: 5px 15px;
+	border-radius: 20px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.btn-group .btn.submit {
+	background: var(--green);
+	color: var(--white);
+}
+
+.btn-group .btn.submit:hover {
+	background: var(--dark-green);
+}
+
+.btn-group .btn.cancel {
+	background: white;
+	color: var(--green);
+}
+
+.btn-group .btn.cancel:hover {
+	background: var(--grayish-green);
+    color: white;
+}
+
+/**/
+
+.resto-reviews {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px 10px white;
+    border: solid 3px transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px rgb(126, 126, 126);
+    border: solid 3px transparent;
+}
+
+.reply-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.reply-button h4 {
+    margin-left: 5px;
+}
+
+
+.comment-container {
+    margin-top: 10px;
+    font-family: monospace;
+    width: auto;
+    border-radius: 15px;
+    display: none;
+}
+
+.commentbox {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 20px;
+    background-color: rgb(227, 227, 227);
+    border-radius: 15px;
+}
+
+.commentbox input[type=text] {
+    background-color: transparent;
+}
+
+.commentbox > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* float: left; */
+    margin-right: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.comments {
+    background-color: rgb(227, 227, 227);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+}
+
+.content {
+    width: 100%;
+}
+
+.owner {
+    border: none;
+    outline: none;
+    margin: 5px 0;
+    color: #808080;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.commentinput > input {
+    border: none;
+    padding: 10px;
+    padding-left: 0;
+    outline: none;
+    border-bottom: 2px solid rgb(59, 59, 59);
+    margin-bottom: 10px;
+    width: 95%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #808080;
+}
+
+.buttons > button {
+    padding: 5px 10px;
+    background: lightgrey;
+    color: #808080;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.buttons > button.abled {
+    background: var(--dark-green);
+    color: #fff;
+}
+
+.policy {
+    margin: 20px 0;
+    font-size: 0.8em;
+    font-family: Arial, sans-serif;
+    color: #808080;
+}
+
+.policy a {
+    text-decoration: none;
+    color: blue;
+}
+
+.parents {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 10px 0;
+}
+
+.parents h1 {
+    font-size: 0.9em;
+}
+
+.parents p {
+    margin: 10px 0;
+    font-size: 0.9em;
+}
+
+.parents > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.parents-name-and-date {
+    min-width: 350px;
+}
+
+.parents-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+}
+
+.parents-2 {
+    word-wrap: break-word;
+}
+
+.date {
+    color: #808080;
+    font-size: 0.8em;
+}
+
+
+/* */
+
+
+
+.review1 {
+    background-color: rgb(236, 236, 236);
+    min-height: 20vh;
+    margin-bottom: 20px;
+    width: 80%;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+.fa-star {
+    font-size: 13px;
+}
+
+.top-part {
+    display: flex;
+    justify-content: space-between;
+}
+
+.un-review {
+    margin-top: 10px;
+}
+
+.user img {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reply-button {
+    width: 10px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0 0;
+    color: darkgreen;
+    gap: 5px;
+
+    &:hover {
+        color: green;
+    }
+}
+
+.reply {
+    background-color: rgb(236, 236, 236);
+    min-height: 20vh;
+    min-width: 90%;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    width: 500px;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+.reply .bottom {
+    text-align: right;
+}
+
+.reply .editable{
+    width: 95%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.reply .published {
+    width: 95%;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.reply button {
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--green);
+    color: white;
+    font-size: 12px;
+    font-family: "Montserrat", sans-serif !important;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.reply .cancel {
+    background-color: white;
+    color: black;
+}

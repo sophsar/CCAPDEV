@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon AppéTaft - User</title>
+    <link rel="stylesheet" href="css/user_edit.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/style_index.css">
+</head>
+
+<!-- USER VIEW -->
+
+<body>
+    <header>
+        <p class="logo">BON <span>APPÉTaft</span></p>
+        <nav>
+            <ul>
+                <a href="index_user.html"><li>Home</li></a>
+                <a href="resto_user.html"><li>Restaurants</li></a>
+                <a href="user.html" class="current"><li>Profile</li></a>
+            </ul>
+        </nav>
+        <!-- can link button to guest view for now -->
+        <button>Logout</button> 
+    </header>
+
+    
+    <section class="second">
+        <div class="resto-page">
+            <!-- <div class="resto-info" id="restaurantInfo"> -->
+            <div class="resto-info">
+                
+                <div class="edit-box">
+                    <div class="container">
+                        <div class="edit-container">
+                        <div class="edit-button" data-name="p-2">
+                            <div class="text1">
+                                <i class="fa-solid fa-gear"></i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="resto-name-n-logo">
+                        <div class="editedpfp" data-name="p-2">
+                            <img id="editedpfp" src="images/pfp (1).png">
+                        </div>
+                        <h1>Foodie123</h1>
+                    </div>
+
+    
+                <div class="edit-preview">
+                    <div class="edit-wrapper" data-target="p-2">
+                        <h3 style="color: #12372A;">EDIT PROFILE</h3>        
+                            <div class="pfp">
+                                <img id="profile-picture" src="images/pfp (1).png">
+                            </div>
+                            <div class="uploadavatar-button">
+                                <input type="file" id="photo-upload" accept="image/*" onchange="updateProfilePicture(event)">
+                            </div> 
+                            <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Edit description..."></textarea>
+        
+                            <div class="btn-group">
+                                <button type="button" class="btn submit" id="editSubmit"onclick="hideContainer()">Submit</button>
+                                <button class="btn cancel" onclick="hideContainer()">Cancel</button>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="location">        
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>Metro Manila, NCR</p>
+                </div>
+                
+                <div class="description">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <div class="desc" data-name="p-2">
+                        <p id="desc">
+                            Tech geek with a love for exploring local eateries.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="resto-reviews">
+
+                <div class="review-box">
+                    <div class="container">
+                        <a href="resto_user.html#restos-from-user">
+                            <div class="review-container">
+                                <div class="review-button2" data-name="p-1">
+                                    <div class="text">
+                                        <i class="fa-solid fa-pen"></i>
+                                        <p>Leave a review...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="search-box">
+                        <button class="btn-search"><i class="fas fa-search"></i></button>
+                        <input type="text" class="input-search" placeholder="Type to Search..." autofocus>
+                    </div>
+                </div>
+
+                <div id="outputReview" class="output-review"></div>
+
+                <div class="all-reviews" id="all-reviews">
+
+                    <div class="un-review">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="images/pfp (1).png">
+                                    <h4>Foodie123</h4>&nbsp;
+
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="un-review1">
+                            <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> 4/5</strong></p>
+                            <p class="rev-content">Great service and tasty food!</p>
+                            <p><b>Review sent on: </b>January 15, 2024, 12:30:00 PM</p>
+                        </div>
+        
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+            
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="un-review">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="images/pfp (1).png">
+                                    <h4>YDUGAs</h4>&nbsp;
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis" ></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="un-review1">
+                            <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> 2/5</strong></p>
+                            <p class="rev-content">Disappointing experience, slow service.</p>
+                            <p><b>Review sent on: </b>February 3, 2024, 6:45:00 PM</p>
+                        </div>
+        
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+            
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="un-review">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="images/pfp (1).png">
+                                    <h4>Foodie123</h4>&nbsp;
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="un-review1">
+                            <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> 5/5</strong></p>
+                            <p class="rev-content">Excellent service, friendly staff, and delicious meals!</p>
+                            <p><b>Review sent on: </b>March 8, 2024, 7:15:00 PM</p>
+                        </div>
+        
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+            
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="un-review">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="images/pfp (1).png">
+                                    <h4>Foodie123</h4>&nbsp;
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="un-review1">
+                            <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> 3/5</strong></p>
+                            <p class="rev-content">Average food, but the service was prompt.</p>
+                            <p><b>Review sent on: </b>April 21, 2024, 1:00:00 PM</p>
+                        </div>
+        
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+            
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="un-review">
+                        <div class="top-part">
+                            <div class="un-rating">
+                                <div class="user">
+                                    <img src="images/pfp (1).png">
+                                    <h4>Foodie123</h4>&nbsp;
+                                    <div class="edit-n-delete">
+                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="un-review1">
+                            <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> 1/5</strong></p>
+                            <p class="rev-content">Terrible service, rude staff.</p>
+                            <p><b>Review sent on: </b>May 5, 2024, 8:20:00 AM</p>
+                        </div>
+        
+                        <div class="buttons">
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-up"></i>
+                                      <i class="fa-solid fa-thumbs-up"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+            
+                            <div class="like___btn">
+                                <div class="wrapper1">
+                                    <a href="javascript:void(0);" class="like-button">
+                                      <i class="fa-regular fa-thumbs-down"></i>
+                                      <i class="fa-solid fa-thumbs-down"></i>
+                                      <span class="like-overlay"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+                
+        
+        <!--  REVIEW BOX  -->
+        <div class="review-preview">
+            <div class="wrapper" data-target="p-2">
+                 <h3>EDIT RATING:</h3>
+
+                    <div class="rating1" id="rating1">
+                         <input type="number" name="rating1" hidden>
+                         <i class='bx bx-star star' data-value="1"></i>
+                         <i class='bx bx-star star' data-value="2"></i>
+                         <i class='bx bx-star star' data-value="3"></i>
+                         <i class='bx bx-star star' data-value="4"></i>
+                         <i class='bx bx-star star' data-value="5"></i>
+                    </div>
+                    <div class="rating2">
+                        <span id="rating2">0</span> / 5
+                    </div>
+                    <textarea id="review" name="opinion" cols="30" rows="5" placeholder="Write Review..."></textarea>
+                    <input type="file" id="photo-upload" accept="image/*">
+
+                    <div class="btn-group">
+                        <button type="button" class="btn submit" id="editSubmit" onclick="hideContainer2()">Submit</button>
+                        <button class="btn cancel" onclick="hideContainer2()">Cancel</button>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p class="logo">BON <span>APPÉTaft</span></p>
+        <div class="col">
+            <p>Facebook</p>
+            <p>Instagram</p>
+        </div>
+
+        <div class="col">
+            <p>+63 917 432 7033</p>
+            <p>+63 988 569 0978</p>
+        </div>
+
+        <div class="col">
+            <p>emeEme@gmail.com</p>
+        </div>
+    </footer>
+
+    <script src="js/user_edit.js"></script>
+    <script src="js/scripts.js"></script>
+
+</body>
+</html>
