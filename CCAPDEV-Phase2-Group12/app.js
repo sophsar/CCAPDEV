@@ -3,6 +3,8 @@
 
     (1) npm init
     (2) npm i express express-handlebars body-parser
+    (3) npm install mongodb
+    (4) npm install mongoose
 */
 
 const express = require('express');
@@ -61,6 +63,8 @@ server.listen(port, function() {
 });
 
 /* connect to database */
+
+const mongoose = require('mongoose');
 
 const mongoURI = 'mongodb://localhost:27017/your-database-name';
 mongoose.connect(mongoURI);
