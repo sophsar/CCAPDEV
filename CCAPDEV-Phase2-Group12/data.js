@@ -1,0 +1,36 @@
+const resto_showcase = [
+    {
+        'resto-name': 'The Barn',
+        'resto-image': '/images/the-barn.png'
+    },
+    {
+        'resto-name': 'BOK Chicken',
+        'resto-image': '/images/bok.png'
+    },
+    {
+        'resto-name': 'Eat Fresh',
+        'resto-image': '/images/eat-fresh.png'
+    },
+    {
+        'resto-name': 'Topside',
+        'resto-image': '/images/topside.png'
+    },
+    {
+        'resto-name': 'Ate Rica\'s Bacsilog',
+        'resto-image': '/images/bacsilog.png'
+    }
+];
+
+const data_about = {
+    'title': 'what is BON APPÉTaft?',
+    'content': `Welcome to BON APPÉTaft, where culinary exploration meets community insights!<br><br>
+    At BON APPÉTaft, we're passionate about connecting students, residents, and food enthusiasts with the vibrant dining scene in Taft, Manila. Whether you're craving a hearty bowl of ramen, a sizzling plate of sisig, or a cozy café for late-night study sessions, we've got you covered.`,
+    'how-it-works': [
+        'Browse Reviews: Dive into our extensive database of restaurant reviews. From hole-in-the-wall joints to trendy bistros, discover the flavors that await you.',
+        'Star Ratings: Our star ratings reflect real diners’ experiences. Did that adobo hit the spot? Was the service impeccable? Let the stars guide your culinary journey.',
+        'Write Your Own Story: Sign up, leave reviews, and become part of our food-loving community. Your insights matter!'
+    ]
+};
+
+module.exports.resto_showcase = resto_showcase;
+module.exports.data_about = data_about;

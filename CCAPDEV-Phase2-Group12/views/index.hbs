@@ -1,0 +1,32 @@
+<!-- views/index.handlebars -->
+
+{{> header}}
+
+<div class="main">
+    <h1 class="bite">bite into the <span>best</span></h1>
+    <img src="/images/picha.png">
+</div>
+
+<div class="showcase">
+    <h1>Our Top Picks</h1>
+    <div class="bottom">
+        <!-- Restaurant showcase here -->
+        
+        {{#each resto-data}}
+        <a href="#">    
+            <div class="resto">
+                <img src="{{resto-image}}">
+                <p>{{resto-name}}</p>
+            </div>
+        </a>
+        {{/each}}
+    </div>
+</div>
+
+<div class="about">
+    <!-- About section content here -->
+
+
+</div>
+
+{{> footer}}
