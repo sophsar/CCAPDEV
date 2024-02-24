@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="css/style_index.css">
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+<div class="grandmother">
+    <div class="motherclass">
+
+    <div class="rightportionwhole">
+    <p class="logo">BON <strong>APPÉTaft</strong></p>
+    <p class="text"><strong>Culinary exploration meets community. </strong></p>
+    <div class="signup-parent">
+        <div class="signupforbonappetaft">
+            <h3>Create an Account</h3>
+        </div>
+    </div>
+    
+    <div class="secondpart">
+        
+        <div class="left">
+            <div class="pfp">
+                <img id="profile-picture" src="images\pfp.png">
+            </div>
+            <div class="uploadavatar-button">
+                <label for="photo-upload" class="button">Upload Avatar</label>
+                <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+            </div> 
+            
+            <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Write a short description..."></textarea>
+
+        </div>
+
+        <div class="right">
+            <form action="create_user.jsp" method="post">
+                <div class="signupinfo">
+                    <div class="label-input-pair">
+                        <div class="name">
+                            <input placeholder="First Name" type="text" id="firstName" name="firstName" pattern="[A-Za-z ]+" required>
+                            <input placeholder="Last Name" type="text" id="lastName" name="lastName" pattern="[A-Za-z ]+" required>
+                        </div>
+                    </div>
+                    <div class="label-input-pair">
+                        <input placeholder="Username" type="text" id="username" name="username" pattern="[A-Za-z]+" required>
+                    </div>
+                    <div class="label-input-pair">
+                        <input placeholder="Email" type="email" id="email" name="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" required>
+                    </div>        
+                    <div class="label-input-pair">
+                        <input placeholder="Password" type="password" id="password" name="password" required>
+                    </div>
+                    <div class="label-input-pair">
+                        <label for="dob">Birthday</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                    <div class="owner">
+                        <label for="owner">Would you like to make an owner account?</label>
+                        <input type="checkbox" id="owner" name="owner" value="owner">
+                    </div>
+                </div>
+        
+                <div class="signup-button">
+                    <button type="button" onclick="redirectToIndex()">Sign Up</button>
+                </div>
+            </form>
+        
+            <p id="login"> Already have an account? <a href="login.html">Login</a> </p>
+        </div>        
+    </div>
+    </div>
+
+        <div class="leftportionwhole">
+            <img id="burger" src="images\burger.png">
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+    function redirectToIndex() {
+        // Check if owner checkbox is checked
+        var ownerCheckbox = document.getElementById("owner");
+        if (ownerCheckbox.checked) {
+            // Redirect to index_owner.html if owner checkbox is checked
+            window.location.href = "index_owner.html";
+        } else {
+            // Redirect to index_user.html if owner checkbox is not checked
+            window.location.href = "index_user.html";
+        }
+    }
+    document.getElementById('photo-upload').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-picture').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+</script>

@@ -20,7 +20,9 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 
-const { resto_showcase, how_it_works, what_is } = require('./data');
+const { resto_showcase, how_it_works, what_is, resto_list } = require('./data');
+
+/* define routes */
 
 server.get('/', function(req, res) { 
     res.render('index', { 
@@ -28,8 +30,29 @@ server.get('/', function(req, res) {
         title           : 'Bon AppéTaft - Home',
         'resto-data'    : resto_showcase,
         'what_is'       : what_is,
-        'how_it_works'  : how_it_works
+        'how_it_works'  : how_it_works,
+        isHome          : true
     });
+});
+
+server.get('/resto', function(req, res) {
+    res.render('resto', { 
+        title           : 'Bon AppéTaft - Restaurants', 
+        'resto-list'    : resto_list,
+        isResto         : true 
+    });
+});
+
+server.get('/profile', function(req, res) {
+    res.render('profile', { title: 'Profile', isProfile: true });
+});
+
+server.get('/signup', function(req, res) {
+    res.render('signup', { title: 'Bon AppéTaft - Sign Up' });
+});
+
+server.get('/login', function(req, res) {
+    res.render('login', { title: 'Bon AppéTaft - Login' });
 });
 
 const port = process.env.PORT || 3000;
