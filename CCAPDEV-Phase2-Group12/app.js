@@ -20,14 +20,15 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 
-const { resto_showcase, data_about } = require('./data');
+const { resto_showcase, how_it_works, what_is } = require('./data');
 
 server.get('/', function(req, res) { 
     res.render('index', { 
         layout          : 'main',
         title           : 'Bon AppéTaft - Home',
         'resto-data'    : resto_showcase,
-        'about-data'    : data_about
+        'what_is'       : what_is,
+        'how_it_works'  : how_it_works
     });
 });
 
