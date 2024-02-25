@@ -1,0 +1,56 @@
+
+{{> header}}
+
+<div class="landing">
+    <h1 class="tagline">bite into the <span>best</span></h1>
+</div>
+<div class="landing-img">
+    <img src="{{landingImg}}" class="picha">
+</div>
+
+<div class="showcase">
+    <h1>Our Top Picks</h1>
+    <p>We've curated the best of the best just for you. 
+        Discover new flavors, revisit old favorites, 
+        <br>and let your taste buds guide you!</p>
+    <div class="bottom">
+        <!-- Restaurant showcase here -->
+        
+        {{#each resto-data}}
+        <a href="#">    
+            <div class="resto">
+                <img src="{{resto-image}}">
+            </div>
+        </a>
+        {{/each}}
+        {{#each resto-data}}
+        <a href="#">    
+            <div class="resto">
+                <img src="{{resto-image}}">
+            </div>
+        </a>
+        {{/each}}
+    </div>
+
+    <a href="resto.hbs"><button>Discover restaurants nearby!</button></a>
+</div>
+
+<div class="about">
+    <!-- About section content here -->
+
+    {{#each what_is}}
+    <div class="about">
+        <h1>{{what-is-BON}}<br>{{appetaft}}</h1>
+        <p>{{content1}}<br><br>{{content2}}</p>
+        {{/each}}
+
+        <h2>how it works:</h2>
+        <ol>
+            {{#each how_it_works}}
+            <li><b>{{info-name}}</b>{{info}}</li><br>
+            {{/each}}
+        </ol>
+    </div>
+</div>
+
+{{> footer}}

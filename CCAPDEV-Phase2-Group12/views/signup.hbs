@@ -4,36 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="css/style_index.css">
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="/common/css/signup.css">
 </head>
 <body>
 <div class="grandmother">
     <div class="motherclass">
 
     <div class="rightportionwhole">
-    <p class="logo">BON <strong>APPÉTaft</strong></p>
-    <p class="text"><strong>Culinary exploration meets community. </strong></p>
-    <div class="signup-parent">
-        <div class="signupforbonappetaft">
-            <h3>Create an Account</h3>
-        </div>
-    </div>
-    
-    <div class="secondpart">
-        
-        <div class="left">
-            <div class="pfp">
-                <img id="profile-picture" src="images\pfp.png">
+        <a class="logo-link" href="/"><p class="logo">BON <span>APPÉTaft</span></p></a>
+        <p class="text"><strong>Culinary exploration meets community. </strong></p>
+        <div class="signup-parent">
+            <div class="signupforbonappetaft">
+                <h3>Create an Account</h3>
             </div>
-            <div class="uploadavatar-button">
-                <label for="photo-upload" class="button">Upload Avatar</label>
-                <input type="file" id="photo-upload" accept="image/*" style="display: none;">
-            </div> 
-            
-            <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Write a short description..."></textarea>
-
         </div>
+    
+        <div class="secondpart">
+            
+            <div class="left">
+                <div class="pfp">
+                    <img id="profile-picture" src="images/pfp.png">
+                </div>
+                <div class="uploadavatar-button">
+                    <label for="photo-upload" class="button">Upload Avatar</label>
+                    <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+                </div> 
+                
+                <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Write a short description..."></textarea>
+
+            </div>
 
         <div class="right">
             <form action="create_user.jsp" method="post">
@@ -68,13 +67,13 @@
                 </div>
             </form>
         
-            <p id="login"> Already have an account? <a href="login.html">Login</a> </p>
+            <p id="login"> Already have an account? <a href="/login">Login</a> </p>
         </div>        
     </div>
     </div>
 
         <div class="leftportionwhole">
-            <img id="burger" src="images\burger.png">
+            <img id="burger" src="images/burger.png">
         </div>
 
     </div>
