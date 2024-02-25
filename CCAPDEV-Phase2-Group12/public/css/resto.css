@@ -17,11 +17,29 @@
 
 /*  HEADER SECTION */
 
+/* header */
 header {
-    width: 100%;
-    padding: 30px 30px 0 30px;
+    width: calc(100% - 20px);
+    padding: 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 10; /* make sure header is always on top (sticky header) */
+    transition: background-color 1.0s ease;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.scrolled {
+    background-color: var(--light); /* Change this to your desired color */
+    transition: background-color 1.0s ease;
+    border-radius: 20px;
+}
+
+header a {
+    text-decoration: none;
 }
 
 .logo {
@@ -85,6 +103,7 @@ header button {
     width: 460px;
     z-index: 0;
     margin-left: -30px;
+    margin-top: 60px;
 }
 
 .main .bite {
