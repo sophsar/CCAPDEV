@@ -1,3 +1,5 @@
+const landingImg = '/images/picha.png';
+
 const resto_showcase = [
     {
         'resto-name': 'The Barn',
@@ -46,9 +48,10 @@ const how_it_works = [
     }
 ];
 
-module.exports.resto_showcase = resto_showcase;
 module.exports.what_is = what_is;
 module.exports.how_it_works = how_it_works;
+module.exports.resto_showcase = resto_showcase;
+module.exports.landingImg = landingImg;
 
 /* for resto.hbs */
 
