@@ -1,13 +1,20 @@
-
 {{> header}}
-
 <div class="landing">
+    {{#if isUser}}
+        <h2 class="user">Welcome back, <b>{{user-info.username}}</b>!</h2>
+    {{/if}}
+
+    {{#if isOwner}}
+        <h2 class="user">Welcome back, <b>{{user-info.restoName}}</b>!</h2>
+    {{/if}}
+    
     <h1 class="tagline">bite into the <span>best</span></h1>
 </div>
 <div class="landing-img">
-    <img src="{{landingImg}}" class="picha">
+    <img src="{{ landingImg }}" class="picha">
 </div>
 
+{{#if isUser}}
 <div class="showcase">
     <h1>Our Top Picks</h1>
     <p>We've curated the best of the best just for you. 
@@ -17,23 +24,24 @@
         <!-- Restaurant showcase here -->
         
         {{#each resto-data}}
-        <a href="#">    
-            <div class="resto">
-                <img src="{{resto-image}}">
-            </div>
-        </a>
+            <a href="#">    
+                <div class="resto">
+                    <img src="{{restoImg}}">
+                </div>
+            </a>
         {{/each}}
+
         {{#each resto-data}}
-        <a href="#">    
-            <div class="resto">
-                <img src="{{resto-image}}">
-            </div>
-        </a>
+            <a href="#">    
+                <div class="resto">
+                    <img src="{{restoImg}}">
+                </div>
+            </a>
         {{/each}}
     </div>
-
-    <a href="resto.hbs"><button>Discover restaurants nearby!</button></a>
+    <a href="/resto"><button>Discover restaurants nearby!</button></a>
 </div>
+{{/if}}
 
 <div class="about">
     <!-- About section content here -->

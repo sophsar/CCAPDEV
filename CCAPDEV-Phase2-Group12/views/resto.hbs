@@ -10,7 +10,7 @@
 <body>
     {{> header}}
 
-<div class="main">
+    <div class="main">
         <h1 class="bite">restaurants</h1>
         <h1 class="best">near you</h1>
         <img src="images/burger.png">
@@ -31,10 +31,10 @@
 
         <div id="restaurants" class="restaurants">
             {{#each resto-list}}
-            <a href="reviews.html?name={{resto-name}}&location={{location}}&phone={{phone}}&hours={{hours}}&description={{description}}&image={{resto-image}}" class="resto1">                
-                <img src="{{resto-image}}">
+            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image={{pfpUrl}}" class="resto1"> <!-- fix {{hours}} -->      
+                <img src="{{pfpUrl}}">
                 <div class="name-and-rating">
-                    <h4>{{resto-name}}</h4>
+                    <h4>{{restoName}}</h4>
 
                     <div class="rating">
                         <!-- implement avg rating of resto here -->
@@ -49,12 +49,9 @@
                 </div>
             </a>
             {{/each}}
-
         </div>
     </section>
 
     {{> footer}}
-
-    <script src="/common/js/scripts.js"></script>
 </body>
 </html>

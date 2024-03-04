@@ -37,6 +37,10 @@ header {
     border-radius: 20px;
 }
 
+#logoutLink {
+    display: none;
+}
+
 .scrolled {
     background-color: var(--light); /* Change this to your desired color */
     transition: background-color 1.0s ease;
@@ -101,14 +105,30 @@ header button {
     }
 }
 
+
+
 /* landing area */
+
+.landing h2 {
+    text-align: center;
+    color: #12372A;
+    font-size: 30px;
+}
+
+.landing b {
+    color: white;
+}
+
+.user {
+    z-index: 3;
+}
+
 .landing {
     min-width: 100vw;
     min-height: 95vh;
     background-color: var(--grayish-green);
     position: relative;
     z-index: 1; /* ensure the landing section is behind the navbar */
-    display: flex;
     justify-content: center;
     overflow: hidden;
     border-radius: 0 0 10% 10%;
@@ -118,8 +138,9 @@ header button {
 .landing .tagline {
     color: white;
     font-family: "Montserrat", sans-serif !important;
-    font-size: 9rem;
+    font-size: 10vw;
     text-align: center;
+    z-index: 1;
 }
 
 .landing .tagline span {
