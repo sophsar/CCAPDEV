@@ -11,6 +11,7 @@
     (5) view profile of other users
     (6) helpful / unhelpful buttons
     (7) storing and using images
+    (8) save owner reply to database 
 */
 
 const express = require('express');
@@ -141,7 +142,8 @@ server.get('/reviews', async function(req, res) {
             title           : 'Bon AppéTaft - Reviews',
             errorMessage    : req.flash('error'),
             query           : req.query,
-            reviews         : reviews
+            reviews         : reviews,
+            isResto         : true
         };
 
         if (req.user) {
@@ -173,6 +175,28 @@ server.get('/user', async function(req, res) {
             'user-info'     : loggedInUser,
             isUser          : true,
             isProfile       : true,
+            isView          : false,
+            'reviews'       : reviews,
+            errorMessage    : req.flash('error')
+        });
+    } catch (err) {
+        console.error('Error fetching user data:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+server.get('/viewuser', async function(req, res) {
+    try {
+        const loggedInUser = req.query;
+        const reviews = await review.find({});
+
+        res.render('user', { 
+            layout          : 'index', 
+            title           : 'Bon AppéTaft - User',
+            'user-info'     : loggedInUser,
+            isUser          : true,
+            isResto         : true,
+            isView          : true,
             'reviews'       : reviews,
             errorMessage    : req.flash('error')
         });

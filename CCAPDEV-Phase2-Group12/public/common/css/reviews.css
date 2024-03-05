@@ -133,6 +133,14 @@
     justify-content: space-between;
 }
 
+.top-part a {
+    color: black;
+
+    &:hover {
+        color: rgb(90, 90, 90);
+    }
+}
+
 .user img {
     width: 40px;
     border-radius: 50%;

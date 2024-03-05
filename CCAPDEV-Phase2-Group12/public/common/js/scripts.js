@@ -356,8 +356,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (submitBtn && cancelBtn && reviewForm) {
         submitBtn.addEventListener('click', function(event) {
+            window.location.reload();
             hideModal();
-            location.reload();
         });
         cancelBtn.addEventListener('click', function(event) {
             event.preventDefault();

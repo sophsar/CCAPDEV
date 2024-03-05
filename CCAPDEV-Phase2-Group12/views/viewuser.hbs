@@ -23,9 +23,7 @@
                         <div class="edit-container">
                         <div class="edit-button" data-name="p-2">
                             <div class="text1">
-                                {{#unless isView}}
                                 <i class="fa-solid fa-gear"></i>
-                                {{/unless}}
                             </div>
                         </div>
                         </div>
@@ -75,9 +73,7 @@
 
             <div class="resto-reviews">
 
-                
                 <div class="review-box">
-                    {{#unless isView}}
                     <div class="container">
                         <a href="/resto">
                             <div class="review-container">
@@ -90,7 +86,6 @@
                             </div>
                         </a>
                     </div>
-                    {{/unless}}
 
                     <div class="search-box">
                         <button class="btn-search"><i class="fas fa-search"></i></button>
@@ -109,13 +104,10 @@
                                     <img src="{{userPfp}}">
                                     <h4>{{username}}</h4>&nbsp;
 
-                                    {{#if isView}} <!-- not working properly | (isView == true) => hidden for logged in user in /viewuser & (isView == false) => shown for logged in user on their profile -->
                                     <div class="edit-n-delete">
                                         <i class="fa-solid fa-trash-can trash-icon"></i> 
                                         <i class="fa-solid fa-ellipsis"></i>
                                     </div>
-                                    {{/if}}
-
                                 </div>
                             </div>
                         </div>

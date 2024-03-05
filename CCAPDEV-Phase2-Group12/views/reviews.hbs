@@ -70,12 +70,14 @@
                     {{#if (eq restoName ../query.name)}}
                     <div class="un-review">
                         <div class="top-part">
-                            <div class="un-rating">
-                                <div class="user">
-                                    <img src="{{userPfp}}">
-                                    <h4>{{username}}</h4>
+                            <a href="/viewuser?username={{username}}">
+                                <div class="un-rating">
+                                    <div class="user">
+                                        <img src="{{userPfp}}">
+                                        <h4>{{username}}</h4>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
         
                         <div class="un-review1">
