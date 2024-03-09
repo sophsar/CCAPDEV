@@ -9,3 +9,6 @@ editing review
 owner's replies
 (1) currently not displaying the replies [DONE]
 (2) not sure if reviewid (from replies coll) == _id (id of review from reviews coll) implementation is correct [DONE]
+
+submit buttons for leaving & editing a review
+(1) page should load new data
