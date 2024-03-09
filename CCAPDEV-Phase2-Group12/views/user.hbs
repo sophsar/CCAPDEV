@@ -98,58 +98,104 @@
 
                 <div class="all-reviews" id="all-reviews">
 
-                    {{#each reviews}}
-                    {{#if (eq username ../user-info.username)}}
-                    <div class="un-review">
-                        <div class="top-part">
-                            <div class="un-rating">
-                                <div class="user">
-                                    <img src="{{userPfp}}">
-                                    <h4>{{username}}</h4>&nbsp;
+                    {{#unless isView}}
+                        {{#each reviews}}
+                            {{#if (eq username ../user-info.username)}}
+                                <div class="un-review">
+                                    <div class="top-part">
+                                        <div class="un-rating">
+                                            <div class="user">
+                                                <img src="{{userPfp}}">
+                                                <h4>{{username}}</h4>&nbsp;
 
-                                    {{!-- {{#unless isView}} --}}
-                                    <div class="edit-n-delete">
-                                        <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                        <i class="fa-solid fa-ellipsis edit-review-button"></i>
+                                                {{!-- {{#unless isView}} --}}
+                                                <div class="edit-n-delete">
+                                                    <i class="fa-solid fa-trash-can trash-icon"></i> 
+                                                    <i class="fa-solid fa-ellipsis edit-review-button"></i>
+                                                </div>
+                                                {{!-- {{/unless}} --}}
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    {{!-- {{/unless}} --}}
+                    
+                                    <div class="un-review1">
+                                        <p><strong>Rating for {{restoName}}: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
+                                        <p class="rev-content">{{reviewText}}</p>
+                                        <p><b>Review sent on: </b>{{timestamp}}</p>
+                                        <img src="{{reviewImg}}">
+                                    </div>
+                    
+                                    <div class="buttons">
+                                        <div class="like___btn">
+                                            <div class="wrapper1">
+                                                <a href="javascript:void(0);" class="like-button">
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                                <span class="like-overlay"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="like___btn">
+                                            <div class="wrapper1">
+                                                <a href="javascript:void(0);" class="like-button">
+                                                <i class="fa-regular fa-thumbs-down"></i>
+                                                <i class="fa-solid fa-thumbs-down"></i>
+                                                <span class="like-overlay"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    {{else}}
+                        {{#each reviews}}
+                            {{#if (eq username ../user-info.username)}}
+                                <div class="un-review">
+                                    <div class="top-part">
+                                        <div class="un-rating">
+                                            <div class="user">
+                                                <img src="{{userPfp}}">
+                                                <h4>{{username}}</h4>&nbsp;
 
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="un-review1">
+                                        <p><strong>Rating for {{restoName}}: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
+                                        <p class="rev-content">{{reviewText}}</p>
+                                        <p><b>Review sent on: </b>{{timestamp}}</p>
+                                        <img src="{{reviewImg}}">
+                                    </div>
+                    
+                                    <div class="buttons">
+                                        <div class="like___btn">
+                                            <div class="wrapper1">
+                                                <a href="javascript:void(0);" class="like-button">
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                                <span class="like-overlay"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="like___btn">
+                                            <div class="wrapper1">
+                                                <a href="javascript:void(0);" class="like-button">
+                                                <i class="fa-regular fa-thumbs-down"></i>
+                                                <i class="fa-solid fa-thumbs-down"></i>
+                                                <span class="like-overlay"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-        
-                        <div class="un-review1">
-                            <p><strong>Rating for {{restoName}}: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
-                            <p class="rev-content">{{reviewText}}</p>
-                            <p><b>Review sent on: </b>{{timestamp}}</p>
-                            <img src="{{reviewImg}}">
-                        </div>
-        
-                        <div class="buttons">
-                            <div class="like___btn">
-                                <div class="wrapper1">
-                                    <a href="javascript:void(0);" class="like-button">
-                                      <i class="fa-regular fa-thumbs-up"></i>
-                                      <i class="fa-solid fa-thumbs-up"></i>
-                                      <span class="like-overlay"></span>
-                                    </a>
-                                </div>
-                            </div>
-            
-                            <div class="like___btn">
-                                <div class="wrapper1">
-                                    <a href="javascript:void(0);" class="like-button">
-                                      <i class="fa-regular fa-thumbs-down"></i>
-                                      <i class="fa-solid fa-thumbs-down"></i>
-                                      <span class="like-overlay"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{/if}}
-                    {{/each}}
-
+                            {{/if}}
+                        {{/each}}
+                    {{/unless}}
                 </div>
             </div>
         </div>
