@@ -92,6 +92,177 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* from scripts.js */
 
+/* editing a review (FIX: contents not updating on UI)*/
+
+document.addEventListener('DOMContentLoaded', function() {
+    const previewContainer = document.querySelector('.review-edit-preview');
+    const previewBox = document.querySelector('.edit-wrapper');
+    const reviewText = document.getElementById("edit-review-text");
+    const ratingValue = document.querySelector('.rating3 input');
+    const allStar = document.querySelectorAll('.rating3 .star');
+    const rating2 = document.getElementById('rating4');
+  
+    allStar.forEach((item, idx) => {
+        item.addEventListener('click', function () {
+            ratingValue.value = idx + 1;
+  
+            allStar.forEach((star, i) => {
+                if (i <= idx) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+  
+            rating2.textContent = idx + 1;
+        });
+    });
+  
+    document.querySelectorAll('.edit-review-button').forEach(review => {
+        review.onclick = () => {
+            previewContainer.style.display = 'flex'; 
+            const name = review.getAttribute('data-name');
+  
+            if (previewBox.getAttribute('data-target') === name) {
+                previewBox.classList.add('active'); 
+            }
+        };
+    });
+  
+    const stars = document.querySelectorAll(".rating3 .star");
+  
+    stars.forEach((star, idx) => {
+        star.addEventListener("click", () => {
+            const value = idx + 1;
+  
+            stars.forEach((s, index) => {
+                if (index < value) {
+                    s.classList.add('active');
+                    s.classList.add('bxs-star');
+                    s.classList.remove('bx-star');
+                } else {
+                    s.classList.remove('active');
+                    s.classList.add('bx-star');
+                    s.classList.remove('bxs-star');
+                }
+            });
+
+            // Update the rating value input
+            ratingValue.value = value;
+        });
+    });
+
+    // Review editing functionality
+    const editButtons = document.querySelectorAll('.edit-review-button');
+    const editReviewSubmit = document.getElementById('editReviewSubmit');
+    const editCancel = document.getElementById('editCancel');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewContainer = button.closest('.un-review');
+            const ratingElement = reviewContainer.querySelector('.un-review1 strong');
+            const currentRating = parseInt(ratingElement.textContent.match(/\d+/)[0]);
+            ratingValue.value = currentRating;
+            rating2.textContent = currentRating;
+
+            const reviewContentElement = reviewContainer.querySelector('.rev-content');
+            reviewText.value = reviewContentElement.textContent.trim();
+
+            previewContainer.style.display = 'flex';
+            previewBox.classList.add('active');
+
+            // Update stars to match current rating
+            stars.forEach((star, idx) => {
+                if (idx < currentRating) {
+                    star.classList.add('active');
+                    star.classList.add('bxs-star');
+                    star.classList.remove('bx-star');
+                } else {
+                    star.classList.remove('active');
+                    star.classList.add('bx-star');
+                    star.classList.remove('bxs-star');
+                }
+            });
+        });
+    });
+
+    editCancel.addEventListener('click', function() {
+        previewContainer.style.display = 'none';
+        previewBox.classList.remove('active');
+    });
+
+    editReviewSubmit.addEventListener('click', function() {
+        const newRating = parseInt(ratingValue.value);
+        const newReviewContent = reviewText.value.trim();
+    
+        // Get the active review container
+        const reviewContainer = document.querySelector('.review-edit-preview .edit-wrapper.active').closest('.un-review');
+        
+        // Update the rating
+        const ratingElement = reviewContainer.querySelector('.un-review1 strong');
+        ratingElement.innerHTML = `Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
+    
+        // Update the review content
+        const reviewContentElement = reviewContainer.querySelector('.rev-content');
+        reviewContentElement.textContent = newReviewContent;
+    
+        // Update the review date
+        const reviewDateElement = reviewContainer.querySelector('.un-review1 p:last-child');
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleString();
+        reviewDateElement.textContent = `Review sent on: ${formattedDate}`;
+    
+        // Add "(edited)" mark
+        const editedMark = document.createElement('span');
+        editedMark.textContent = " (edited)";
+        editedMark.style.color = "red";
+        reviewDateElement.appendChild(editedMark);
+    
+        // Close the modal
+        previewContainer.style.display = 'none';
+        previewBox.classList.remove('active');
+    });
+    
+});
+
+/* submit & cancel buttons for editing a review */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const submitBtn = document.getElementById('editReviewSubmit');
+    const cancelBtn = document.getElementById('editCancel');
+
+    if (submitBtn && cancelBtn) {
+        submitBtn.addEventListener('click', function(event) {
+            window.location.reload();
+            hideModal();
+        });
+        cancelBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            clearForm();
+            hideModal(); 
+        });
+    } else {
+        console.error('Submit button, cancel button, or review form element not found.');
+    }
+
+    function hideModal() {
+        const modal = document.querySelector('.review-edit-preview');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function clearForm() {
+        document.getElementById('edit-review-text').value = "";
+        document.querySelector('.rating3 input').value = ""; 
+        document.getElementById('rating4').textContent = "0"; 
+        document.querySelectorAll('.rating3 .star').forEach((star) => {
+            star.classList.remove('bxs-star'); 
+            star.classList.add('bx-star');
+        });
+    }
+});
+
 /* leaving a review */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -129,9 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     const stars = document.querySelectorAll(".rating1");
     const reviewText = document.getElementById("review");
-    const submitBtn = document.getElementById("submit");
     const reviewsContainer = document.getElementById("all-reviews");
-    const cancelBtn = document.querySelector(".cancel");
   
     stars.forEach((star) => {
       star.addEventListener("click", () => {
@@ -163,7 +332,45 @@ document.addEventListener('DOMContentLoaded', function() {
           return "";
       }
     }
-  });
+});
+
+/* submit & cancel buttons for leave a review */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const submitBtn = document.getElementById('submit');
+    const cancelBtn = document.querySelector('.cancel');
+
+    if (submitBtn && cancelBtn) {
+        submitBtn.addEventListener('click', function(event) {
+            window.location.reload();
+            hideModal();
+        });
+        cancelBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            clearForm();
+            hideModal(); 
+        });
+    } else {
+        console.error('Submit button, cancel button, or review form element not found.');
+    }
+
+    function hideModal() {
+        const modal = document.querySelector('.review-preview');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function clearForm() {
+        document.getElementById('reviewText').value = "";
+        document.querySelector('.rating1 input').value = ""; 
+        document.getElementById('rating2').textContent = "0"; 
+        document.querySelectorAll('.rating1 .star').forEach((star) => {
+            star.classList.remove('bxs-star'); 
+            star.classList.add('bx-star');
+        });
+    }
+});
 
 /* search for review */
 
@@ -199,7 +406,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
 
 /* from user_edit.js */
 
@@ -265,16 +471,6 @@ function updateProfilePicture(event) {
     }
 }
 
-function hideContainer() {
-const previewContainer = document.querySelector('.edit-preview');
-previewContainer.style.display = 'none';
-}
-
-function hideContainer2() {
-const previewContainer = document.querySelector('.review-preview');
-previewContainer.style.display = 'none';
-}
-
 /* deleting review */
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -288,38 +484,6 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
-
-/* editing a review */
-
-document.addEventListener('DOMContentLoaded', function() {
-    const ellipsisIcons = document.querySelectorAll('.fa-solid.fa-ellipsis');
-    ellipsisIcons.forEach(icon => {
-        icon.addEventListener('click', function() {
-            const reviewContainer = icon.closest('.un-review');
-            const ratingElement = reviewContainer.querySelector('.un-review1 strong');
-            const currentRating = parseInt(ratingElement.textContent.match(/\d+/)[0]);
-            const newRating = parseInt(prompt("Enter a new rating (1 - 5):"));
-            if (newRating >= 1 && newRating <= 5) {
-                ratingElement.innerHTML = `Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
-                const reviewContentElement = reviewContainer.querySelector('.rev-content');
-                const newReviewContent = prompt("Enter updated review:");
-                if (newReviewContent !== null) {
-                    reviewContentElement.textContent = newReviewContent;
-                }
-                const reviewDateElement = reviewContainer.querySelector('.un-review1 p:last-child');
-                const currentDate = new Date();
-                const formattedDate = currentDate.toLocaleString();
-                reviewDateElement.textContent = `Review sent on: ${formattedDate}`;
-                const editedMark = document.createElement('span');
-                editedMark.textContent = " (edited)";
-                editedMark.style.color = "red";
-                reviewDateElement.appendChild(editedMark);
-            } else {
-                alert("Invalid rating! Please enter a number between 1 and 5.");
-            }
-        });
-    });
-});
 
 /* pop-up after signing up */
 
@@ -347,46 +511,34 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-/* submit & cancel buttons for leave a review */
+/* review replies */
 
-document.addEventListener('DOMContentLoaded', function() {
-    const submitBtn = document.getElementById('submit');
-    const cancelBtn = document.querySelector('.cancel');
-    const reviewForm = document.getElementById('reviewForm');
+document.addEventListener('DOMContentLoaded', function () {
+    const reviewContainer = document.querySelector('.resto-reviews');
 
-    if (submitBtn && cancelBtn && reviewForm) {
-        submitBtn.addEventListener('click', function(event) {
-            window.location.reload();
-            hideModal();
-        });
-        cancelBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            clearForm();
-            hideModal(); 
+    if (reviewContainer) {
+        reviewContainer.addEventListener('click', function (event) {
+            const replyButton = event.target.closest('.reply-button');
+            if (replyButton) {
+                const reviewReply = replyButton.closest('.un-review');
+                const replyContainer = reviewReply.querySelector('.reply'); // Select the reply element
+
+                // Show the reply container when reply button is clicked
+                replyContainer.style.display = 'block';
+
+                const cancelButton = replyContainer.querySelector('.cancel');
+                cancelButton.addEventListener('click', function () {
+                    replyContainer.style.display = 'none'; // Hide the reply container when cancel button is clicked
+                });
+            }
         });
     } else {
-        console.error('Submit button, cancel button, or review form element not found.');
-    }
-
-    function hideModal() {
-        const modal = document.querySelector('.review-preview');
-        if (modal) {
-            modal.style.display = 'none';
-        }
-    }
-
-    function clearForm() {
-        document.getElementById('reviewText').value = "";
-        document.querySelector('.rating1 input').value = ""; 
-        document.getElementById('rating2').textContent = "0"; 
-        document.querySelectorAll('.rating1 .star').forEach((star) => {
-            star.classList.remove('bxs-star'); 
-            star.classList.add('bx-star');
-        });
+        console.error('Review container element not found.');
     }
 });
 
-/* review replies */
+
+/*
 
 document.addEventListener('DOMContentLoaded', function () {
     const reviewContainer = document.querySelector('.resto-reviews');
@@ -453,3 +605,77 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+*/
+
+/*
+
+document.addEventListener('DOMContentLoaded', function () {
+    const reviewContainer = document.querySelector('.resto-reviews');
+
+    if (reviewContainer) {
+        reviewContainer.addEventListener('click', function (event) {
+            const replyButton = event.target.closest('.reply-button');
+            if (replyButton) {
+                const reviewReply = replyButton.closest('.un-review');
+
+                const replyForm = document.createElement("form");
+                replyForm.className = "reply-form";
+                replyForm.innerHTML = `
+                <div class="reply">
+                    <div class="user">
+                        <img src="images/pfp.png">
+                        <h4>Owner</h4>
+                    </div>
+                    <div class="bottom">
+                        <input type="text" name="replyText" class="content" placeholder="Enter your reply..." required>
+                        <button type="submit" class="publish">Publish</button>
+                        <button type="button" class="cancel">Cancel</button>
+                    </div>
+                </div>
+                `;
+                reviewReply.appendChild(replyForm);
+
+                replyForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    const formData = new FormData(replyForm);
+                    const replyText = formData.get('replyText');
+
+                    // Send the replyText to the server to save it in the database
+                    fetch('/save-reply', {
+                        method: 'POST',
+                        body: JSON.stringify({ replyText: replyText }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Reply saved successfully.');
+                            // Update the UI to show the published reply
+                            const replyContainer = replyForm.closest('.reply');
+                            const publishedReply = document.createElement("div");
+                            publishedReply.className = "published-reply";
+                            publishedReply.textContent = replyText;
+                            replyContainer.innerHTML = "";
+                            replyContainer.appendChild(publishedReply);
+                        } else {
+                            console.error('Error saving reply:', response.statusText);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error saving reply:', error);
+                    });
+                });
+
+                const cancelButton = replyForm.querySelector(".cancel");
+                cancelButton.addEventListener("click", function () {
+                    reviewReply.removeChild(replyForm);
+                });
+            }
+        });
+    } else {
+        console.error('Review container element not found.');
+    }
+});
+
+*/

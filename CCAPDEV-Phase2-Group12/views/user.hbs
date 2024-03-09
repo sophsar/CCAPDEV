@@ -31,13 +31,13 @@
                         </div>
                     </div>
                 </div>
-                    <div class="resto-name-n-logo">
-                        <div class="editedpfp" data-name="p-2">
-                            <img id="editedpfp" src="{{user-info.pfpUrl}}">
-                        </div>
-                        <h1>{{user-info.username}}</h1>
+                    
+                <div class="resto-name-n-logo">
+                    <div class="editedpfp" data-name="p-2">
+                        <img id="editedpfp" src="{{user-info.pfpUrl}}">
                     </div>
-
+                    <h1>{{user-info.username}}</h1>
+                </div>
     
                 <div class="edit-preview">
                     <div class="edit-wrapper" data-target="p-2">
@@ -51,7 +51,7 @@
                             <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Edit description..."></textarea>
         
                             <div class="btn-group">
-                                <button type="button" class="btn submit" id="editSubmit"onclick="hideContainer()">Submit</button>
+                                <button type="button" class="btn submit" id="editSubmit" onclick="hideContainer()">Submit</button>
                                 <button class="btn cancel" onclick="hideContainer()">Cancel</button>
                             </div>
                     </div>
@@ -74,8 +74,6 @@
             </div>
 
             <div class="resto-reviews">
-
-                
                 <div class="review-box">
                     {{#unless isView}}
                     <div class="container">
@@ -109,12 +107,12 @@
                                     <img src="{{userPfp}}">
                                     <h4>{{username}}</h4>&nbsp;
 
-                                    {{#if isView}} <!-- not working properly | (isView == true) => hidden for logged in user in /viewuser & (isView == false) => shown for logged in user on their profile -->
+                                    {{!-- {{#unless isView}} --}}
                                     <div class="edit-n-delete">
                                         <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                        <i class="fa-solid fa-ellipsis"></i>
+                                        <i class="fa-solid fa-ellipsis edit-review-button"></i>
                                     </div>
-                                    {{/if}}
+                                    {{!-- {{/unless}} --}}
 
                                 </div>
                             </div>
@@ -155,32 +153,34 @@
                 </div>
             </div>
         </div>
-                      
-        <!--  REVIEW BOX  -->
-        <div class="review-preview">
-            <div class="wrapper" data-target="p-2">
-                 <h3>EDIT RATING:</h3>
 
-                    <div class="rating1" id="rating1">
-                         <input type="number" name="rating1" hidden>
-                         <i class='bx bx-star star' data-value="1"></i>
-                         <i class='bx bx-star star' data-value="2"></i>
-                         <i class='bx bx-star star' data-value="3"></i>
-                         <i class='bx bx-star star' data-value="4"></i>
-                         <i class='bx bx-star star' data-value="5"></i>
-                    </div>
-                    <div class="rating2">
-                        <span id="rating2">0</span> / 5
-                    </div>
-                    <textarea id="review" name="opinion" cols="30" rows="5" placeholder="Write Review..."></textarea>
-                    <input type="file" id="photo-upload" accept="image/*">
+        <!-- EDIT REVIEW BOX -->
 
-                    <div class="btn-group">
-                        <button type="button" class="btn submit" id="editSubmit" onclick="hideContainer2()">Submit</button>
-                        <button class="btn cancel" onclick="hideContainer2()">Cancel</button>
+        <div class="review-edit-preview">
+            <div class="edit-wrapper" data-target="p-1">
+                <h3 style="color: #12372A;">Edit your review</h3>        
+
+                    <div class="rating3" id="rating3">
+                        <input type="number" name="rating3" hidden>
+                        <i class='bx bx-star star' data-value="1"></i>
+                        <i class='bx bx-star star' data-value="2"></i>
+                        <i class='bx bx-star star' data-value="3"></i>
+                        <i class='bx bx-star star' data-value="4"></i>
+                        <i class='bx bx-star star' data-value="5"></i>
                     </div>
+                    <div class="rating4">
+                        <span id="rating4">0</span> / 5
+                    </div>
+                
+                <textarea id="edit-review-text" name="opinion" cols="30" rows="5" placeholder="Edit your review..."></textarea>
+                
+                <div class="btn-group">
+                    <button type="button" class="btn submit" id="editReviewSubmit">Confirm</button>
+                    <button class="btn cancel-edit" id="editCancel">Cancel</button>
+                </div>
             </div>
         </div>
+
     </section>
 
     {{> footer}}

@@ -151,36 +151,6 @@
     }
 }
 
-/* REVIEW BOX */
-
-.review-box {
-    display: flex;
-    justify-content: space-between;
-}
-
-.review-button {
-    min-height: 5vh;
-    margin-bottom: 20px;
-    width: 250px;
-    background-color: rgb(236, 236, 236);
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.text {
-    color: rgb(115, 115, 115);
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
-    cursor: context-menu;
-}
-
-.text i {
-    margin-right: 7px;
-    font-size: 12px;
-}
-
 /* FOOTER */
 
 footer {
@@ -519,6 +489,8 @@ textarea {
     margin-top: 10px;
 }
 
+/* reply */
+
 .user img {
     width: 40px;
     border-radius: 50%;
@@ -552,6 +524,17 @@ textarea {
     width: 500px;
     padding: 15px 20px;
     border-radius: 15px;
+    display: none;
+}
+
+.show-reply {
+    background-color: rgb(218, 218, 218);
+    min-height: 20vh;
+    min-width: 90%;
+    margin: 20px 0 10px 50px;
+    width: 500px;
+    padding: 15px 20px;
+    border-radius: 15px;
 }
 
 .reply input {
@@ -565,8 +548,8 @@ textarea {
 
 .bottom input {
     border-radius: 15px;
+    height: 30px;
 }
-
 .reply .bottom {
     text-align: right;
 }

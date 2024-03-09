@@ -40,6 +40,7 @@
                 <div class="review-reply">
                     {{#each reviews}}
                     {{#if (eq this.restoName ../owner-info.restoName)}}
+                                        
                     <div class="un-review">
                         <div class="top-part">
                             <div class="un-rating">
@@ -61,12 +62,46 @@
                             <i class="fa-solid fa-reply"></i>
                             <h4>Reply</h4>
                         </div>
+
+                        <!-- Iterate over replies for this review -->
+                        
+                        <div class="show-reply">
+                            {{#each ../replies}}
+
+                            <p>review id: {{this.reviewID}}</p>
+                            <p>reply id: {{../_id}}</p>
+
+                            {{#if (eq this.reviewID ../_id)}}
+                            <div class="user">
+                                <img src="{{userPfp}}">
+                                <h4>{{username}}</h4>
+                            </div>
+                            <div class="bottom">
+                                <p>{{replyText}}</p>
+                            </div>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+
+                        <form id="ownerReply" action="/owner-reply" method="POST">
+                            <input type="hidden" name="reviewId" value="{{_id}}">
+                            <div class="reply">
+                                <div class="user">
+                                    <img src="images/pfp.png">
+                                    <h4>Owner</h4>
+                                </div>
+                                <div class="bottom">
+                                    <input type="replyText" name="replyText" class="content" placeholder="Reply..." required>
+                                    <button type="submit" class="publish">Publish</button>
+                                    <button type="button" class="cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     {{/if}}  
                     {{/each}}
                 </div>
             </div>
-
                 
     </section>
 

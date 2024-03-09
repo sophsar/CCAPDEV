@@ -35,6 +35,9 @@ server.engine('hbs', handlebars.engine({
     helpers: {
         eq: function(a, b) {
             return a === b;
+        },
+        toString: function(id) {
+            return id.toString();
         }
     },
     runtimeOptions: {
@@ -52,7 +55,7 @@ server.listen(port, function() {
 /* i honestly dk what this is */
 
 server.use(session({
-    secret: 'secret', // You should use a strong, randomly generated secret
+    secret: 'secret', // should use a strong, randomly generated secret
     resave: false,
     saveUninitialized: false
 }));
@@ -224,7 +227,8 @@ server.get('/owner', async function(req, res) {
     try {
         const loggedInUser = req.user;
         const reviews = await review.find({});
-
+        const replies = await reply.find({});
+        
         res.render('owner', { 
             layout          : 'index', 
             title           : 'Bon AppéTaft - My Restaurant',
@@ -232,6 +236,7 @@ server.get('/owner', async function(req, res) {
             isResto         : true,
             'owner-info'    : loggedInUser,
             'reviews'       : reviews,
+            'replies'       : replies
 
         });
     } catch (err) {
@@ -239,6 +244,7 @@ server.get('/owner', async function(req, res) {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 /* connect to database */
 
@@ -248,6 +254,42 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to database:'));
 db.once('open', () => {
     console.log('Successfully connected to database!');
+});
+
+// owner replies schema
+
+const replySchema = new mongoose.Schema({
+    userPfp             : { type: String },
+    reviewID            : { type: String },
+    username            : { type: String },
+    restoName           : { type: String },
+    replyText           : { type: String },
+    timestamp           : { type: Date, default: Date.now }
+});
+
+const reply = mongoose.model('replies', replySchema);
+
+server.post('/owner-reply', async (req, res) => {
+    try {
+        if (!req.user || !req.user.username) {
+            return res.status(401).send('Unauthorized');
+        }
+
+        const newReply = new reply({
+            userPfp         : req.user.pfpUrl,
+            reviewID        : req.body.reviewId,
+            username        : req.user.username,
+            restoName       : req.user.restoName, 
+            replyText       : req.body.replyText,
+            timestamp       : Date.now()
+        });
+
+        await newReply.save();
+        console.log('Reply successfully submitted.');
+    } catch (error) {
+        console.error('Error saving reply:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 // reviews schema
