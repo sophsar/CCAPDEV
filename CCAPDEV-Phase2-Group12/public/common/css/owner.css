@@ -54,6 +54,9 @@
 
 .location p, .phone-no p, .resto-hours p {
     margin-left: 10px;
+    display: block;
+    align-items: top;
+    word-wrap: break-word;
 }
 
 .description {
@@ -531,7 +534,7 @@ textarea {
     background-color: rgb(218, 218, 218);
     min-height: 20vh;
     min-width: 90%;
-    margin: 0 0 20px 50px;
+    margin: 20px 0 10px 50px;
     width: 500px;
     padding: 15px 20px;
     border-radius: 15px;

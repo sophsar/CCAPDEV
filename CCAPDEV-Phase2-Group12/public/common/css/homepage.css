@@ -119,8 +119,24 @@ header button {
     color: white;
 }
 
-.user {
-    z-index: 3;
+.welcome {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    color: #12372A;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif !important;
+}
+
+.welcome span {
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif !important;
 }
 
 .landing {
