@@ -101,11 +101,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const ratingValue = document.querySelector('.rating3 input');
     const allStar = document.querySelectorAll('.rating3 .star');
     const rating2 = document.getElementById('rating4');
-  
+
+    // Function to update the review content and rating
+    function updateReviewContent() {
+        // Get the updated review text
+        const newReviewText = reviewText.value.trim();
+        
+        // Get the updated rating
+        const newRating = rating2.textContent.trim();
+
+        // Update the review content and rating
+        const reviewContent = document.querySelector('.rev-content');
+        const reviewRating = document.querySelector('.un-review1 strong');
+
+        if (newReviewText !== "") {
+            reviewContent.textContent = newReviewText;
+        }
+
+        if (newRating !== "") {
+            reviewRating.innerHTML = `Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
+        }
+    }
+
     allStar.forEach((item, idx) => {
         item.addEventListener('click', function () {
             ratingValue.value = idx + 1;
-  
+
             allStar.forEach((star, i) => {
                 if (i <= idx) {
                     star.classList.add('active');
@@ -113,28 +134,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     star.classList.remove('active');
                 }
             });
-  
+
             rating2.textContent = idx + 1;
         });
     });
-  
+
     document.querySelectorAll('.edit-review-button').forEach(review => {
         review.onclick = () => {
             previewContainer.style.display = 'flex'; 
             const name = review.getAttribute('data-name');
-  
+
             if (previewBox.getAttribute('data-target') === name) {
                 previewBox.classList.add('active'); 
             }
         };
     });
-  
+
     const stars = document.querySelectorAll(".rating3 .star");
-  
+
     stars.forEach((star, idx) => {
         star.addEventListener("click", () => {
             const value = idx + 1;
-  
+
             stars.forEach((s, index) => {
                 if (index < value) {
                     s.classList.add('active');
@@ -192,37 +213,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     editReviewSubmit.addEventListener('click', function() {
-        const newRating = parseInt(ratingValue.value);
-        const newReviewContent = reviewText.value.trim();
-    
-        // Get the active review container
-        const reviewContainer = document.querySelector('.review-edit-preview .edit-wrapper.active').closest('.un-review');
+        // Update the review content and rating
+        updateReviewContent();
         
-        // Update the rating
-        const ratingElement = reviewContainer.querySelector('.un-review1 strong');
-        ratingElement.innerHTML = `Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
-    
-        // Update the review content
-        const reviewContentElement = reviewContainer.querySelector('.rev-content');
-        reviewContentElement.textContent = newReviewContent;
-    
-        // Update the review date
-        const reviewDateElement = reviewContainer.querySelector('.un-review1 p:last-child');
-        const currentDate = new Date();
-        const formattedDate = currentDate.toLocaleString();
-        reviewDateElement.textContent = `Review sent on: ${formattedDate}`;
-    
-        // Add "(edited)" mark
-        const editedMark = document.createElement('span');
-        editedMark.textContent = " (edited)";
-        editedMark.style.color = "red";
-        reviewDateElement.appendChild(editedMark);
-    
         // Close the modal
         previewContainer.style.display = 'none';
         previewBox.classList.remove('active');
     });
-    
 });
 
 /* submit & cancel buttons for editing a review */
@@ -233,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (submitBtn && cancelBtn) {
         submitBtn.addEventListener('click', function(event) {
-            window.location.reload();
             hideModal();
         });
         cancelBtn.addEventListener('click', function(event) {
@@ -262,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
 /* leaving a review */
 
@@ -413,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function() {
     const lol = document.querySelector('.editedpfp');
-    const lol1= document.querySelector('.desc');
+    const lol1 = document.querySelector('.desc');
 
     const previewContainer = document.querySelector('.edit-preview');
     const previewBox = document.querySelector('.edit-wrapper');
@@ -423,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
             previewContainer.style.display = 'flex';
             const name = review.getAttribute('data-name');
 
-            if (previewBox.getAttribute('data-target') === name && lol.getAttribute('data-target')&& lol1.getAttribute('data-target') ) {
+            if (previewBox.getAttribute('data-target') === name && lol.getAttribute('data-target') && lol1.getAttribute('data-target')) {
                 previewBox.classList.add('active');
                 lol.classList.add('active');
                 lol1.classList.add('active');
@@ -432,27 +429,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
     const submitBtn = document.getElementById("editSubmit");
-    const cancelBtn = document.querySelector(".cancel"); 
+    const cancelBtn = document.getElementById("cancel"); 
 
     submitBtn.addEventListener("click", () => {
-    const photoUpload = document.getElementById("profile-picture");
-    const editedPfp = document.getElementById("editedpfp");
-    const description = document.getElementById("description");
-    const desc = document.getElementById("desc");
+        const photoUpload = document.getElementById("profile-picture");
+        const editedPfp = document.getElementById("editedpfp");
+        const description = document.getElementById("description");
+        const desc = document.getElementById("desc");
 
-    if (photoUpload.src !== "images/pfp (1).png") {
-        editedPfp.src = photoUpload.src; 
-    }
+        if (photoUpload.src !== "images/pfp (1).png") {
+            editedPfp.src = photoUpload.src; 
+        }
 
-    if (description.value.trim() !== "") {
-        desc.textContent = description.value; 
-    }
+        if (description.value.trim() !== "") {
+            desc.textContent = description.value; 
+        }
 
-    previewContainer.style.display = 'none'; 
-});
+        // Reset input fields after submitting
+        photoUpload.value = "";  // Clear file input
+        description.value = "";  // Clear textarea
 
+        previewContainer.style.display = 'none'; 
+    });
+
+    // Move the cancel button event listener outside of the submit button event listener
     cancelBtn.addEventListener("click", () => {
-        reviewText.value = "";
+        const photoUpload = document.getElementById("profile-picture");
+        const description = document.getElementById("description");
+
+        // Reset input fields after cancelling
+        photoUpload.value = "";  // Clear file input
+        description.value = "";  // Clear textarea
+
         previewContainer.style.display = 'none';
     });    
 });
@@ -536,146 +544,3 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Review container element not found.');
     }
 });
-
-
-/*
-
-document.addEventListener('DOMContentLoaded', function () {
-    const reviewContainer = document.querySelector('.resto-reviews');
-
-    if (reviewContainer) {
-        reviewContainer.addEventListener('click', function (event) {
-            const replyButton = event.target.closest('.reply-button');
-            if (replyButton) {
-                const reviewReply = replyButton.closest('.un-review');
-
-                const replyContainer = document.createElement("div");
-                replyContainer.className = "reply";
-
-                const user = document.createElement("div");
-                user.className = "user";
-                const profilePic = document.createElement("img");
-                profilePic.src = "images/pfp.png";
-                const userName = document.createElement("h4");
-                userName.textContent = "Owner";
-                user.appendChild(profilePic);
-                user.appendChild(userName);
-
-                const bottomDiv = document.createElement("div");
-                bottomDiv.className = "bottom";
-                const inputPane = document.createElement("input");
-                inputPane.classList.add("content");
-                inputPane.classList.add("editable");
-                const publishBtn = document.createElement("button");
-                publishBtn.className = "publish";
-                publishBtn.innerHTML = "Publish";
-                const cancelBtn = document.createElement("button");
-                cancelBtn.className = "cancel";
-                cancelBtn.innerHTML = "Cancel";
-
-                bottomDiv.appendChild(inputPane);
-                bottomDiv.appendChild(publishBtn);
-                bottomDiv.appendChild(cancelBtn);
-
-                replyContainer.appendChild(user);
-                replyContainer.appendChild(bottomDiv);
-
-                reviewReply.appendChild(replyContainer);
-
-                publishBtn.addEventListener("click", function (event) {
-                    const bottomDiv = event.target.closest(".bottom");
-                    const contentPane = bottomDiv.querySelector(".content");
-                    const cancelBtn = bottomDiv.querySelector(".cancel");
-
-                    contentPane.readOnly = true;
-                    contentPane.classList.remove('editable');
-                    contentPane.classList.add('published');
-
-                    publishBtn.remove();
-                    cancelBtn.remove();
-                });
-
-                cancelBtn.addEventListener("click", function (event) {
-                    replyContainer.remove();
-                });
-            }
-        });
-    } else {
-        console.error('Review container element not found.');
-    }
-});
-
-*/
-
-/*
-
-document.addEventListener('DOMContentLoaded', function () {
-    const reviewContainer = document.querySelector('.resto-reviews');
-
-    if (reviewContainer) {
-        reviewContainer.addEventListener('click', function (event) {
-            const replyButton = event.target.closest('.reply-button');
-            if (replyButton) {
-                const reviewReply = replyButton.closest('.un-review');
-
-                const replyForm = document.createElement("form");
-                replyForm.className = "reply-form";
-                replyForm.innerHTML = `
-                <div class="reply">
-                    <div class="user">
-                        <img src="images/pfp.png">
-                        <h4>Owner</h4>
-                    </div>
-                    <div class="bottom">
-                        <input type="text" name="replyText" class="content" placeholder="Enter your reply..." required>
-                        <button type="submit" class="publish">Publish</button>
-                        <button type="button" class="cancel">Cancel</button>
-                    </div>
-                </div>
-                `;
-                reviewReply.appendChild(replyForm);
-
-                replyForm.addEventListener("submit", function (event) {
-                    event.preventDefault();
-                    const formData = new FormData(replyForm);
-                    const replyText = formData.get('replyText');
-
-                    // Send the replyText to the server to save it in the database
-                    fetch('/save-reply', {
-                        method: 'POST',
-                        body: JSON.stringify({ replyText: replyText }),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('Reply saved successfully.');
-                            // Update the UI to show the published reply
-                            const replyContainer = replyForm.closest('.reply');
-                            const publishedReply = document.createElement("div");
-                            publishedReply.className = "published-reply";
-                            publishedReply.textContent = replyText;
-                            replyContainer.innerHTML = "";
-                            replyContainer.appendChild(publishedReply);
-                        } else {
-                            console.error('Error saving reply:', response.statusText);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error saving reply:', error);
-                    });
-                });
-
-                const cancelButton = replyForm.querySelector(".cancel");
-                cancelButton.addEventListener("click", function () {
-                    reviewReply.removeChild(replyForm);
-                });
-            }
-        });
-    } else {
-        console.error('Review container element not found.');
-    }
-});
-
-*/

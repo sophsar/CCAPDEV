@@ -140,12 +140,15 @@ server.get('/reviews', async function(req, res) {
     try {
         const owners = await loginOwner.find({});
         const reviews = await review.find({});
+        const replies = await reply.find({});
+
         let data = {
             layout          : 'index', 
             title           : 'Bon AppéTaft - Reviews',
             errorMessage    : req.flash('error'),
             query           : req.query,
             reviews         : reviews,
+            replies         : replies,
             isResto         : true
         };
 
@@ -167,48 +170,6 @@ server.get('/reviews', async function(req, res) {
     }
 });
 
-server.get('/user', async function(req, res) {
-    try {
-        const loggedInUser = req.user;
-        const reviews = await review.find({});
-
-        res.render('user', { 
-            layout          : 'index', 
-            title           : 'Bon AppéTaft - Profile',
-            'user-info'     : loggedInUser,
-            isUser          : true,
-            isProfile       : true,
-            isView          : false,
-            'reviews'       : reviews,
-            errorMessage    : req.flash('error')
-        });
-    } catch (err) {
-        console.error('Error fetching user data:', err);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-server.get('/viewuser', async function(req, res) {
-    try {
-        const loggedInUser = req.query;
-        const reviews = await review.find({});
-
-        res.render('user', { 
-            layout          : 'index', 
-            title           : 'Bon AppéTaft - User',
-            'user-info'     : loggedInUser,
-            isUser          : true,
-            isResto         : true,
-            isView          : true,
-            'reviews'       : reviews,
-            errorMessage    : req.flash('error')
-        });
-    } catch (err) {
-        console.error('Error fetching user data:', err);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 server.get('/login', function(req, res) {
     res.render('login', { 
         layout          : 'index', 
@@ -221,6 +182,52 @@ server.get('/signup', function(req, res) {
     res.render('signup', { 
         layout      : 'index', 
         title       : 'Bon AppéTaft - Sign Up' });
+});
+
+server.get('/viewuser', async function(req, res) {
+    try {
+        const loggedInUser = req.query;
+        const reviews = await review.find({});
+        const replies = await reply.find({});
+
+        res.render('user', { 
+            layout          : 'index', 
+            title           : 'Bon AppéTaft - User',
+            'user-info'     : loggedInUser,
+            isUser          : true,
+            isResto         : true,
+            isView          : true,
+            'reviews'       : reviews,
+            'replies'       : replies,
+            errorMessage    : req.flash('error')
+        });
+    } catch (err) {
+        console.error('Error fetching user data:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+server.get('/user', async function(req, res) {
+    try {
+        const loggedInUser = req.user;
+        const reviews = await review.find({});
+        const replies = await reply.find({});
+
+        res.render('user', { 
+            layout          : 'index', 
+            title           : 'Bon AppéTaft - Profile',
+            'user-info'     : loggedInUser,
+            isUser          : true,
+            isProfile       : true,
+            isView          : false,
+            'reviews'       : reviews,
+            'replies'       : replies,
+            errorMessage    : req.flash('error')
+        });
+    } catch (err) {
+        console.error('Error fetching user data:', err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 server.get('/owner', async function(req, res) {

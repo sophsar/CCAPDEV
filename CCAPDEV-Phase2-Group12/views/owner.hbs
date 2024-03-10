@@ -57,30 +57,24 @@
                             <p><b>Review sent on: </b>{{timestamp}}</p>
                             <img src="{{reviewImg}}">
                         </div>
+
+                        {{#each ../replies}}
+                            {{#if (eq (toString this.reviewID) (toString ../_id))}}
+                                <div class="show-reply">
+                                        <div class="user">
+                                            <img src="{{userPfp}}">
+                                            <h4>{{restoName}}</h4>
+                                        </div>
+                                        <div class="bottom">
+                                            <p>{{replyText}}</p>
+                                        </div>
+                                </div>
+                            {{/if}}
+                        {{/each}}
     
                         <div class="reply-button">
                             <i class="fa-solid fa-reply"></i>
                             <h4>Reply</h4>
-                        </div>
-
-                        <!-- Iterate over replies for this review -->
-                        
-                        <div class="show-reply">
-                            {{#each ../replies}}
-
-                            <p>review id: {{this.reviewID}}</p>
-                            <p>reply id: {{../_id}}</p>
-
-                            {{#if (eq this.reviewID ../_id)}}
-                            <div class="user">
-                                <img src="{{userPfp}}">
-                                <h4>{{username}}</h4>
-                            </div>
-                            <div class="bottom">
-                                <p>{{replyText}}</p>
-                            </div>
-                            {{/if}}
-                            {{/each}}
                         </div>
 
                         <form id="ownerReply" action="/owner-reply" method="POST">

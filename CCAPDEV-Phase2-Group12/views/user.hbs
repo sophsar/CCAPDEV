@@ -51,8 +51,8 @@
                             <textarea id="description" name="opinion" cols="30" rows="5" placeholder="Edit description..."></textarea>
         
                             <div class="btn-group">
-                                <button type="button" class="btn submit" id="editSubmit" onclick="hideContainer()">Submit</button>
-                                <button class="btn cancel" onclick="hideContainer()">Cancel</button>
+                                <button type="button" class="btn submit" id="editSubmit">Submit</button>
+                                <button class="btn cancel" id="cancel">Cancel</button>
                             </div>
                     </div>
                 </div>
@@ -125,28 +125,20 @@
                                         <p><b>Review sent on: </b>{{timestamp}}</p>
                                         <img src="{{reviewImg}}">
                                     </div>
-                    
-                                    <div class="buttons">
-                                        <div class="like___btn">
-                                            <div class="wrapper1">
-                                                <a href="javascript:void(0);" class="like-button">
-                                                <i class="fa-regular fa-thumbs-up"></i>
-                                                <i class="fa-solid fa-thumbs-up"></i>
-                                                <span class="like-overlay"></span>
-                                                </a>
+
+                                    {{#each ../replies}}
+                                        {{#if (eq (toString this.reviewID) (toString ../_id))}}
+                                            <div class="show-reply">
+                                                    <div class="user">
+                                                        <img src="{{userPfp}}">
+                                                        <h4>{{restoName}}</h4>
+                                                    </div>
+                                                    <div class="bottom">
+                                                        <p>{{replyText}}</p>
+                                                    </div>
                                             </div>
-                                        </div>
-                        
-                                        <div class="like___btn">
-                                            <div class="wrapper1">
-                                                <a href="javascript:void(0);" class="like-button">
-                                                <i class="fa-regular fa-thumbs-down"></i>
-                                                <i class="fa-solid fa-thumbs-down"></i>
-                                                <span class="like-overlay"></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        {{/if}}
+                                    {{/each}}
                                 </div>
                             {{/if}}
                         {{/each}}
@@ -170,28 +162,20 @@
                                         <p><b>Review sent on: </b>{{timestamp}}</p>
                                         <img src="{{reviewImg}}">
                                     </div>
-                    
-                                    <div class="buttons">
-                                        <div class="like___btn">
-                                            <div class="wrapper1">
-                                                <a href="javascript:void(0);" class="like-button">
-                                                <i class="fa-regular fa-thumbs-up"></i>
-                                                <i class="fa-solid fa-thumbs-up"></i>
-                                                <span class="like-overlay"></span>
-                                                </a>
+
+                                    {{#each ../replies}}
+                                        {{#if (eq (toString this.reviewID) (toString ../_id))}}
+                                            <div class="show-reply">
+                                                    <div class="user">
+                                                        <img src="{{userPfp}}">
+                                                        <h4>{{restoName}}</h4>
+                                                    </div>
+                                                    <div class="bottom">
+                                                        <p>{{replyText}}</p>
+                                                    </div>
                                             </div>
-                                        </div>
-                        
-                                        <div class="like___btn">
-                                            <div class="wrapper1">
-                                                <a href="javascript:void(0);" class="like-button">
-                                                <i class="fa-regular fa-thumbs-down"></i>
-                                                <i class="fa-solid fa-thumbs-down"></i>
-                                                <span class="like-overlay"></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        {{/if}}
+                                    {{/each}}
                                 </div>
                             {{/if}}
                         {{/each}}

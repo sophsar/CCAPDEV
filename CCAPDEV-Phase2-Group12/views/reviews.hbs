@@ -87,6 +87,20 @@
                             <img src="{{reviewImg}}">
                         </div>
         
+                        {{#each ../replies}}
+                            {{#if (eq (toString this.reviewID) (toString ../_id))}}
+                                <div class="show-reply">
+                                    <div class="user">
+                                        <img src="{{userPfp}}">
+                                        <h4>{{restoName}}</h4>
+                                    </div>
+                                    <div class="bottom">
+                                        <p>{{replyText}}</p>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+
                         <div class="buttons">
                             <div class="like___btn">
                                 <div class="wrapper1">
