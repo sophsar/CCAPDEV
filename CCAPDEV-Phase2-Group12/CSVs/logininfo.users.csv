@@ -1,0 +1,5 @@
+_id,pfpUrl,description,firstName,lastName,username,email,password,dob,status
+65dc5103f61ab6a4cecad834,/images/pfp.png,blablabla puku puku pow pow,Danielle,Ang,dani,dani@gmail.com,1234,2000-09-09T00:00:00.000Z,user
+65dc51a3f61ab6a4cecad838,,,jjj,jjj,jjj,jjj@jjj,jjj,2003-09-09T00:00:00.000Z,user
+65ded4aa29f2b7c3bbaaaff6,,,kkk,kkkkk,kkkk,kkk@kkk,kkk,2001-01-01T00:00:00.000Z,user
+65e151cf1e53ba8f8a8f2a3c,,eh,Simone Franceska Emanuelle,Capio,chizwheese,sdikahfkjdhjkdfash@dkjhfd.com,maLakaSnnaPW,2003-08-22T00:00:00.000Z,user
