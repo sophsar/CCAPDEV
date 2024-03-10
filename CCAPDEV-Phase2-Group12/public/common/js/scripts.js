@@ -334,15 +334,31 @@ document.addEventListener('DOMContentLoaded', function() {
 /* submit & cancel buttons for leave a review */
 
 document.addEventListener('DOMContentLoaded', function() {
-    const submitBtn = document.getElementById('submit');
+    const submitBtn = document.querySelector('#submit-a-rev');
     const cancelBtn = document.querySelector('.cancel');
 
     if (submitBtn && cancelBtn) {
         submitBtn.addEventListener('click', function(event) {
-            window.location.reload();
+            // Serialize the form data
+            var formData = $('#reviewForm').serialize();
+
+            // Send a POST request to the server
+            $.post('/submit-review', formData, function(data, status) {
+                if (status === 'success') {
+                    hideModal();
+                    console.log("Review successfully submitted!");
+                }
+            })
+            .fail(function(xhr, textStatus, errorThrown) {
+                // Handle AJAX request failure
+                console.error('AJAX Error:', textStatus, errorThrown);
+            });
+
             hideModal();
+            location.reload();
         });
-        cancelBtn.addEventListener('click', function(event) {
+
+       cancelBtn.addEventListener('click', function(event) {
             event.preventDefault();
             clearForm();
             hideModal(); 
@@ -520,7 +536,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* review replies */
-
 document.addEventListener('DOMContentLoaded', function () {
     const reviewContainer = document.querySelector('.resto-reviews');
 
@@ -534,8 +549,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Show the reply container when reply button is clicked
                 replyContainer.style.display = 'block';
 
+                const publishButton = replyContainer.querySelector('.publish');
+                publishButton.addEventListener('click', function () {
+                    console.log('you hit submit');
+                    // Serialize the form data
+                    var formData = $('#ownerReply').serialize();
+
+                    // Send a POST request to the server
+                    $.post('/owner-reply', formData, function(data, status) {
+                        if (status === 'success') {
+                            console.log("Review successfully submitted!");
+                        }
+                    });
+
+                    location.reload();
+                });
                 const cancelButton = replyContainer.querySelector('.cancel');
                 cancelButton.addEventListener('click', function () {
+                    console.log("you just hit cancel yea");
                     replyContainer.style.display = 'none'; // Hide the reply container when cancel button is clicked
                 });
             }
