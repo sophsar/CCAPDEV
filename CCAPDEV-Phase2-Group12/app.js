@@ -19,6 +19,7 @@ const server = express();
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const session = require('express-session');
 const passport = require('passport');
@@ -38,6 +39,9 @@ server.engine('hbs', handlebars.engine({
         },
         toString: function(id) {
             return id.toString();
+        },
+        formatDate: function(date, format) {
+            return moment(date).format(format);
         }
     },
     runtimeOptions: {
@@ -329,10 +333,9 @@ server.post('/submit-review', async (req, res) => {
             timestamp           : Date.now()
         });
 
-        await newReview.save().then(function(reviews) {
-            console.log('Review successfully submitted.');
-        }).catch(errorFn);
-    } catch (error) {
+        await newReview.save();        
+
+   } catch (error) {
         console.error('Error saving review:', error);
         res.status(500).send('Internal Server Error');
     }
@@ -504,4 +507,4 @@ server.post('/logout', (req, res) => {
         }
         res.redirect('/');
     });
-})
+});
