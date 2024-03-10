@@ -78,16 +78,16 @@
                         </div>
 
                         <form id="ownerReply" action="/owner-reply" method="POST">
-                            <input type="hidden" name="reviewId" value="{{_id}}">
+                            <input type="hidden" id="reviewId" name="reviewId" value="{{_id}}">
                             <div class="reply">
                                 <div class="user">
                                     <img src="images/pfp.png">
                                     <h4>Owner</h4>
                                 </div>
                                 <div class="bottom">
-                                    <input type="replyText" name="replyText" class="content" placeholder="Reply..." required>
-                                    <button type="submit" class="publish">Publish</button>
-                                    <button type="button" class="cancel">Cancel</button>
+                                    <input type="text" id="replyText" name="replyText" class="content" placeholder="Reply..." required>
+                                    <button type="button" class="publish">Publish</button>
+                                    <button type="reset" class="cancel">Cancel</button>
                                 </div>
                             </div>
                         </form>

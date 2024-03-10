@@ -1,13 +1,13 @@
 {{> header}}
-<div class="landing">
-    {{#if isUser}}
-        <h2 class="user">Welcome back, <b>{{user-info.username}}</b>!</h2>
-    {{/if}}
+{{#if isUser}}
+    <h2 class="welcome">Welcome back, <span>{{user-info.username}}!</span></h2>
+{{/if}}
 
-    {{#if isOwner}}
-        <h2 class="user">Welcome back, <b>{{user-info.restoName}}</b>!</h2>
-    {{/if}}
-    
+{{#if isOwner}}
+    <h2 class="welcome">Welcome back, <span>{{user-info.restoName}}!</span></h2>
+{{/if}}
+<div class="landing">    
+    <br><br><br>
     <h1 class="tagline">bite into the <span>best</span></h1>
 </div>
 <div class="landing-img">
@@ -15,6 +15,35 @@
 </div>
 
 {{#if isUser}}
+<div class="showcase">
+    <h1>Our Top Picks</h1>
+    <p>We've curated the best of the best just for you. 
+        Discover new flavors, revisit old favorites, 
+        <br>and let your taste buds guide you!</p>
+    <div class="bottom">
+        <!-- Restaurant showcase here -->
+        
+        {{#each resto-data}}
+            <a href="#">    
+                <div class="resto">
+                    <img src="{{restoImg}}">
+                </div>
+            </a>
+        {{/each}}
+
+        {{#each resto-data}}
+            <a href="#">    
+                <div class="resto">
+                    <img src="{{restoImg}}">
+                </div>
+            </a>
+        {{/each}}
+    </div>
+    <a href="/resto"><button>Discover restaurants nearby!</button></a>
+</div>
+{{/if}}
+
+{{#if isGuest}}
 <div class="showcase">
     <h1>Our Top Picks</h1>
     <p>We've curated the best of the best just for you. 
