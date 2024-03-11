@@ -4,14 +4,8 @@
 /*
     TO-DO:
 
-    (1) delete review
-    (2) edit review
-    (3) edit profile
-    (4) change date & time format displayed on reviews to "mm-dd-yyy 00:00 AM/PM"
-    (5) view profile of other users
-    (6) helpful / unhelpful buttons
-    (7) storing and using images
-    (8) save owner reply to database 
+    (1) helpful / unhelpful buttons
+    (2) storing and using images
 */
 
 const express = require('express');
@@ -56,10 +50,8 @@ server.listen(port, function() {
     console.log('Listening at port ' + port);
 })
 
-/* i honestly dk what this is */
-
 server.use(session({
-    secret: 'secret', // should use a strong, randomly generated secret
+    secret: 'secret',
     resave: false,
     saveUninitialized: false
 }));
@@ -115,10 +107,24 @@ server.get('/', async function(req, res) {
 server.get('/resto', async function(req, res) {
     try {
         const owners = await loginOwner.find({});
+        const reviews = await review.aggregate([
+            {
+                $group: {
+                    _id: "$restoName",
+                    averageRating: { $avg: "$rating" }
+                }
+            }
+        ]);
+
+        reviews.forEach(review => {
+            review.averageRating = parseFloat(review.averageRating.toFixed(2));
+        });
+
         let data = {
             layout          : 'index',
             title           : 'Bon AppéTaft - Restaurants', 
             'resto-list'    : owners,
+            'reviews'       : reviews,
             isResto         : true
         };
 

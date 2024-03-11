@@ -31,6 +31,16 @@ body {
 
 */
 
+hr {
+    margin-bottom: 10px;
+    margin-left: 30px
+}
+
+.show-reply {
+    margin-bottom: 10px;
+    margin-left: 30px
+}
+
 /* edit profile */
 
 .pfp img{

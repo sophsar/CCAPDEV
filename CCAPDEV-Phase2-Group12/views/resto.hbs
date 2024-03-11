@@ -31,13 +31,18 @@
 
         <div id="restaurants" class="restaurants">
             {{#each resto-list}}
-            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image={{pfpUrl}}" class="resto1"> <!-- fix {{hours}} -->      
+            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image={{pfpUrl}}" class="resto1"> 
                 <img src="{{pfpUrl}}">
                 <div class="name-and-rating">
                     <h4>{{restoName}}</h4>
 
                     <div class="rating">
-                        <!-- implement avg rating of resto here -->
+                        {{#each ../reviews}}
+                            {{#if (eq _id ../restoName)}}
+                                <i class="fa-solid fa-star"></i>
+                                <h3>{{averageRating}}</h3>
+                            {{/if}}
+                        {{/each}}
                     </div>
                 </div>
 

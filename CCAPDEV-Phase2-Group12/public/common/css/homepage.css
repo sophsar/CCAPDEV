@@ -162,7 +162,7 @@ header button {
 .landing .tagline span {
     color: var(--dark-green);
     font-family: "Montserrat", sans-serif !important;
-    font-size: 10vw;
+    font-size: 9rem;
 }
 
 .landing-img {

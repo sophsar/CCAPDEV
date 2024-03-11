@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* filter based on buttons */
 
+/* alphabetical */
+
 function arrangeAlphabetically() {
     const restaurantsContainer = document.getElementById('restaurants');
     const restaurants = Array.from(restaurantsContainer.querySelectorAll('a'));
@@ -87,6 +89,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     } else {
         console.error('Alphabetical button element not found.');
+    }
+});
+
+/* overall ratings */
+
+function arrangeByRatings() {
+    const restaurantsContainer = document.getElementById('restaurants');
+    const restaurants = Array.from(restaurantsContainer.querySelectorAll('a'));
+    
+    restaurants.sort((a, b) => {
+        const ratingA = parseFloat(a.querySelector('.rating h3').textContent);
+        const ratingB = parseFloat(b.querySelector('.rating h3').textContent);
+        return ratingB - ratingA;
+    });
+    
+    restaurantsContainer.innerHTML = '';
+    
+    restaurants.forEach(restaurant => {
+        restaurantsContainer.appendChild(restaurant);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const ratingsButton = document.querySelector('.ratings');
+    if (ratingsButton) {
+        ratingsButton.addEventListener('click', function() {
+            this.classList.toggle('active');
+            
+            if (this.classList.contains('active')) {
+                arrangeByRatings();
+            } 
+        });
+    } else {
+        console.error('Ratings button element not found.');
     }
 });
 
