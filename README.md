@@ -5,7 +5,10 @@ to fix for MCO2
     or
     - use libraries
 
-(2) helpful / unhelpful buttons (not sure if needed for MCO2 or for MCO3)
+(2) edit owner profile
+(3) 
+
+(4) helpful / unhelpful buttons (not sure if needed for MCO2 or for MCO3)
     - should show number of clicks
     - if user has already clicked on the button, it has to stay active, unless unclicked.
 
