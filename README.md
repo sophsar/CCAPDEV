@@ -5,8 +5,8 @@ to fix for MCO2
     or
     - use libraries
 
-(2) edit owner profile
-(3) 
+(2) add 'edit owner profile' feature (?)
+(3) error on owner replies, replyText can't be stored in the db
 
 (4) helpful / unhelpful buttons (not sure if needed for MCO2 or for MCO3)
     - should show number of clicks
