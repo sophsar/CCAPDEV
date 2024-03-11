@@ -1,14 +1,10 @@
 to fix for MCO2
 
-view profile
-(1) edit n delete buttons should not be there when viewing someone else's page [DONE]
-
-editing review
-(1) currently not updating UI after confirming edit of review
-
-owner's replies
-(1) currently not displaying the replies [DONE]
-(2) not sure if reviewid (from replies coll) == _id (id of review from reviews coll) implementation is correct [DONE]
-
-submit buttons for leaving & editing a review
-(1) page should load new data
+(1) helpful / unhelpful buttons
+    - should show number of clicks
+    - if user has already clicked on the button, it has to stay active, unless unclicked.
+    
+(2) storing and using images
+    - when signing up, every pixel of the image should be converted to binary (?)
+    or
+    - use libraries
