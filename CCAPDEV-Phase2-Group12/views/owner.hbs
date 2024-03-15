@@ -39,60 +39,59 @@
             <div class="resto-reviews">
                 <div class="review-reply">
                     {{#each reviews}}
-                    {{#if (eq this.restoName ../owner-info.restoName)}}
-                                        
-                    <div class="un-review">
-                        <div class="top-part">
-                            <div class="un-rating">
-                                <div class="user">
-                                    <img src="{{userPfp}}">
-                                    <h4>{{username}}</h4>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="un-review1">
-                            <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
-                            <p class="rev-content">{{reviewText}}</p>
-                            <p><b>Review sent on: </b>{{timestamp}}</p>
-                            <img src="{{reviewImg}}">
-                        </div>
-
-                        {{#each ../replies}}
-                            {{#if (eq (toString this.reviewID) (toString ../_id))}}
-                                <div class="show-reply">
+                        {{#if (eq this.restoName ../owner-info.restoName)}}                 
+                            <div class="un-review">
+                                <div class="top-part">
+                                    <div class="un-rating">
                                         <div class="user">
                                             <img src="{{userPfp}}">
-                                            <h4>{{restoName}}</h4>
+                                            <h4>{{username}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="un-review1">
+                                    <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
+                                    <p class="rev-content">{{reviewText}}</p>
+                                    <p><b>Review sent on: </b>{{timestamp}}</p>
+                                    <img src="{{reviewImg}}">
+                                </div>
+
+                                {{#each ../replies}}
+                                    {{#if (eq (toString this.reviewID) (toString ../_id))}}
+                                        <div class="show-reply">
+                                                <div class="user">
+                                                    <img src="{{userPfp}}">
+                                                    <h4>{{restoName}}</h4>
+                                                </div>
+                                                <div class="bottom">
+                                                    <p>{{replyText}}</p>
+                                                </div>
+                                        </div>
+                                    {{/if}}
+                                {{/each}}
+            
+                                <a href="#ownerReply"><div class="reply-button">
+                                    <i class="fa-solid fa-reply"></i>
+                                    <h4>Reply</h4>
+                                </div></a>
+
+                                <form id="ownerReply" action="/owner-reply" method="POST">
+                                    <input type="hidden" id="reviewId" name="reviewId" value="{{_id}}">
+                                    <div class="reply">
+                                        <div class="user">
+                                            <img src="images/pfp.png">
+                                            <h4>Owner</h4>
                                         </div>
                                         <div class="bottom">
-                                            <p>{{replyText}}</p>
+                                            <input type="text" id="replyText" name="replyText" class="content" placeholder="Reply..." required>
+                                            <button type="button" class="publish">Publish</button>
+                                            <button type="reset" class="cancel">Cancel</button>
                                         </div>
-                                </div>
-                            {{/if}}
-                        {{/each}}
-    
-                        <div class="reply-button">
-                            <i class="fa-solid fa-reply"></i>
-                            <h4>Reply</h4>
-                        </div>
-
-                        <form id="ownerReply" action="/owner-reply" method="POST">
-                            <input type="hidden" id="reviewId" name="reviewId" value="{{_id}}">
-                            <div class="reply">
-                                <div class="user">
-                                    <img src="images/pfp.png">
-                                    <h4>Owner</h4>
-                                </div>
-                                <div class="bottom">
-                                    <input type="text" id="replyText" name="replyText" class="content" placeholder="Reply..." required>
-                                    <button type="button" class="publish">Publish</button>
-                                    <button type="reset" class="cancel">Cancel</button>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                    </div>
-                    {{/if}}  
+                        {{/if}}  
                     {{/each}}
                 </div>
             </div>

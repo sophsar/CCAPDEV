@@ -25,34 +25,19 @@
     
             <div class="filters">
                 <button class="alphabetical">Alphabetical</button>
-                {{!-- <button class="ratings">Overall Ratings</button> --}}
-                <div class="dropdown">
-                    <button class="ratings">Overall Ratings <i class="fas fa-caret-down"></i></button>
-                    <div class="content-rating">
-                        <a href="#" data-min-rating="5">5 stars</a>
-                        <a href="#" data-min-rating="4">4 stars</a>
-                        <a href="#" data-min-rating="3">3 stars</a>
-                        <a href="#" data-min-rating="2">2 stars</a>
-                        <a href="#" data-min-rating="1">1 star</a>
-                    </div>
-                </div>
+                <button class="ratings">Overall Ratings</button>
             </div>
         </div>
 
         <div id="restaurants" class="restaurants">
             {{#each resto-list}}
-            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image={{pfpUrl}}" class="resto1"> 
+            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image={{pfpUrl}}" class="resto1"> <!-- fix {{hours}} -->      
                 <img src="{{pfpUrl}}">
                 <div class="name-and-rating">
                     <h4>{{restoName}}</h4>
 
                     <div class="rating">
-                        {{#each ../reviews}}
-                            {{#if (eq _id ../restoName)}}
-                                <i class="fa-solid fa-star"></i>
-                                <h3>{{averageRating}}</h3>
-                            {{/if}}
-                        {{/each}}
+                        <!-- implement avg rating of resto here -->
                     </div>
                 </div>
 
@@ -68,6 +53,5 @@
     </section>
 
     {{> footer}}
-
 </body>
 </html>
