@@ -1,28 +1,24 @@
-to fix for MCO2
+**Description**
+This is a restaurant application designed to manage restaurant operations including menu management, order processing, and customer management. The application is built using Node.js and Express.js framework, with MongoDB as the database, and Passport.js for authentication.
 
-(1) storing and using images
-    - when signing up, every pixel of the image should be converted to binary (?)
-    or
-    - use libraries
+**Installation**
+run terminal from our project's file directory
+type "npm init" then press enter
+type "npm install express express-handlebars body-parser mongoose passport passport-local connect-flash" then press enter
 
-(2) add 'edit owner profile' feature (?)
-(3) error on owner replies, replyText can't be stored in the db
+**Access Application**
+Open your web browser then visit 'http://localhost:3000' to access the application
 
-(4) helpful / unhelpful buttons (not sure if needed for MCO2 or for MCO3)
-    - should show number of clicks
-    - if user has already clicked on the button, it has to stay active, unless unclicked.
+**Dependencies**
+**Express**: Fast, unopinionated, minimalist web framework for Node.js.
+**Express-handlebars**: Handlebars view engine for Express.
+**Body-parser**: Node.js body parsing middleware.
+**Mongoose**: MongoDB object modeling tool designed to work in an asynchronous environment.
+**Passport**: Authentication middleware for Node.js.
+**Passport-local**: Passport strategy for authenticating with a username and password.
+**Connect-flash**: Flash messages middleware for Express.
 
-for MCO3
-
-(1) CRUD operations
-    - update (edit)
-        - profile
-        - review 
-    - delete
-        - profile
-        - review
-
-(2) sessions
-    - login stuff if there's anything wrong w the implementation (?)
-(3) cookies
-    - remember me (on login)
+**Contributors**
+Ang, Danielle Faith
+Capio, Simone Franceska Emanuelle
+Sarreal, Sophia Althea
