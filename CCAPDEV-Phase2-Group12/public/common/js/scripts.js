@@ -56,8 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* filter based on buttons */
 
-/* alphabetical */
-
 function arrangeAlphabetically() {
     const restaurantsContainer = document.getElementById('restaurants');
     const restaurants = Array.from(restaurantsContainer.querySelectorAll('a'));
@@ -92,35 +90,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-/* overall ratings */
-
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdownLinks = document.querySelectorAll('.content-rating a');
-
-    dropdownLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const minRating = parseFloat(this.getAttribute('data-min-rating'));
-            filterRestaurants(minRating);
-        });
-    });
-
-    function filterRestaurants(minRating) {
-        const restaurants = document.querySelectorAll('.resto1');
-        restaurants.forEach(restaurant => {
-            const rating = parseFloat(restaurant.querySelector('.rating h3').textContent);
-            if (rating >= minRating && rating < (minRating + 1)) {
-                restaurant.style.display = 'block';
-            } else {
-                restaurant.style.display = 'none';
-            }
-        });
-    }
-});
-
 /* from scripts.js */
 
-/* editing a review */
+/* editing a review (FIX: contents not updating on UI)*/
 
 document.addEventListener('DOMContentLoaded', function() {
     const previewContainer = document.querySelector('.review-edit-preview');
@@ -130,11 +102,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const allStar = document.querySelectorAll('.rating3 .star');
     const rating2 = document.getElementById('rating4');
 
+    // Function to update the review content and rating
     function updateReviewContent() {
+        // Get the updated review text
         const newReviewText = reviewText.value.trim();
         
+        // Get the updated rating
         const newRating = rating2.textContent.trim();
 
+        // Update the review content and rating
         const reviewContent = document.querySelector('.rev-content');
         const reviewRating = document.querySelector('.un-review1 strong');
 
@@ -192,10 +168,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+            // Update the rating value input
             ratingValue.value = value;
         });
     });
 
+    // Review editing functionality
     const editButtons = document.querySelectorAll('.edit-review-button');
     const editReviewSubmit = document.getElementById('editReviewSubmit');
     const editCancel = document.getElementById('editCancel');
@@ -214,6 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
             previewContainer.style.display = 'flex';
             previewBox.classList.add('active');
 
+            // Update stars to match current rating
             stars.forEach((star, idx) => {
                 if (idx < currentRating) {
                     star.classList.add('active');
@@ -234,8 +213,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     editReviewSubmit.addEventListener('click', function() {
+        // Update the review content and rating
         updateReviewContent();
         
+        // Close the modal
         previewContainer.style.display = 'none';
         previewBox.classList.remove('active');
     });
@@ -277,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
 /* leaving a review */
 
@@ -357,8 +339,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (submitBtn && cancelBtn) {
         submitBtn.addEventListener('click', function(event) {
+            // Serialize the form data
             var formData = $('#reviewForm').serialize();
 
+            // Send a POST request to the server
             $.post('/submit-review', formData, function(data, status) {
                 if (status === 'success') {
                     hideModal();
@@ -366,6 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .fail(function(xhr, textStatus, errorThrown) {
+                // Handle AJAX request failure
                 console.error('AJAX Error:', textStatus, errorThrown);
             });
 
@@ -476,17 +461,21 @@ document.addEventListener('DOMContentLoaded', function() {
             desc.textContent = description.value; 
         }
 
-        photoUpload.value = "";  
-        description.value = "";  
+        // Reset input fields after submitting
+        photoUpload.value = "";  // Clear file input
+        description.value = "";  // Clear textarea
+
         previewContainer.style.display = 'none'; 
     });
 
+    // Move the cancel button event listener outside of the submit button event listener
     cancelBtn.addEventListener("click", () => {
         const photoUpload = document.getElementById("profile-picture");
         const description = document.getElementById("description");
 
-        photoUpload.value = "";  
-        description.value = ""; 
+        // Reset input fields after cancelling
+        photoUpload.value = "";  // Clear file input
+        description.value = "";  // Clear textarea
 
         previewContainer.style.display = 'none';
     });    
@@ -547,7 +536,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* review replies */
-
 document.addEventListener('DOMContentLoaded', function () {
     const reviewContainer = document.querySelector('.resto-reviews');
 
@@ -556,15 +544,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const replyButton = event.target.closest('.reply-button');
             if (replyButton) {
                 const reviewReply = replyButton.closest('.un-review');
-                const replyContainer = reviewReply.querySelector('.reply'); 
-                
+                const replyContainer = reviewReply.querySelector('.reply'); // Select the reply element
+
+                // Show the reply container when reply button is clicked
                 replyContainer.style.display = 'block';
 
                 const publishButton = replyContainer.querySelector('.publish');
                 publishButton.addEventListener('click', function () {
-                    console.log('you hit submit');
-                    var formData = $('#ownerReply').serialize();
+                    // Serialize the form data
+                    var formData = $(this).closest('form#ownerReply').serialize();
 
+                    // Send a POST request to the server
                     $.post('/owner-reply', formData, function(data, status) {
                         if (status === 'success') {
                             console.log("Review successfully submitted!");
@@ -575,8 +565,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 const cancelButton = replyContainer.querySelector('.cancel');
                 cancelButton.addEventListener('click', function () {
-                    console.log("you just hit cancel yea");
-                    replyContainer.style.display = 'none'; 
+                    replyContainer.style.display = 'none'; // Hide the reply container when cancel button is clicked
                 });
             }
         });
