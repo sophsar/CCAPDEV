@@ -20,7 +20,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 
-const { landingImg, resto_showcase, what_is, how_it_works, resto_list } = require('./data');
+const { landingImg, resto_showcase, what_is, how_it_works, owner_what_is, owner_how_it_works, resto_list } = require('./data');
 
 server.set('view engine', 'hbs');
 server.engine('hbs', handlebars.engine({
@@ -74,9 +74,11 @@ server.get('/', async function(req, res) {
             layout          : 'index',
             title           : 'BON APPÉTaft',
             landingImg      : landingImg,
-            'resto-data'    : guests,
-            'what_is'       : what_is,
-            'how_it_works'  : how_it_works,
+            'resto-data'          : guests,
+            'what_is'             : what_is,
+            'how_it_works'        : how_it_works,
+            'owner_what_is'       : owner_what_is,
+            'owner_how_it_works'  : owner_how_it_works,
             isHome          : true
         };
 
