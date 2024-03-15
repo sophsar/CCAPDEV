@@ -139,7 +139,7 @@ header button {
     justify-content: space-between;
 }
 
-.resto1  {
+.resto1, .resto2, .resto3, .resto4, .resto5  {
     padding: 10px;
     width: 220px;
     min-height: auto;
@@ -172,19 +172,7 @@ header button {
     }
 }
 
-.rating {
-    font-size: 13px;
-    width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-}
-
-.rating i {
-    margin: 0 5px 3px 0;
-}
-
-.resto1 img {
+.resto1 img, .resto2 img, .resto3 img, .resto4 img, .resto5 img {
     width: 200px;
     padding: 20px;
     border-radius: 15px;
@@ -192,6 +180,11 @@ header button {
     margin: auto;
     filter: grayscale(100%);
     transition: filter 0.5s ease;
+}
+
+.rating {
+    font-size: 13px;
+    width: 60%;
 }
 
 .name-and-rating {
@@ -316,36 +309,6 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
         background-color: var(--grayish-green);
         color: white;
     }
-}
-
-.dropdown .fa-caret-down {
-    margin-left: 5px;
-}
-
-.content-rating a:hover {
-    background-color: #d4d4d4;
-    border-radius: 20px;
-}
-
-.content-rating {
-    border-radius: 20px;
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-
-    a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
-}
-
-.dropdown:hover .content-rating {
-    display: block;
 }
 
 /* Add this CSS to change button color to blue when clicked */

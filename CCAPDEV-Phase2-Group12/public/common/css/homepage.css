@@ -9,6 +9,8 @@
 
 body {
     background-color: var(--bg-color);
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 :root {
