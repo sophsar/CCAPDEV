@@ -412,7 +412,7 @@ const ownerSchema = new mongoose.Schema({
 
 const loginOwner = mongoose.model('owners', ownerSchema);
 
-function errorFn(err){
+function errorFn(err){  
     console.log('Error fond. Please trace!');
     console.error(err);
 }
@@ -439,7 +439,6 @@ server.post('/create-owner', function(req, res){
     }).catch(errorFn);
 });
 
-// Configure Passport Local Strategy for user and owner login
 passport.use('local', new LocalStrategy((username, password, done) => {
     Promise.all([
         loginUser.findOne({ $or: [{ username: username }, { email: username }] }),
@@ -484,7 +483,6 @@ passport.deserializeUser((obj, done) => {
     }
 });
 
-// Login route for both users and owners
 server.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) { return next(err); }
@@ -494,9 +492,7 @@ server.post('/login', (req, res, next) => {
         }
         req.logIn(user, (err) => {
             if (err) { return next(err); }
-            // Check if the authenticated user is an owner
             if (user.status === 'owner') {
-                // If the user is an owner, set req.owner to the authenticated owner object
                 req.owner = user;
             }
             return res.redirect('/');
@@ -504,7 +500,6 @@ server.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-// Logout route
 server.post('/logout', (req, res) => {
     req.logout((err) => {
         if (err) {
