@@ -25,5 +25,7 @@ Open your web browser then visit 'http://localhost:3000' to access the applicati
 **Contributors**
 
 Ang, Danielle Faith
+
 Capio, Simone Franceska Emanuelle
+
 Sarreal, Sophia Althea
