@@ -23,9 +23,10 @@ FORM VALIDATIONS
 [ working on this rn! ] HELPFUL / UNHELPFUL BUTTONS (Nielle)
 1. when either of the buttons is active, the other cant be active (DONE)
 2. should increment when toggled, decrement when untoggled (DONE)
-3. when stored in the db, status == true for helpful, status == false for unhelpful
-4. aggregate counts of both helpful & unhelpful 
-5. 
+3. when TOGGLED, it stores the data in the db, status == true for helpful, status == false for unhelpful (DONE)
+4. when UNTOGGLED, it deletes the data from the db.
+5. aggregate counts of both helpful & unhelpful 
+6. 
 
 STORING & RETRIEVING IMAGES (Cheska ??)
 1. convert img pixels to bits
