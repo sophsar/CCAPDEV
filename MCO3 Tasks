@@ -8,15 +8,19 @@ EDITING REVIEWS
 1. when editing, "Rating for [ restoName ] : #/5" is also edited, which should not happen. (FIX)
 2.
 
-[ DONE ] PASSWORD HASHING (Nielle)
-1. when signing up, password saved in the db needs to be hashed
-2. when logging in, it should decode the hashed password
+PASSWORD HASHING (Nielle)
+1. when signing up, password saved in the db needs to be hashed (DONE)
+2. when logging in, it should decode the hashed password (DONE)
 
 FORM VALIDATIONS
 1. 
 
-HELPFUL / UNHELPFUL BUTTONS
-1. 
+[ working on this rn! ] HELPFUL / UNHELPFUL BUTTONS (Nielle)
+1. when either of the buttons is active, the other cant be active (DONE)
+2. should increment when toggled, decrement when untoggled (DONE)
+3. when stored in the db, status == true for helpful, status == false for unhelpful
+4. aggregate counts of both helpful & unhelpful 
+5. 
 
 STORING & RETRIEVING IMAGES
 1.
