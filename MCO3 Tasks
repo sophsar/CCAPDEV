@@ -24,7 +24,7 @@ FORM VALIDATIONS
 1. when either of the buttons is active, the other cant be active (DONE)
 2. should increment when toggled, decrement when untoggled (DONE)
 3. when TOGGLED, it stores the data in the db, status == true for helpful, status == false for unhelpful (DONE)
-4. when UNTOGGLED, it deletes the data from the db. (FIX: it deletes when toggled AGAIN, not after untoggling)
+4. when UNTOGGLED, it deletes the data from the db. (DONE)
 5. when user reloads page, toggled buttons should stay active & count should be displayed correctly 
 6. aggregate counts of both helpful & unhelpful 
 7. 
