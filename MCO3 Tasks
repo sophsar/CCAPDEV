@@ -22,8 +22,10 @@ FORM VALIDATIONS
 4. aggregate counts of both helpful & unhelpful 
 5. 
 
-STORING & RETRIEVING IMAGES
-1.
+STORING & RETRIEVING IMAGES (Cheska ??)
+1. convert img pixels to bits
+2. should be stored in db
+3. should be retrievable from the db
 
 DEPLOYMENT
 1.
