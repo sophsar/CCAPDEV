@@ -7,6 +7,7 @@ const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const moment = require('moment');
+const bcrypt = require('bcrypt');
 
 const session = require('express-session');
 const passport = require('passport');
@@ -316,6 +317,40 @@ db.once('open', () => {
     console.log('Successfully connected to database!');
 });
 
+// interaction schema
+
+const interactionSchema = new mongoose.Schema({
+    reviewId: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
+    username: { type: String },
+    status: { type: Boolean } // true for helpful, false for unhelpful
+});
+
+const interaction = mongoose.model('interactions', interactionSchema);
+
+server.post('/submit-interaction', async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).send('Unauthorized');
+        }
+
+        const { reviewId, status } = req.body;
+        const username = req.user.username;
+
+        const newInteraction = new interaction({
+            reviewId: reviewId,
+            username: username,
+            status: status
+        });
+
+        await newInteraction.save();
+
+        res.status(200).send('Interaction saved successfully');
+    } catch (error) {
+        console.error('Error saving interaction:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // owner replies schema
 
 const replySchema = new mongoose.Schema({
@@ -417,8 +452,6 @@ function errorFn(err){
     console.log('Error fond. Please trace!');
     console.error(err);
 }
-
-const bcrypt = require('bcrypt');
 
 server.post('/create-user', async function(req, res){
     try {

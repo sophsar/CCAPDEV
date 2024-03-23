@@ -412,57 +412,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* helpful / unhelpful buttons */
 
-document.querySelectorAll('.like-button').forEach(button => {
-    button.addEventListener('click', async () => {
-        const reviewId = button.closest('.un-review').dataset.reviewId;
+document.addEventListener('DOMContentLoaded', function() {
+    const reviewContainers = document.querySelectorAll('.un-review');
+
+    reviewContainers.forEach(reviewContainer => {
+        const helpfulButton = reviewContainer.querySelector('.like-button');
+        const unhelpfulButton = reviewContainer.querySelector('.unlike-button');
+
+        helpfulButton.addEventListener('click', function() {
+            if (unhelpfulButton.classList.contains('active')) {
+                unhelpfulButton.classList.remove('active');
+                updateCountText(unhelpfulButton);
+            }
+            helpfulButton.classList.toggle('active');
+            updateCountText(helpfulButton);
+            const reviewId = helpfulButton.getAttribute('data-reviewid');
+            const status = true;
+            if (helpfulButton.classList.contains('active')) {
+                submitInteraction(reviewId, status);
+            }
+        });
+
+        unhelpfulButton.addEventListener('click', function() {
+            if (helpfulButton.classList.contains('active')) {
+                helpfulButton.classList.remove('active');
+                updateCountText(helpfulButton);
+            }
+            unhelpfulButton.classList.toggle('active');
+            updateCountText(unhelpfulButton);
+            const reviewId = unhelpfulButton.getAttribute('data-reviewid');
+            const status = false;
+            if (unhelpfulButton.classList.contains('active')) {
+                submitInteraction(reviewId, status);
+            }
+        });
+    });
+
+    function updateCountText(button) {
+        const countElement = button.parentElement.querySelector('h5');
+        let count = parseInt(countElement.textContent);
+        if (button.classList.contains('active')) {
+            count++;
+        } else {
+            count--;
+        }
+        countElement.textContent = `${count} ${button.classList.contains('like-button') ? 'helpful' : 'unhelpful'}`;
+    }
+
+    async function submitInteraction(reviewId, status) {
         try {
-            const response = await fetch('/like-review', {
+            const response = await fetch('/submit-interaction', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ reviewId })
+                body: JSON.stringify({ reviewId, status })
             });
-            if (response.ok) {
-                // Update UI to reflect that the interaction was successful
-                const likeCountElement = button.parentElement.nextElementSibling.querySelector('h5');
-                const likeCount = parseInt(likeCountElement.textContent) + 1;
-                likeCountElement.textContent = `${likeCount} helpful`;
-            } else {
-                // Handle error
-                console.error('Error liking review:', response.statusText);
+            if (!response.ok) {
+                throw new Error('Failed to submit interaction');
             }
+            const data = await response.json();
+            console.log(data);
         } catch (error) {
-            console.error('Error liking review:', error);
+            console.error('Error submitting interaction:', error);
         }
-    });
+    }
 });
 
-document.querySelectorAll('.unlike-button').forEach(button => {
-    button.addEventListener('click', async () => {
-        const reviewId = button.closest('.un-review').dataset.reviewId;
-        try {
-            const response = await fetch('/dislike-review', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ reviewId })
-            });
-            if (response.ok) {
-                // Update UI to reflect that the interaction was successful
-                const dislikeCountElement = button.parentElement.nextElementSibling.querySelector('h5');
-                const dislikeCount = parseInt(dislikeCountElement.textContent) + 1;
-                dislikeCountElement.textContent = `${dislikeCount} unhelpful`;
-            } else {
-                // Handle error
-                console.error('Error disliking review:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error disliking review:', error);
-        }
-    });
-});
 
 /* from user_edit.js */
 
