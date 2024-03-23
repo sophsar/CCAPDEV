@@ -1,5 +1,7 @@
 MCO3
 
+NOTE: create new acc bc there's password hashing alr. if u use ur old acc from mco2, it wont work bc passwords saved before arent hashed
+
 DELETING REVIEWS (Nielle)
 1. tag as deleted (only hidden) or delete from the db?
 2. when a review that has a reply from the owner is deleted, the reply of the owner should also be deleted.
