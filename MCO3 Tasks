@@ -6,11 +6,11 @@ DELETING REVIEWS (Nielle)
 1. tag as deleted (only hidden) or delete from the db?
 2. when a review that has a reply from the owner is deleted, the reply of the owner should also be deleted.
 
-EDITING REVIEWS
+EDITING REVIEWS (Sophia)
 1. when editing, "Rating for [ restoName ] : #/5" is also edited, which should not happen. (FIX)
 2.
 
-EDITING USER PROFILE
+EDITING USER PROFILE (Sophia)
 1.
 
 PASSWORD HASHING (Nielle)
