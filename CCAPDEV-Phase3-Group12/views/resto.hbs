@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/common/css/resto.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    {{> header}}
+
+    <div class="main">
+        <h1 class="bite">restaurants</h1>
+        <h1 class="best">near you</h1>
+        <img src="images/burger.png">
+    </div>
+
+    <section class="second" id="restos-from-user">
+        <div class="search-and-filter">
+            <div class="search-box">
+                <button class="btn-search"><i class="fas fa-search"></i></button>
+                <input type="text" class="input-search" placeholder="Type to Search...">
+            </div>
+    
+            <div class="filters">
+                <button class="alphabetical">Alphabetical</button>
+                <button class="ratings">Overall Ratings</button>
+            </div>
+        </div>
+
+        <div id="restaurants" class="restaurants">
+            {{#each resto-list}}
+            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image={{pfpUrl}}" class="resto1"> <!-- fix {{hours}} -->      
+                <img src="{{pfpUrl}}">
+                <div class="name-and-rating">
+                    <h4>{{restoName}}</h4>
+
+                    <div class="rating">
+                        <!-- implement avg rating of resto here -->
+                    </div>
+                </div>
+
+                <p>{{description}}</p>
+
+                <div class="location">        
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>{{location}}</p>
+                </div>
+            </a>
+            {{/each}}
+        </div>
+    </section>
+
+    {{> footer}}
+</body>
+</html>

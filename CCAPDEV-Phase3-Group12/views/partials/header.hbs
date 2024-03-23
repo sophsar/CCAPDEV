@@ -1,0 +1,40 @@
+<header>
+    <a href="/"><p class="logo">BON <span>APPÉTaft</span></p></a>
+    <nav>
+        <ul>
+            <a href="/" class="{{#if isHome}}current{{/if}}"><li>Home</li></a>
+            {{#if isOwner}}
+                <a href="/owner" class="{{#if isResto}}current{{/if}}">
+                    <li>My Restaurant</li>
+                </a>
+            {{else}}
+                <a href="/resto" class="{{#if isResto}}current{{/if}}">
+                    <li>Restaurants</li>
+                </a>
+            {{/if}}
+
+            {{#if isUser}}
+                <a href="/user" class="{{#if isProfile}}current{{/if}}"><li>Profile</li></a>
+            {{/if}}
+        </ul>
+    </nav>
+    <div class="dropdown">
+        {{#if isUser}}
+            <form action="/logout" method="POST">
+                <button type="submit" class="dropbtn">Logout</button>
+            </form>
+        {{else}}
+            {{#if isOwner}}
+                <form action="/logout" method="POST">
+                    <button type="submit" class="dropbtn">Logout</button>
+                </form>
+            {{else}}
+                <button class="dropbtn">Sign Up / Login</button>
+                <div class="dropdown-content">
+                    <a href="/signup">Sign Up</a>
+                    <a href="/login">Login</a>
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>   
+</header>

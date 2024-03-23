@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/common/css/signup.css">
+</head>
+<body>
+<div class="grandmother">
+    <div class="motherclass">
+        <div class="rightportionwhole2">
+            <a class="logo-link" href="/"><p class="logo">BON <span>APPÉTaft</span></p></a>
+            <p class="text"><strong>Culinary exploration meets community.</strong></p>
+            
+            <div class="signup-parent">
+                <div class="loginforbonappetaft">
+                    <h3>Login to your account</h3>
+                </div>
+            </div>
+        
+            <form class="read-user" name="read-user" action="/login" method="post">
+                <div class="login">
+                    <div class="signupinfo">
+                        <div class="label-input-pair2">
+                            {{#if errorMessage}}
+                                <p style="color: red;">{{errorMessage}}</p>
+                            {{/if}}
+                        </div>
+
+                        <div class="label-input-pair">
+                            <input placeholder="Username or Email" type="text" id="username-email" name="username" required>
+                        </div>
+                        <div class="label-input-pair">
+                            <input placeholder="Password" type="password" id="password" name="password" required>
+                        </div>
+                        <div class="remember-details">
+                            <br><label for="remember">Remember details?</label>
+                            <input type="checkbox" id="remember" name="remember" value="remember">
+                        </div>
+                    </div>
+
+                    <div class="signup-button">
+                        <button type="submit">Login</button>     
+                    </div>
+                    <p id="login">Don't have an account? <a href="/signup">Signup</a></p>
+                </div>
+            </form>
+
+        </div>
+        
+        <div class="leftportionwhole">
+            <img id="burger" src="images\burger.png">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
