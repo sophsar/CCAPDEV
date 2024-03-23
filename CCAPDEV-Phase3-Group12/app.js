@@ -1,5 +1,5 @@
 // npm init
-// npm i install express express-handlebars body-parser mongoose passport passport-local connect-flash
+// npm i install express express-handlebars body-parser mongoose passport passport-local connect-flash bcrypt
 
 const express = require('express');
 const server = express();
