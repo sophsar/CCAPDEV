@@ -5,7 +5,8 @@ DELETING REVIEWS (Nielle)
 2. when a review that has a reply from the owner is deleted, the reply of the owner should also be deleted.
 
 EDITING REVIEWS
-1. 
+1. when editing, "Rating for [ restoName ] : #/5" is also edited, which should not happen. (FIX)
+2.
 
 PASSWORD HASHING
 1. 
