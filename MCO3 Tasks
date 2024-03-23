@@ -1,0 +1,23 @@
+MCO3
+
+DELETING REVIEWS (Nielle)
+1. tag as deleted (only hidden) or delete from the db?
+2. when a review that has a reply from the owner is deleted, the reply of the owner should also be deleted.
+
+EDITING REVIEWS
+1. 
+
+PASSWORD HASHING
+1. 
+
+FORM VALIDATIONS
+1. 
+
+HELPFUL / UNHELPFUL BUTTONS
+1. 
+
+STORING & RETRIEVING IMAGES
+1.
+
+DEPLOYMENT
+1.
