@@ -8,8 +8,9 @@ EDITING REVIEWS
 1. when editing, "Rating for [ restoName ] : #/5" is also edited, which should not happen. (FIX)
 2.
 
-PASSWORD HASHING
-1. 
+[ DONE ] PASSWORD HASHING (Nielle)
+1. when signing up, password saved in the db needs to be hashed
+2. when logging in, it should decode the hashed password
 
 FORM VALIDATIONS
 1. 
