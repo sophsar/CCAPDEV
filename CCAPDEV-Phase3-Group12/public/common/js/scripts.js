@@ -90,8 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-/* from scripts.js */
-
 /* editing a review (FIX: contents not updating on UI)*/
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -259,7 +257,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
 /* leaving a review */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -424,11 +421,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 unhelpfulButton.classList.remove('active');
                 updateCountText(unhelpfulButton);
             }
+
             helpfulButton.classList.toggle('active');
             updateCountText(helpfulButton);
             const reviewId = helpfulButton.getAttribute('data-reviewid');
             const status = true;
+
             if (helpfulButton.classList.contains('active')) {
+                submitInteraction(reviewId, status);
+            } else {
                 submitInteraction(reviewId, status);
             }
         });
@@ -438,11 +439,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 helpfulButton.classList.remove('active');
                 updateCountText(helpfulButton);
             }
+
             unhelpfulButton.classList.toggle('active');
             updateCountText(unhelpfulButton);
             const reviewId = unhelpfulButton.getAttribute('data-reviewid');
             const status = false;
+            
             if (unhelpfulButton.classList.contains('active')) {
+                submitInteraction(reviewId, status);
+            } else {
                 submitInteraction(reviewId, status);
             }
         });
@@ -473,14 +478,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             const data = await response.json();
             console.log(data);
+            if (!status && data.deleted) {
+                updateCountText(reviewId, false);
+            }
         } catch (error) {
             console.error('Error submitting interaction:', error);
         }
     }
+    
 });
-
-
-/* from user_edit.js */
 
 /* editing a profile */
 
@@ -562,45 +568,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const deleteModal = document.getElementById('deleteModal');
     const confirmDeleteBtn = document.getElementById('confirmDelete');
     const cancelDeleteBtn = document.getElementById('cancelDelete');
-    let reviewIdToDelete;
+    const reviewIdInput = document.getElementById('reviewId');
 
     trashIcons.forEach(trashIcon => {
         trashIcon.addEventListener('click', function() {
-            const unReviewDiv = this.closest('.un-review');
-            reviewIdToDelete = unReviewDiv.dataset.reviewId;
+            const reviewId = this.closest('.un-review').dataset.reviewId;
+            reviewIdInput.value = reviewId; 
             deleteModal.style.display = "block";
         });
     });
 
-    confirmDeleteBtn.addEventListener('click', async function() {
+    confirmDeleteBtn.addEventListener('click', function() {
         deleteModal.style.display = "none";
-        // Send a POST request to delete-review route to mark the review as deleted
-        try {
-            const response = await fetch('/delete-review', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ reviewId: reviewIdToDelete })
-            });
-            if (response.ok) {
-                console.log('Review marked as deleted');
-            } else {
-                console.error('Failed to mark review as deleted');
-            }
-        } catch (error) {
-            console.error('Error marking review as deleted:', error);
-        }
+        window.location.href = window.location.href;
     });
 
     cancelDeleteBtn.addEventListener('click', function() {
         deleteModal.style.display = "none";
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target === deleteModal) {
-            deleteModal.style.display = "none";
-        }
     });
 });
 
@@ -631,6 +615,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* review replies */
+
 document.addEventListener('DOMContentLoaded', function () {
     const reviewContainer = document.querySelector('.resto-reviews');
 
@@ -639,17 +624,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const replyButton = event.target.closest('.reply-button');
             if (replyButton) {
                 const reviewReply = replyButton.closest('.un-review');
-                const replyContainer = reviewReply.querySelector('.reply'); // Select the reply element
+                const replyContainer = reviewReply.querySelector('.reply'); 
 
-                // Show the reply container when reply button is clicked
                 replyContainer.style.display = 'block';
 
                 const publishButton = replyContainer.querySelector('.publish');
                 publishButton.addEventListener('click', function () {
-                    // Serialize the form data
                     var formData = $(this).closest('form#ownerReply').serialize();
 
-                    // Send a POST request to the server
                     $.post('/owner-reply', formData, function(data, status) {
                         if (status === 'success') {
                             console.log("Review successfully submitted!");

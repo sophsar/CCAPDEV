@@ -30,6 +30,14 @@ server.engine('hbs', handlebars.engine({
         },
         formatDate: function(date, format) {
             return moment(date).format(format);
+        },
+        getHelpfulCount: function(reviewId, interactions) {
+            const interaction = interactions.find(interaction => interaction._id === reviewId);
+            return interaction ? interaction.helpfulCount : 0;
+        },
+        getUnhelpfulCount: function(reviewId, interactions) {
+            const interaction = interactions.find(interaction => interaction._id === reviewId);
+            return interaction ? interaction.unhelpfulCount : 0;
         }
     },
     runtimeOptions: {
@@ -147,6 +155,15 @@ server.get('/reviews', async function(req, res) {
         const owners = await loginOwner.find({});
         const reviews = await review.find({});
         const replies = await reply.find({});
+        const interactions = await interaction.aggregate([
+            {
+                $group: {
+                    _id: "$reviewId",
+                    helpfulCount: { $sum: { $cond: [{ $eq: ["$status", true] }, 1, 0] } },
+                    unhelpfulCount: { $sum: { $cond: [{ $eq: ["$status", false] }, 1, 0] } }
+                }
+            }
+        ]);
 
         let data = {
             layout          : 'index', 
@@ -155,7 +172,7 @@ server.get('/reviews', async function(req, res) {
             query           : req.query,
             reviews         : reviews,
             replies         : replies,
-            isResto         : true
+            interactions    : interactions
         };
 
         if (req.user) {
@@ -175,6 +192,7 @@ server.get('/reviews', async function(req, res) {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 server.get('/login', function(req, res) {
     res.render('login', { 
@@ -289,20 +307,16 @@ server.post('/logout', (req, res) => {
 
 server.post('/delete-review', async (req, res) => {
     try {
-        // Retrieve the review ID from the request body
         const reviewIdToDelete = req.body.reviewId;
-        console.log(reviewIdToDelete);
 
-        // Update the review in the database to mark it as deleted
-        const deletedReview = await review.findByIdAndUpdate(reviewIdToDelete, { deletionStatus: true });
+        const deletedReview = await review.findByIdAndDelete(reviewIdToDelete);
 
         if (!deletedReview) {
             return res.status(404).send('Review not found');
         }
 
-        res.status(200).send('Review marked as deleted');
     } catch (error) {
-        console.error('Error marking review as deleted:', error);
+        console.error('Error deleting review:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -336,6 +350,18 @@ server.post('/submit-interaction', async (req, res) => {
         const { reviewId, status } = req.body;
         const username = req.user.username;
 
+        const existingInteraction = await interaction.findOne({ reviewId, username });
+
+        if (existingInteraction) {
+            if (existingInteraction.status === status) {
+                await interaction.findByIdAndDelete(existingInteraction._id);
+                return res.status(200).json({ deleted: true });
+            }
+            existingInteraction.status = status;
+            await existingInteraction.save();
+            return res.status(200).json({ updated: true });
+        }
+
         const newInteraction = new interaction({
             reviewId: reviewId,
             username: username,
@@ -344,7 +370,7 @@ server.post('/submit-interaction', async (req, res) => {
 
         await newInteraction.save();
 
-        res.status(200).send('Interaction saved successfully');
+        res.status(200).json({ saved: true });
     } catch (error) {
         console.error('Error saving interaction:', error);
         res.status(500).send('Internal Server Error');
@@ -501,40 +527,60 @@ function errorFn(err){
     console.error(err);
 }
 
-server.post('/create-owner', function(req, res){
-    const ownerInstance = loginOwner({
-        pfpUrl          : req.body.pfpUrl,
-        description     : req.body.description,
-        firstName       : req.body.firstName,
-        lastName        : req.body.lastName,
-        username        : req.body.username,
-        email           : req.body.email,
-        password        : req.body.password,
-        dob             : req.body.dob,
-        restoName       : req.body.restoName,
-        location        : req.body.location,
-        phoneNumber     : req.body.phoneNumber,
-        openingTime     : req.body.openingTime,
-        closingTime     : req.body.closingTime
-    })
+server.post('/create-owner', async function(req, res) {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash the password with a salt factor of 10
+        const ownerInstance = loginOwner({
+            pfpUrl          : req.body.pfpUrl,
+            description     : req.body.description,
+            firstName       : req.body.firstName,
+            lastName        : req.body.lastName,
+            username        : req.body.username,
+            email           : req.body.email,
+            password        : hashedPassword, // Save the hashed password
+            dob             : req.body.dob,
+            restoName       : req.body.restoName,
+            location        : req.body.location,
+            phoneNumber     : req.body.phoneNumber,
+            openingTime     : req.body.openingTime,
+            closingTime     : req.body.closingTime
+        });
 
-    ownerInstance.save().then(function(owners) {
-        console.log('Owner created');    
-    }).catch(errorFn);
+        await ownerInstance.save();
+        console.log('Owner created');
+        res.redirect('/login'); // Redirect to login page after successful signup
+    } catch (error) {
+        console.error('Error creating owner:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 passport.use('local', new LocalStrategy(async (username, password, done) => {
     try {
-        const user = await loginUser.findOne({ $or: [{ username: username }, { email: username }] });
-        if (!user) {
+        const [user, owner] = await Promise.all([
+            loginUser.findOne({ $or: [{ username: username }, { email: username }] }),
+            loginOwner.findOne({ $or: [{ username: username }, { email: username }] })
+        ]);
+
+        if (!user && !owner) {
             return done(null, false, { message: 'User does not exist.' });
         }
-        const passwordMatch = await bcrypt.compare(password, user.password);
-        if (passwordMatch) {
-            return done(null, user);
-        } else {
-            return done(null, false, { message: 'Incorrect password.' });
+
+        if (user) {
+            const passwordMatchUser = await bcrypt.compare(password, user.password);
+            if (passwordMatchUser) {
+                return done(null, user);
+            }
         }
+
+        if (owner) {
+            const passwordMatchOwner = await bcrypt.compare(password, owner.password);
+            if (passwordMatchOwner) {
+                return done(null, owner);
+            }
+        }
+
+        return done(null, false, { message: 'Incorrect password.' });
     } catch (err) {
         return done(err);
     }

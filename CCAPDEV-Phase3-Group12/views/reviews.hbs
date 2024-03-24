@@ -105,22 +105,22 @@
                             <div class="like___btn">
                                 <div class="wrapper1">
                                     <a href="javascript:void(0);" class="like-button" data-reviewid="{{_id}}" data-status="true">
-                                    <i class="fa-regular fa-thumbs-up"></i>
-                                    <i class="fa-solid fa-thumbs-up"></i>
-                                    <span class="like-overlay"></span>
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <span class="like-overlay"></span>
                                     </a>
-                                    <h5>0 helpful</h5>
+                                    <h5>{{getHelpfulCount _id ../interactions}} helpful</h5>
                                 </div>
                             </div>
 
                             <div class="unlike___btn">
                                 <div class="wrapper1">
                                     <a href="javascript:void(0);" class="unlike-button" data-reviewid="{{_id}}" data-status="false">
-                                    <i class="fa-regular fa-thumbs-down"></i>
-                                    <i class="fa-solid fa-thumbs-down"></i>
-                                    <span class="like-overlay"></span>
+                                        <i class="fa-regular fa-thumbs-down"></i>
+                                        <i class="fa-solid fa-thumbs-down"></i>
+                                        <span class="like-overlay"></span>
                                     </a>
-                                    <h5>0 unhelpful</h5>
+                                    <h5>{{getUnhelpfulCount _id ../interactions}} unhelpful</h5>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +158,6 @@
             </div>
             <input type="hidden" name="restaurantName" value="{{query.name}}">
         </form>
-
 
     </section>
 
