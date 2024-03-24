@@ -1,5 +1,30 @@
 MCO3
 
+--
+
+[ resto owners' credentials ]
+
+**The Barn:**
+JDoe
+123
+
+**Bok Chicken:**
+EmilyS
+StrongPassword99
+
+**Eat Fresh:**
+MichJoh21
+Passw0rd!
+
+**Topside:**
+SBrown88
+Brownie123
+
+**Bacsilog:**
+DavidRod922
+SecureDavidR123
+
+--
 DELETING REVIEWS (Nielle)
 1. delete from the db (DONE)
 
