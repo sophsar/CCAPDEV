@@ -1,7 +1,5 @@
 MCO3
 
-NOTE: create new acc bc there's password hashing alr. if u use ur old acc from mco2, it wont work bc passwords saved before arent hashed
-
 DELETING REVIEWS (Nielle)
 1. delete from the db (DONE)
 
