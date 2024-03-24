@@ -276,20 +276,34 @@ server.get('/owner', async function(req, res) {
     }
 });
 
-server.post('/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) { return next(err); }
-        if (!user) {
-            req.flash('error', info.message);
+server.post('/login', async (req, res, next) => {
+    passport.authenticate('local', async (err, user, info) => {
+        try {
+            if (err) { return next(err); }
+            if (!user) {
+                req.flash('error', info.message);
+                return res.redirect('/login');
+            }
+            req.logIn(user, async (err) => {
+                if (err) { return next(err); }
+
+                if (req.body.remember) {
+                    const { username, password } = req.body;
+                    res.cookie('remember_me', { username, password }, { maxAge: 1814400000 }); // 3 weeks
+                } else {
+                    res.clearCookie('remember_me');
+                }
+
+                if (user.status === 'owner') {
+                    req.owner = user;
+                }
+                return res.redirect('/');
+            });
+        } catch (error) {
+            console.error('Error during login:', error);
+            req.flash('error', 'An error occurred during login. Please try again.');
             return res.redirect('/login');
         }
-        req.logIn(user, async (err) => {
-            if (err) { return next(err); }
-            if (user.status === 'owner') {
-                req.owner = user;
-            }
-            return res.redirect('/');
-        });
     })(req, res, next);
 });
 
