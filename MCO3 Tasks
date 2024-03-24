@@ -4,7 +4,6 @@ NOTE: create new acc bc there's password hashing alr. if u use ur old acc from m
 
 DELETING REVIEWS (Nielle)
 1. delete from the db (DONE)
-2. when a review that has a reply from the owner is deleted, the reply of the owner should also be deleted.
 
 EDITING REVIEWS (Sophia)
 1. when editing, "Rating for [ restoName ] : #/5" is also edited, which should not happen. (FIX)
