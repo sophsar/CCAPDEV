@@ -1,0 +1,79 @@
+{{> header}}
+{{#if isUser}}
+    <h2 class="welcome">Welcome back, <span>{{user-info.username}}!</span></h2>
+{{/if}}
+
+{{#if isOwner}}
+    <h2 class="welcome">Welcome back, <span>{{user-info.restoName}}!</span></h2>
+{{/if}}
+<div class="landing">    
+    <br><br><br>
+    <h1 class="tagline">bite into the <span>best</span></h1>
+</div>
+<div class="landing-img">
+    <img src="uploads/{{ landingImg }}" class="picha">
+</div>
+
+{{#unless isOwner}}
+<div class="showcase">
+    <h1>Our Top Picks</h1>
+    <p>We've curated the best of the best just for you. 
+        Discover new flavors, revisit old favorites, 
+        <br>and let your taste buds guide you!</p>
+    <div class="bottom">
+        
+        {{#each resto-data}}
+            <a href="#">    
+                <div class="resto">
+                    <img src="uploads/{{restoImg}}">
+                </div>
+            </a>
+        {{/each}}
+
+        {{#each resto-data}}
+            <a href="#">    
+                <div class="resto">
+                    <img src="uploads/{{restoImg}}">
+                </div>
+            </a>
+        {{/each}}
+    </div>
+    <a href="/resto"><button>Discover restaurants nearby!</button></a>
+</div>
+{{/unless}}
+
+{{#if isOwner}}
+    <div class="about">
+        {{#each owner_what_is}}
+        <div class="about">
+            <h1>{{what-is-BON}}<br>{{appetaft}}</h1>
+            <p>{{content1}}<br><br>{{content2}}</p>
+            {{/each}}
+
+            <h2>how it works:</h2>
+            <ol>
+                {{#each owner_how_it_works}}
+                <li><b>{{info-name}}</b>{{info}}</li><br>
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+{{else}}
+    <div class="about">
+    {{#each what_is}}
+    <div class="about">
+        <h1>{{what-is-BON}}<br>{{appetaft}}</h1>
+        <p>{{content1}}<br><br>{{content2}}</p>
+        {{/each}}
+
+        <h2>how it works:</h2>
+        <ol>
+            {{#each how_it_works}}
+            <li><b>{{info-name}}</b>{{info}}</li><br>
+            {{/each}}
+        </ol>
+    </div>
+</div>
+{{/if}}
+
+{{> footer}}
