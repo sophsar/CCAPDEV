@@ -48,11 +48,10 @@ FORM VALIDATIONS
 2. should increment when toggled, decrement when untoggled (DONE)
 3. when TOGGLED, it stores the data in the db, status == true for helpful, status == false for unhelpful (DONE)
 4. when UNTOGGLED, it deletes the data from the db. (DONE)
-5. when user reloads page, toggled buttons should stay active & count should be displayed correctly (FIX)
+5. when user reloads page, toggled buttons should stay active & count should be displayed correctly (FIX) - fixed na
 6. aggregate counts of both helpful & unhelpful (DONE)
-7. 
 
-STORING & RETRIEVING IMAGES (Cheska ??)
+STORING & RETRIEVING IMAGES (Cheska ??) - done
 1. convert img pixels to bits
 2. should be stored in db
 3. should be retrievable from the db
