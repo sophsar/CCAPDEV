@@ -121,6 +121,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (newRating !== "") {
             reviewRating.innerHTML = `Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
         }
+        const reviewDateElement = document.querySelector('.un-review1 p:last-child');
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleString();
+
+        const editedMark = `<span style="color: red;">(edited)</span>`;
+        reviewDateElement.innerHTML = `<strong>Review edited on:</strong> ${formattedDate} ${editedMark}`;
     }
 
     allStar.forEach((item, idx) => {
