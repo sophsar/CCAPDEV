@@ -1,4 +1,4 @@
-const landingImg = '/images/picha.png';
+const landingImg = 'picha.png';
 
 const what_is = [
     {

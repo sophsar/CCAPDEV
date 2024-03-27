@@ -1,5 +1,5 @@
-// npm init
-// npm i install express express-handlebars body-parser mongoose passport passport-local connect-flash bcrypt
+// npm init -y
+// npm i install express express-handlebars body-parser mongoose passport passport-local connect-flash moment bcrypt
 
 const express = require('express');
 const server = express();
@@ -8,6 +8,21 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const moment = require('moment');
 const bcrypt = require('bcrypt');
+
+const formidable = require('formidable');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/'); // Set your desired destination directory
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname); // Use the original filename
+    }
+});
+
+const upload = multer({ storage: storage });
+
 
 const session = require('express-session');
 const passport = require('passport');
@@ -30,15 +45,15 @@ server.engine('hbs', handlebars.engine({
         },
         formatDate: function(date, format) {
             return moment(date).format(format);
-        },
-        getHelpfulCount: function(reviewId, interactions) {
-            const interaction = interactions.find(interaction => interaction._id === reviewId);
-            return interaction ? interaction.helpfulCount : 0;
-        },
-        getUnhelpfulCount: function(reviewId, interactions) {
-            const interaction = interactions.find(interaction => interaction._id === reviewId);
-            return interaction ? interaction.unhelpfulCount : 0;
         }
+        // getHelpfulCount: function(reviewId, interactions) {
+        //     const interaction = interactions.find(interaction => interaction._id === reviewId);
+        //     return interaction ? interaction.helpfulCount : 0;
+        // },
+        // getUnhelpfulCount: function(reviewId, interactions) {
+        //     const interaction = interactions.find(interaction => interaction._id === reviewId);
+        //     return interaction ? interaction.unhelpfulCount : 0;
+        // }
     },
     runtimeOptions: {
         allowProtoPropertiesByDefault: true
@@ -153,17 +168,40 @@ server.get('/resto', async function(req, res) {
 server.get('/reviews', async function(req, res) {
     try {
         const owners = await loginOwner.find({});
-        const reviews = await review.find({});
+        const reviews = await review.find({}).lean();
         const replies = await reply.find({});
-        const interactions = await interaction.aggregate([
-            {
-                $group: {
-                    _id: "$reviewId",
-                    helpfulCount: { $sum: { $cond: [{ $eq: ["$status", true] }, 1, 0] } },
-                    unhelpfulCount: { $sum: { $cond: [{ $eq: ["$status", false] }, 1, 0] } }
+        let userNow = "none";
+
+        if (req.user) {
+            userNow = req.user._id;
+        }
+
+        for (let review of reviews) {
+            let user = await loginUser.findById(review.userId);
+            let helpful = await interaction.find({ reviewId: review._id , status: true });
+            let unHelpful = await interaction.find({ reviewId: review._id , status: false });
+
+            if (user) {
+                review.userPfp = user.pfpUrl;
+                review.username = user.username; 
+            }
+
+            if (helpful) {
+                review.helpful = helpful.length;
+                let thisUserHelpful = helpful.some(interaction => interaction.userId.toString() === userNow.toString());
+                if (thisUserHelpful) {
+                    review.helpfulStatus = "active";
                 }
             }
-        ]);
+
+            if (unHelpful) {
+                review.unhelpful = unHelpful.length;
+                let thisUserUnhelpful = unHelpful.some(interaction => interaction.userId.toString() === userNow.toString());
+                if (thisUserUnhelpful) {
+                    review.unhelpfulStatus = "active";
+                }
+            }
+        }
 
         let data = {
             layout          : 'index', 
@@ -172,7 +210,7 @@ server.get('/reviews', async function(req, res) {
             query           : req.query,
             reviews         : reviews,
             replies         : replies,
-            interactions    : interactions
+            isResto         : true
         };
 
         if (req.user) {
@@ -193,7 +231,6 @@ server.get('/reviews', async function(req, res) {
     }
 });
 
-
 server.get('/login', function(req, res) {
     res.render('login', { 
         layout          : 'index', 
@@ -210,7 +247,7 @@ server.get('/signup', function(req, res) {
 
 server.get('/viewuser', async function(req, res) {
     try {
-        const loggedInUser = req.query;
+        const loggedInUser = await loginUser.findOne({username : req.query.username});
         const reviews = await review.find({});
         const replies = await reply.find({});
 
@@ -234,8 +271,16 @@ server.get('/viewuser', async function(req, res) {
 server.get('/user', async function(req, res) {
     try {
         const loggedInUser = req.user;
-        const reviews = await review.find({});
+        const reviews = await review.find({}).lean();
         const replies = await reply.find({});
+
+        for (let review of reviews) {
+            let user = await loginUser.findById(review.userId);
+            if (user) {
+                review.userPfp = user.pfpUrl; 
+                review.username = user.username;
+            }
+        }
 
         res.render('user', { 
             layout          : 'index', 
@@ -250,6 +295,32 @@ server.get('/user', async function(req, res) {
         });
     } catch (err) {
         console.error('Error fetching user data:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+server.post('/edit-profile', upload.single('pfpUrl'), async (req, res) => {
+    try {
+        const userId = req.body.userId;
+        const formData = req.body;
+
+        // If a new profile picture is uploaded, update the pfpUrl in formData
+        if (req.file) {
+            formData.pfpUrl = req.file.filename;
+        }
+
+        // Find the user in the database by ID and update their profile information
+        const updatedUser = await loginUser.findByIdAndUpdate(userId, formData, { new: true });
+
+        // If the user is not found, return an error response
+        if (!updatedUser) {
+            return res.status(404).send('User not found');
+        }
+
+        // Respond with a success message or updated user data
+        res.status(200).json({ message: 'Profile successfully updated', user: updatedUser });
+    } catch (error) {
+        console.error('Error updating profile:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -276,64 +347,6 @@ server.get('/owner', async function(req, res) {
     }
 });
 
-server.post('/login', async (req, res, next) => {
-    passport.authenticate('local', async (err, user, info) => {
-        try {
-            if (err) { return next(err); }
-            if (!user) {
-                req.flash('error', info.message);
-                return res.redirect('/login');
-            }
-            req.logIn(user, async (err) => {
-                if (err) { return next(err); }
-
-                if (req.body.remember) {
-                    const { username, password } = req.body;
-                    res.cookie('remember_me', { username, password }, { maxAge: 1814400000 }); // 3 weeks
-                } else {
-                    res.clearCookie('remember_me');
-                }
-
-                if (user.status === 'owner') {
-                    req.owner = user;
-                }
-                return res.redirect('/');
-            });
-        } catch (error) {
-            console.error('Error during login:', error);
-            req.flash('error', 'An error occurred during login. Please try again.');
-            return res.redirect('/login');
-        }
-    })(req, res, next);
-});
-
-server.post('/logout', (req, res) => {
-    req.logout((err) => {
-        if (err) {
-            console.error('Error logging out:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-        res.redirect('/');
-    });
-});
-
-/* delete a review */
-
-server.post('/delete-review', async (req, res) => {
-    try {
-        const reviewIdToDelete = req.body.reviewId;
-
-        const deletedReview = await review.findByIdAndDelete(reviewIdToDelete);
-
-        if (!deletedReview) {
-            return res.status(404).send('Review not found');
-        }
-
-    } catch (error) {
-        console.error('Error deleting review:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
 
 /* connect to database */
 
@@ -343,52 +356,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to database:'));
 db.once('open', () => {
     console.log('Successfully connected to database!');
-});
-
-// interaction schema
-
-const interactionSchema = new mongoose.Schema({
-    reviewId: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
-    username: { type: String },
-    status: { type: Boolean } // true for helpful, false for unhelpful
-});
-
-const interaction = mongoose.model('interactions', interactionSchema);
-
-server.post('/submit-interaction', async (req, res) => {
-    try {
-        if (!req.user) {
-            return res.status(401).send('Unauthorized');
-        }
-
-        const { reviewId, status } = req.body;
-        const username = req.user.username;
-
-        const existingInteraction = await interaction.findOne({ reviewId, username });
-
-        if (existingInteraction) {
-            if (existingInteraction.status === status) {
-                await interaction.findByIdAndDelete(existingInteraction._id);
-                return res.status(200).json({ deleted: true });
-            }
-            existingInteraction.status = status;
-            await existingInteraction.save();
-            return res.status(200).json({ updated: true });
-        }
-
-        const newInteraction = new interaction({
-            reviewId: reviewId,
-            username: username,
-            status: status
-        });
-
-        await newInteraction.save();
-
-        res.status(200).json({ saved: true });
-    } catch (error) {
-        console.error('Error saving interaction:', error);
-        res.status(500).send('Internal Server Error');
-    }
 });
 
 // owner replies schema
@@ -430,36 +397,50 @@ server.post('/owner-reply', async (req, res) => {
 // reviews schema
 
 const reviewSchema = new mongoose.Schema({
+    userId              : { type: String },
     userPfp             : { type: String },
     username            : { type: String },
     restoName           : { type: String },
     rating              : { type: Number },
     reviewText          : { type: String },
     reviewImg           : { type: String },
-    timestamp           : { type: Date, default: Date.now }
+    timestamp           : { type: Date, default: Date.now },
+    helpful             : { type: Number },
+    unhelpful           : { type: Number },
+    helpfulStatus       : { type: String },
+    unhelpfulStatus     : { type: String }
 });
 
 const review = mongoose.model('reviews', reviewSchema);
 
-server.post('/submit-review', async (req, res) => {
+server.post('/submit-review', upload.single('reviewImg'), async (req, res) => {
     try {
+        // Check if user is authenticated
         if (!req.user || !req.user.username) {
             return res.status(401).send('Unauthorized');
         }
 
+        let reviewImgFilename = req.file ? req.file.filename : '';
+
+        // Create a new review object with the uploaded image filename
         const newReview = new review({
-            userPfp             : req.user.pfpUrl,
-            username            : req.user.username,
-            restoName           : req.body.restaurantName,
-            rating              : req.body.rating1,
-            reviewText          : req.body.reviewText,
-            reviewImg           : req.body.reviewImg,
-            timestamp           : Date.now()
+            userId: req.user._id,
+            userPfp: req.user.pfpUrl,
+            username: req.user.username,
+            restoName: req.body.restaurantName,
+            rating: req.body.rating1,
+            reviewText: req.body.reviewText,
+            reviewImg: reviewImgFilename, // Use req.file.filename to get the uploaded image filename
+            helpful: req.body.helpful,
+            unhelpful: req.body.unhelpful,
+            timestamp: Date.now(),
+            helpfulStatus: req.body.helpfulStatus,
+            unhelpfulStatus: req.body.unhelpfulStatus
         });
 
-        await newReview.save();        
-
-   } catch (error) {
+        await newReview.save();
+        res.send('Review successfully submitted');
+    } catch (error) {
         console.error('Error saving review:', error);
         res.status(500).send('Internal Server Error');
     }
@@ -493,23 +474,24 @@ function errorFn(err){
     console.error(err);
 }
 
-server.post('/create-user', async function(req, res){
+server.post('/create-user', upload.single('pfpUrl'), async (req, res) => {
     try {
+        let pfpFilename = req.file ? req.file.filename : 'pfp.png';
         const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash the password with a salt factor of 10
+
         const userInstance = loginUser({
-            pfpUrl          : req.body.pfpUrl,
+            pfpUrl          : pfpFilename,
             description     : req.body.description,
             firstName       : req.body.firstName,
             lastName        : req.body.lastName,
             username        : req.body.username,
             email           : req.body.email,
-            password        : hashedPassword, // Save the hashed password
+            password        : hashedPassword,
             dob             : req.body.dob
         });
 
         await userInstance.save();
-        console.log('User created');
-        res.redirect('/login'); // Redirect to login page after successful signup
+        res.send('User created');
     } catch (error) {
         console.error('Error creating user:', error);
         res.status(500).send('Internal Server Error');
@@ -541,11 +523,13 @@ function errorFn(err){
     console.error(err);
 }
 
-server.post('/create-owner', async function(req, res) {
+server.post('/create-owner', upload.single('pfpUrl'), async (req, res) => {
     try {
+        let pfpFilename = req.file ? req.file.filename : 'pfp.png';
         const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash the password with a salt factor of 10
+
         const ownerInstance = loginOwner({
-            pfpUrl          : req.body.pfpUrl,
+            pfpUrl          : pfpFilename,
             description     : req.body.description,
             firstName       : req.body.firstName,
             lastName        : req.body.lastName,
@@ -561,8 +545,7 @@ server.post('/create-owner', async function(req, res) {
         });
 
         await ownerInstance.save();
-        console.log('Owner created');
-        res.redirect('/login'); // Redirect to login page after successful signup
+        res.send('Owner created');
     } catch (error) {
         console.error('Error creating owner:', error);
         res.status(500).send('Internal Server Error');
@@ -621,5 +604,111 @@ passport.deserializeUser((obj, done) => {
             .catch(err => {
                 done(err, null);
             });
+    }
+});
+
+server.post('/login', async (req, res, next) => {
+    passport.authenticate('local', async (err, user, info) => {
+        try {
+            if (err) { return next(err); }
+            if (!user) {
+                req.flash('error', info.message);
+                return res.redirect('/login');
+            }
+            req.logIn(user, async (err) => {
+                if (err) { return next(err); }
+
+                if (req.body.remember) {
+                    const { username, password } = req.body;
+                    res.cookie('remember_me', { username, password }, { maxAge: 1814400000 }); // 3 weeks
+                } else {
+                    res.clearCookie('remember_me');
+                }
+
+                if (user.status === 'owner') {
+                    req.owner = user;
+                }
+                return res.redirect('/');
+            });
+        } catch (error) {
+            console.error('Error during login:', error);
+            req.flash('error', 'An error occurred during login. Please try again.');
+            return res.redirect('/login');
+        }
+    })(req, res, next);
+});
+
+server.post('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error('Error logging out:', err);
+            return res.status(500).send('Internal Server Error');
+        }
+        res.redirect('/');
+    });
+});
+
+/* delete a review */
+server.post('/delete-review', async (req, res) => {
+    try {
+        const reviewIdToDelete = req.body.reviewId;
+
+        const deletedReview = await review.findByIdAndDelete(reviewIdToDelete);
+
+        if (!deletedReview) {
+            return res.status(404).send('Review not found');
+        }
+
+    } catch (error) {
+        console.error('Error deleting review:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// interaction schema
+const interactionSchema = new mongoose.Schema({
+    reviewId: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'loginUser' },
+    status: { type: Boolean } // true for helpful, false for unhelpful
+});
+
+const interaction = mongoose.model('interactions', interactionSchema);
+
+server.post('/submit-interaction', async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).send('Unauthorized');
+        }
+
+        const { reviewId, status } = req.body;
+        const userID = req.user._id;
+        console.log(userID);
+        console.log(status);
+
+        const existingInteraction = await interaction.findOne({ reviewId: reviewId, userId: userID });
+
+        if (existingInteraction) {
+            if (existingInteraction.status === status) {
+                await interaction.findByIdAndDelete(existingInteraction._id);
+                return res.status(200).json({ deleted: true });
+            } else {
+                existingInteraction.status = status;
+                await existingInteraction.save();
+                return res.status(200).json({ updated: true });
+            }
+        }
+
+        const newInteraction = new interaction({
+            reviewId: reviewId,
+            userId: userID,
+            status: status
+        });
+
+        await newInteraction.save();
+
+        res.status(200).json({ saved: true });
+    } catch (error) {
+        console.error('Error saving interaction:', error);
+        res.status(500).send('Internal Server Error');
     }
 });

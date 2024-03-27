@@ -13,7 +13,7 @@
     <div class="main">
         <h1 class="bite">restaurants</h1>
         <h1 class="best">near you</h1>
-        <img src="images/burger.png">
+        <img src="uploads/burger.png">
     </div>
 
     <section class="second" id="restos-from-user">
@@ -31,18 +31,13 @@
 
         <div id="restaurants" class="restaurants">
             {{#each resto-list}}
-            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image={{pfpUrl}}" class="resto1"> <!-- fix {{hours}} -->      
-                <img src="{{pfpUrl}}">
+            <a href="/reviews?name={{restoName}}&location={{location}}&phone=%2B{{phoneNumber}}&hours={{openingTime}} AM - {{closingTime}} PM&description={{description}}&image=uploads/{{pfpUrl}}" class="resto1"> <!-- fix {{hours}} -->      
+                <img src="uploads/{{pfpUrl}}">
                 <div class="name-and-rating">
                     <h4>{{restoName}}</h4>
 
                     <div class="rating">
-                        {{#each ../reviews}}
-                            {{#if (eq _id ../restoName)}}
-                                <i class="fa-solid fa-star"></i>
-                                <h3>{{averageRating}}</h3>
-                            {{/if}}
-                        {{/each}}
+                        <!-- implement avg rating of resto here -->
                     </div>
                 </div>
 

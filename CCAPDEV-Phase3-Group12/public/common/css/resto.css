@@ -183,19 +183,8 @@ header button {
 }
 
 .rating {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 13px;
-
-    fa-star {
-        margin-bottom: 5px;
-    }
-
-    h3 {
-        color: black;
-        margin-left: 5px;
-    }
+    width: 60%;
 }
 
 .name-and-rating {

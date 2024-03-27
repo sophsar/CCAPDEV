@@ -90,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+/* from scripts.js */
+
 /* editing a review (FIX: contents not updating on UI)*/
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -257,6 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
 /* leaving a review */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -336,21 +339,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (submitBtn && cancelBtn) {
         submitBtn.addEventListener('click', function(event) {
-            var formData = $('#reviewForm').serialize();
-
-            $.post('/submit-review', formData, function(data, status) {
-                if (status === 'success') {
+            // Create a new FormData object
+            var formData = new FormData($('#reviewForm')[0]);
+        
+            // Perform AJAX request with FormData object
+            $.ajax({
+                url: '/submit-review',
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from processing the data
+                contentType: false, // Prevent jQuery from setting contentType
+                success: function(data, status) {
+                    if (status === 'success') {
+                        hideModal();
+                        console.log("Review successfully submitted!");
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error('AJAX Error:', textStatus, errorThrown);
+                },
+                complete: function() {
                     hideModal();
-                    console.log("Review successfully submitted!");
+                    location.reload();
                 }
-            })
-            .fail(function(xhr, textStatus, errorThrown) {
-                console.error('AJAX Error:', textStatus, errorThrown);
             });
-
-            hideModal();
-            location.reload();
-        });
+        });        
 
        cancelBtn.addEventListener('click', function(event) {
             event.preventDefault();
@@ -419,11 +432,9 @@ document.addEventListener('DOMContentLoaded', function() {
         helpfulButton.addEventListener('click', function() {
             if (unhelpfulButton.classList.contains('active')) {
                 unhelpfulButton.classList.remove('active');
-                updateCountText(unhelpfulButton);
             }
 
             helpfulButton.classList.toggle('active');
-            updateCountText(helpfulButton);
             const reviewId = helpfulButton.getAttribute('data-reviewid');
             const status = true;
 
@@ -437,11 +448,9 @@ document.addEventListener('DOMContentLoaded', function() {
         unhelpfulButton.addEventListener('click', function() {
             if (helpfulButton.classList.contains('active')) {
                 helpfulButton.classList.remove('active');
-                updateCountText(helpfulButton);
             }
 
             unhelpfulButton.classList.toggle('active');
-            updateCountText(unhelpfulButton);
             const reviewId = unhelpfulButton.getAttribute('data-reviewid');
             const status = false;
             
@@ -452,17 +461,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    function updateCountText(button) {
-        const countElement = button.parentElement.querySelector('h5');
-        let count = parseInt(countElement.textContent);
-        if (button.classList.contains('active')) {
-            count++;
-        } else {
-            count--;
-        }
-        countElement.textContent = `${count} ${button.classList.contains('like-button') ? 'helpful' : 'unhelpful'}`;
-    }
 
     async function submitInteraction(reviewId, status) {
         try {
@@ -478,9 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             const data = await response.json();
             console.log(data);
-            if (!status && data.deleted) {
-                updateCountText(reviewId, false);
-            }
+            location.reload();
         } catch (error) {
             console.error('Error submitting interaction:', error);
         }
@@ -488,8 +484,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
-/* editing a profile */
 
+/* editing a profile */
 document.addEventListener('DOMContentLoaded', function() {
     const lol = document.querySelector('.editedpfp');
     const lol1 = document.querySelector('.desc');
@@ -514,35 +510,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.getElementById("cancel"); 
 
     submitBtn.addEventListener("click", () => {
-        const photoUpload = document.getElementById("profile-picture");
-        const editedPfp = document.getElementById("editedpfp");
-        const description = document.getElementById("description");
-        const desc = document.getElementById("desc");
-
-        if (photoUpload.src !== "images/pfp (1).png") {
-            editedPfp.src = photoUpload.src; 
-        }
-
-        if (description.value.trim() !== "") {
-            desc.textContent = description.value; 
-        }
-
-        // Reset input fields after submitting
-        photoUpload.value = "";  // Clear file input
-        description.value = "";  // Clear textarea
-
-        previewContainer.style.display = 'none'; 
+        var formData = new FormData($('#editProfile')[0]);
+        
+        // Perform AJAX request with FormData object
+        $.ajax({
+            url: '/edit-profile',
+            type: 'POST',
+            data: formData,
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Prevent jQuery from setting contentType
+            success: function(data, status) {
+                if (status === 'success') {
+                    previewContainer.style.display = 'none';
+                    console.log("Profile successfully edited!");
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+            },
+            complete: function() {
+                previewContainer.style.display = 'none';
+                location.reload();
+            }
+        });
     });
 
     // Move the cancel button event listener outside of the submit button event listener
     cancelBtn.addEventListener("click", () => {
-        const photoUpload = document.getElementById("profile-picture");
-        const description = document.getElementById("description");
-
-        // Reset input fields after cancelling
-        photoUpload.value = "";  // Clear file input
-        description.value = "";  // Clear textarea
-
         previewContainer.style.display = 'none';
     });    
 });
@@ -589,14 +583,43 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* pop-up after signing up */
-
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("myModal");
 
-    var btn = document.querySelector('.create-user button[type="submit"]');
+    var btn = document.getElementById('createUserBtn');
 
     btn.addEventListener('click', function(event) {
-        modal.style.display = "block";
+        console.log("Create button pressed");
+
+        var isOwner = document.getElementById('owner').checked;
+        
+        // Create a new FormData object
+        var formData = new FormData($('.create-user')[0]);
+
+        var url = isOwner ? '/create-owner' : '/create-user';
+
+        // Perform AJAX request with FormData object
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Prevent jQuery from setting contentType
+            success: function(data, status) {
+                if (status === 'success') {
+                    modal.style.display = "block";
+                    console.log("User successfully created!");
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+                console.error('Status:', xhr.status);
+                console.error('Response text:', xhr.responseText);
+            },
+            complete: function() {
+                modal.style.display = "block";
+            }
+        });
     });
 
     modal.addEventListener('click', function(event) {
@@ -615,7 +638,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* review replies */
-
 document.addEventListener('DOMContentLoaded', function () {
     const reviewContainer = document.querySelector('.resto-reviews');
 
@@ -624,14 +646,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const replyButton = event.target.closest('.reply-button');
             if (replyButton) {
                 const reviewReply = replyButton.closest('.un-review');
-                const replyContainer = reviewReply.querySelector('.reply'); 
+                const replyContainer = reviewReply.querySelector('.reply'); // Select the reply element
 
+                // Show the reply container when reply button is clicked
                 replyContainer.style.display = 'block';
 
                 const publishButton = replyContainer.querySelector('.publish');
                 publishButton.addEventListener('click', function () {
+                    // Serialize the form data
                     var formData = $(this).closest('form#ownerReply').serialize();
 
+                    // Send a POST request to the server
                     $.post('/owner-reply', formData, function(data, status) {
                         if (status === 'success') {
                             console.log("Review successfully submitted!");

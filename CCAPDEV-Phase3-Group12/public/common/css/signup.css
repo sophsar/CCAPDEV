@@ -45,9 +45,10 @@ body {
 
 .rightportionwhole, .rightportionwhole2 {
     width: 65%;
-    height:650px;
+    height: auto;
     border-radius: 40px;
     background-color: aliceblue;
+    padding-bottom: 30px;
 }
 
 .rightportionwhole2{

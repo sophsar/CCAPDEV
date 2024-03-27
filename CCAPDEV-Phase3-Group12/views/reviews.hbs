@@ -73,7 +73,7 @@
                             <a href="/viewuser?username={{username}}">
                                 <div class="un-rating">
                                     <div class="user">
-                                        <img src="{{userPfp}}">
+                                        <img src="uploads/{{userPfp}}">
                                         <h4>{{username}}</h4>
                                     </div>
                                 </div>
@@ -84,14 +84,16 @@
                             <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
                             <p class="rev-content">{{reviewText}}</p>
                             <p><b>Review sent on: </b>{{formatDate timestamp 'MM-DD-YYYY hh:mm A'}}</p>
-                            <img src="{{reviewImg}}">
+                            {{#if reviewImg}}
+                            <img src="uploads/{{reviewImg}}">
+                            {{/if}}
                         </div>
         
                         {{#each ../replies}}
                             {{#if (eq (toString this.reviewID) (toString ../_id))}}
                                 <div class="show-reply">
                                     <div class="user">
-                                        <img src="{{userPfp}}">
+                                        <img src="uploads/{{userPfp}}">
                                         <h4>{{restoName}}</h4>
                                     </div>
                                     <div class="bottom">
@@ -104,23 +106,23 @@
                         <div class="buttons">
                             <div class="like___btn">
                                 <div class="wrapper1">
-                                    <a href="javascript:void(0);" class="like-button" data-reviewid="{{_id}}" data-status="true">
+                                    <a href="javascript:void(0);" class="like-button {{helpfulStatus}}" data-reviewid="{{_id}}" data-status="true">
                                         <i class="fa-regular fa-thumbs-up"></i>
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <span class="like-overlay"></span>
                                     </a>
-                                    <h5>{{getHelpfulCount _id ../interactions}} helpful</h5>
+                                    <h5>{{helpful}} helpful</h5>
                                 </div>
                             </div>
 
                             <div class="unlike___btn">
                                 <div class="wrapper1">
-                                    <a href="javascript:void(0);" class="unlike-button" data-reviewid="{{_id}}" data-status="false">
+                                    <a href="javascript:void(0);" class="unlike-button {{unhelpfulStatus}}" data-reviewid="{{_id}}" data-status="false">
                                         <i class="fa-regular fa-thumbs-down"></i>
                                         <i class="fa-solid fa-thumbs-down"></i>
                                         <span class="like-overlay"></span>
                                     </a>
-                                    <h5>{{getUnhelpfulCount _id ../interactions}} unhelpful</h5>
+                                    <h5>{{unhelpful}} unhelpful</h5>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +151,7 @@
                         <span id="rating2">0</span> / 5
                     </div>
                     <textarea id="reviewText" name="reviewText" cols="30" rows="5" placeholder="Write Review..."></textarea>
-                    <input type="file" id="reviewImg" name="reviewImg" accept="image/*">
+                    <input type="file" name="reviewImg" id="reviewImg" name="reviewImg" accept="image/*">
                     <div class="btn-group">
                         <button type="button" class="btn submit" id="submit-a-rev">Submit</button>
                         <button class="btn cancel">Cancel</button>
@@ -157,7 +159,12 @@
                 </div>
             </div>
             <input type="hidden" name="restaurantName" value="{{query.name}}">
+            <input type="hidden" name="helpful" value="0">
+            <input type="hidden" name="unhelpful" value="0">
+            <input type="hidden" name="helpfulStatus" value="null">
+            <input type="hidden" name="unhelpfulStatus" value="null">
         </form>
+
 
     </section>
 

@@ -15,7 +15,7 @@
         <div class="resto-page">
             <div class="resto-info">
                 <div class="resto-name-n-logo">
-                    <img src="{{owner-info.pfpUrl}}">
+                    <img src="uploads/{{owner-info.pfpUrl}}">
                     <h1>{{owner-info.restoName}}</h1>
                 </div>
                 <div class="location">        
@@ -54,14 +54,16 @@
                                     <p><strong>Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
                                     <p class="rev-content">{{reviewText}}</p>
                                     <p><b>Review sent on: </b>{{timestamp}}</p>
-                                    <img src="{{reviewImg}}">
+                                    {{#if reviewImg}}
+                                    <img src="uploads/{{reviewImg}}">
+                                    {{/if}}
                                 </div>
 
                                 {{#each ../replies}}
                                     {{#if (eq (toString this.reviewID) (toString ../_id))}}
                                         <div class="show-reply">
                                                 <div class="user">
-                                                    <img src="{{userPfp}}">
+                                                    <img src="uploads/{{userPfp}}">
                                                     <h4>{{restoName}}</h4>
                                                 </div>
                                                 <div class="bottom">
@@ -80,7 +82,7 @@
                                     <input type="hidden" id="reviewId" name="reviewId" value="{{_id}}">
                                     <div class="reply">
                                         <div class="user">
-                                            <img src="images/pfp.png">
+                                            <img src="uploads/{{owner-info.pfpUrl}}">
                                             <h4>Owner</h4>
                                         </div>
                                         <div class="bottom">
