@@ -90,9 +90,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+/* overall ratings */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownLinks = document.querySelectorAll('.content-rating a');
+
+    dropdownLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const minRating = parseFloat(this.getAttribute('data-min-rating'));
+            filterRestaurants(minRating);
+        });
+    });
+
+    function filterRestaurants(minRating) {
+        const restaurants = document.querySelectorAll('.resto1');
+        restaurants.forEach(restaurant => {
+            const rating = parseFloat(restaurant.querySelector('.rating h3').textContent);
+            if (rating >= minRating && rating < (minRating + 1)) {
+                restaurant.style.display = 'block';
+            } else {
+                restaurant.style.display = 'none';
+            }
+        });
+    }
+});
+
 /* from scripts.js */
 
-/* editing a review (FIX: contents not updating on UI)*/
+/* editing a review */
 
 document.addEventListener('DOMContentLoaded', function() {
     const previewContainer = document.querySelector('.review-edit-preview');
@@ -492,6 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* editing a profile */
+
 document.addEventListener('DOMContentLoaded', function() {
     const lol = document.querySelector('.editedpfp');
     const lol1 = document.querySelector('.desc');
