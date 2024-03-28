@@ -46,14 +46,6 @@ server.engine('hbs', handlebars.engine({
         formatDate: function(date, format) {
             return moment(date).format(format);
         }
-        // getHelpfulCount: function(reviewId, interactions) {
-        //     const interaction = interactions.find(interaction => interaction._id === reviewId);
-        //     return interaction ? interaction.helpfulCount : 0;
-        // },
-        // getUnhelpfulCount: function(reviewId, interactions) {
-        //     const interaction = interactions.find(interaction => interaction._id === reviewId);
-        //     return interaction ? interaction.unhelpfulCount : 0;
-        // }
     },
     runtimeOptions: {
         allowProtoPropertiesByDefault: true
