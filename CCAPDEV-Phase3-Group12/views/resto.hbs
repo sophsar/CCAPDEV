@@ -25,7 +25,16 @@
     
             <div class="filters">
                 <button class="alphabetical">Alphabetical</button>
-                <button class="ratings">Overall Ratings</button>
+                <div class="dropdown">
+                    <button class="ratings">Overall Ratings <i class="fas fa-caret-down"></i></button>
+                    <div class="content-rating">
+                        <a href="#" data-min-rating="5">5 stars</a>
+                        <a href="#" data-min-rating="4">4 stars</a>
+                        <a href="#" data-min-rating="3">3 stars</a>
+                        <a href="#" data-min-rating="2">2 stars</a>
+                        <a href="#" data-min-rating="1">1 star</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -37,7 +46,7 @@
                     <h4>{{restoName}}</h4>
 
                     <div class="rating">
-                       {{#each ../reviews}}
+                        {{#each ../reviews}}
                             {{#if (eq _id ../restoName)}}
                                 <i class="fa-solid fa-star"></i>
                                 <h3>{{averageRating}}</h3>
