@@ -146,7 +146,11 @@
                                     <div class="un-review1">
                                         <p><strong>Rating for {{restoName}}: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> {{rating}}/5</strong></p>
                                         <p class="rev-content">{{reviewText}}</p>
-                                        <p><b>Review sent on: </b>{{formatDate timestamp 'MM-DD-YYYY hh:mm A'}}{{#if isEdited}} (edited){{/if}}</p>
+                                        <p>
+                                            <b>Review {{#if isEdited}}edited{{else}}sent{{/if}} on: </b>
+                                            {{formatDate timestamp 'MM-DD-YYYY hh:mm A'}}
+                                            {{#if isEdited}} (edited){{/if}}
+                                        </p>
                                         {{#if reviewImg}}
                                         <img src="uploads/{{reviewImg}}">
                                         {{/if}}
