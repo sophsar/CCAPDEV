@@ -54,7 +54,7 @@
                                 <div class="label-input-pair">
                                     <label>Name</label>
                                     <div class="name">
-                                        <input value="{{user-info.firstName}}" placeholder="First Name "type="text" id="firstName" name="firstName" pattern="[A-Za-z ]+">
+                                        <input value="{{user-info.firtName}}" placeholder="First Name "type="text" id="firstName" name="firstName" pattern="[A-Za-z ]+">
                                         <input value="{{user-info.lastName}}" placeholder="Last Name" type="text" id="lastName" name="lastName" pattern="[A-Za-z ]+">
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                     {{#unless isView}}
                         {{#each reviews}}
                             {{#if (eq username ../user-info.username)}}
-                                <div class="un-review" data-review-id="{{_id}}">
+                                <div class="un-review" data-review-id="{{_id}}" data-resto-name="{{restoName}}" data-date="{{formatDate timestamp 'MM-DD-YYYY hh:mm A'}}">
                                     <div class="top-part">
                                         <div class="un-rating">
                                             <div class="user">
@@ -137,9 +137,8 @@
 
                                                 <div class="edit-n-delete">
                                                     <i class="fa-solid fa-trash-can trash-icon"></i> 
-                                                    <i class="fa-solid fa-ellipsis edit-review-button"></i>
-                                                </div>
-
+                                                    <i class="fa-solid fa-ellipsis edit-review-button" data-review-text="{{reviewText}}"></i>                                                
+                                                </div>                            
                                             </div>
                                         </div>
                                     </div>
@@ -213,10 +212,16 @@
 
         <!-- EDIT REVIEW BOX -->
 
+
+
         <div class="review-edit-preview">
             <div class="edit-wrapper" data-target="p-1">
-                <h3 style="color: #12372A;">Edit your review</h3>        
 
+                <form id="editReview" name="editProfile">
+                <h3 style="color: #12372A;">Edit your review</h3>
+                <input type="hidden" id="reviewId" name="reviewId" value="{{_id}}">
+                <input type="hidden" id="restoName" name="restoName" value="{{restoname}}">
+                <input type="hidden" id="reviewDate" name="reviewDate" value="{{formatDate timestamp 'MM-DD-YYYY hh:mm A'}}">
                     <div class="rating3" id="rating3">
                         <input type="number" name="rating3" hidden>
                         <i class='bx bx-star star' data-value="1"></i>
@@ -228,13 +233,14 @@
                     <div class="rating4">
                         <span id="rating4">0</span> / 5
                     </div>
-                
-                <textarea id="edit-review-text" name="opinion" cols="30" rows="5" placeholder="Edit your review..."></textarea>
+
+                <textarea id="edit-review-text" name="reviewText" cols="30" rows="5"></textarea>
                 
                 <div class="btn-group">
                     <button type="button" class="btn submit" id="editReviewSubmit">Confirm</button>
                     <button class="btn cancel-edit" id="editCancel">Cancel</button>
                 </div>
+                </form>
             </div>
         </div>
 
@@ -244,7 +250,7 @@
             <input type="hidden" id="reviewId" name="reviewId" value="{{_id}}">
             <div id="deleteModal" class="modal">
                 <div class="modal-content">
-                    <h3>Confirm Deletion</h3>
+                    <h3>Confirm Deletion!  {{_id}}</h3>
                     <p>Are you sure you want to delete this review?</p>
                     <div class="modal-buttons">
                         <button id="confirmDelete">Confirm Delete</button>
