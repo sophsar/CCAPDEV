@@ -129,30 +129,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const rating2 = document.getElementById('rating4');
 
     // Function to update the review content and rating
-    function updateReviewContent() {
-        // Get the updated review text
+    function updateReviewContent(reviewId, restoName) {
         const newReviewText = reviewText.value.trim();
-        
-        // Get the updated rating
         const newRating = rating2.textContent.trim();
 
-        // Update the review content and rating
-        const reviewContent = document.querySelector('.rev-content');
-        const reviewRating = document.querySelector('.un-review1 strong');
-
-        if (newReviewText !== "") {
-            reviewContent.textContent = newReviewText;
-        }
-
-        if (newRating !== "") {
-            reviewRating.innerHTML = `Rating: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
-        }
-        const reviewDateElement = document.querySelector('.un-review1 p:last-child');
         const currentDate = new Date();
-        const formattedDate = currentDate.toLocaleString();
+        const formattedDate = currentDate.toISOString();
 
-        const editedMark = `<span style="color: red;">(edited)</span>`;
-        reviewDateElement.innerHTML = `<strong>Review edited on:</strong> ${formattedDate} ${editedMark}`;
+        // Create formData object to send in AJAX request
+        const formData = {
+            reviewId: reviewId,
+            reviewText: newReviewText,
+            rating: newRating,
+            timestamp: formattedDate
+        };
+
+        // Send AJAX request to update the review
+        fetch('/edit-review', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update review');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update the review content and rating in the UI
+            const reviewContent = document.querySelector(`.un-review[data-review-id="${reviewId}"] .rev-content`);
+            const reviewRating = document.querySelector(`.un-review[data-review-id="${reviewId}"] .un-review1 strong`);
+            const reviewTime = document.querySelector(`.un-review[data-review-id="${reviewId}"] .un-review1 p:last-child`);
+
+            if (newReviewText !== "") {
+                reviewContent.textContent = newReviewText;
+            }
+
+            if (newRating !== "") {
+                reviewRating.innerHTML = `Rating for ${restoName}: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
+                reviewTime.innerHTML = `<b>Review edited on:</b> ${moment(formattedDate).format('MM-DD-YYYY hh:mm A')}`;
+            }
+        })
+        .catch(error => {
+            console.error('Error updating review:', error);
+        });
     }
 
     allStar.forEach((item, idx) => {
@@ -171,15 +194,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.querySelectorAll('.edit-review-button').forEach(review => {
-        review.onclick = () => {
-            previewContainer.style.display = 'flex'; 
-            const name = review.getAttribute('data-name');
+    document.querySelectorAll('.edit-review-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewId = button.closest('.un-review').dataset.reviewId;
+            const restoName = button.closest('.un-review').dataset.restoName;
+            const reviewContainer = button.closest('.un-review');
+            const ratingElement = reviewContainer.querySelector('.un-review1 strong');
+            const currentRating = parseInt(ratingElement.textContent.match(/\d+/)[0]);
+            ratingValue.value = currentRating;
+            rating2.textContent = currentRating;
 
-            if (previewBox.getAttribute('data-target') === name) {
-                previewBox.classList.add('active'); 
-            }
-        };
+            const reviewContentElement = reviewContainer.querySelector('.rev-content');
+            reviewText.value = reviewContentElement.textContent.trim();
+
+            previewContainer.style.display = 'flex';
+            previewBox.classList.add('active');
+
+            // Update stars to match current rating
+            allStar.forEach((star, idx) => {
+                if (idx < currentRating) {
+                    star.classList.add('active');
+                    star.classList.add('bxs-star');
+                    star.classList.remove('bx-star');
+                } else {
+                    star.classList.remove('active');
+                    star.classList.add('bx-star');
+                    star.classList.remove('bxs-star');
+                }
+            });
+
+            // Store the current review ID and restaurant name in the submit button's dataset
+            const submitBtn = document.getElementById('editReviewSubmit');
+            submitBtn.dataset.reviewId = reviewId;
+            submitBtn.dataset.restoName = restoName;
+        });
     });
 
     const stars = document.querySelectorAll(".rating3 .star");
@@ -205,63 +253,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Review editing functionality
-    const editButtons = document.querySelectorAll('.edit-review-button');
-    const editReviewSubmit = document.getElementById('editReviewSubmit');
-    const editCancel = document.getElementById('editCancel');
-
-    editButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const reviewContainer = button.closest('.un-review');
-            const ratingElement = reviewContainer.querySelector('.un-review1 strong');
-            const currentRating = parseInt(ratingElement.textContent.match(/\d+/)[0]);
-            ratingValue.value = currentRating;
-            rating2.textContent = currentRating;
-
-            const reviewContentElement = reviewContainer.querySelector('.rev-content');
-            reviewText.value = reviewContentElement.textContent.trim();
-
-            previewContainer.style.display = 'flex';
-            previewBox.classList.add('active');
-
-            // Update stars to match current rating
-            stars.forEach((star, idx) => {
-                if (idx < currentRating) {
-                    star.classList.add('active');
-                    star.classList.add('bxs-star');
-                    star.classList.remove('bx-star');
-                } else {
-                    star.classList.remove('active');
-                    star.classList.add('bx-star');
-                    star.classList.remove('bxs-star');
-                }
-            });
-        });
-    });
-
-    editCancel.addEventListener('click', function() {
-        previewContainer.style.display = 'none';
-        previewBox.classList.remove('active');
-    });
-
-    editReviewSubmit.addEventListener('click', function() {
-        // Update the review content and rating
-        updateReviewContent();
-        
-        // Close the modal
-        previewContainer.style.display = 'none';
-        previewBox.classList.remove('active');
-    });
-});
-
-/* submit & cancel buttons for editing a review */
-
-document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.getElementById('editReviewSubmit');
     const cancelBtn = document.getElementById('editCancel');
 
     if (submitBtn && cancelBtn) {
         submitBtn.addEventListener('click', function(event) {
+            const reviewId = this.dataset.reviewId; // Retrieve the review ID from the submit button's dataset
+            const restoName = this.dataset.restoName; // Retrieve the restaurant name from the submit button's dataset
+            updateReviewContent(reviewId, restoName);
             hideModal();
         });
         cancelBtn.addEventListener('click', function(event) {
@@ -290,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
 
 /* leaving a review */
 
