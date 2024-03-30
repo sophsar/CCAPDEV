@@ -141,7 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
             reviewId: reviewId,
             reviewText: newReviewText,
             rating: newRating,
-            timestamp: formattedDate
+            timestamp: formattedDate,
+            isEdited: true
         };
 
         // Send AJAX request to update the review
