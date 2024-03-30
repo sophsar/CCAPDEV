@@ -400,7 +400,9 @@ const reviewSchema = new mongoose.Schema({
     helpful             : { type: Number },
     unhelpful           : { type: Number },
     helpfulStatus       : { type: String },
-    unhelpfulStatus     : { type: String }
+    unhelpfulStatus     : { type: String },
+    isEdited            : { type: Boolean, default: false },
+
 });
 
 const review = mongoose.model('reviews', reviewSchema);
