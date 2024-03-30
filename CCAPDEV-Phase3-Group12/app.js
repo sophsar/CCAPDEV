@@ -657,6 +657,28 @@ server.post('/delete-review', async (req, res) => {
     }
 });
 
+/* edit a review */
+server.post('/edit-review', async (req, res) => {
+    try {
+        const reviewIdToEdit = req.body.reviewId;
+        const formData = req.body;
+
+        // Update the review by its ID
+        const updatedReview = await review.findByIdAndUpdate(reviewIdToEdit, formData, { new: true });
+
+        // If the review is not found, return an error response
+        if (!updatedReview) {
+            return res.status(404).json({ error: 'Review not found' });
+        }
+
+        // Respond with a success message and the updated review data
+        res.status(200).json({ message: 'Review successfully updated', review: updatedReview });
+    } catch (error) {
+        console.error('Error updating review:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // interaction schema
 const interactionSchema = new mongoose.Schema({
     reviewId: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
