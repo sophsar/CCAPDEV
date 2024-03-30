@@ -136,6 +136,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentDate = new Date();
         const formattedDate = currentDate.toISOString();
 
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const year = currentDate.getFullYear();
+        let hours = currentDate.getHours();
+        hours = (hours % 12 || 12); // Convert 0 to 12 for 12-hour format
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ?  'AM' : 'PM';
+        const formattedDate2 = `${month}-${day}-${year} ${hours}:${minutes} ${ampm}`;
+
         // Create formData object to send in AJAX request
         const formData = {
             reviewId: reviewId,
@@ -171,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (newRating !== "") {
                 reviewRating.innerHTML = `Rating for ${restoName}: <i class="fa-solid fa-star" style="color: #FFBD13;"></i> ${newRating}/5`;
-                reviewTime.innerHTML = `<b>Review edited on:</b> ${moment(formattedDate).format('MM-DD-YYYY hh:mm A')}`;
+                reviewTime.innerHTML = `<b>Review edited on:</b> ${formattedDate2} (edited)  `;
             }
         })
         .catch(error => {
