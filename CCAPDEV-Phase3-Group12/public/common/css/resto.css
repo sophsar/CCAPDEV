@@ -136,7 +136,11 @@ header button {
 
 .restaurants {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+
+    a {
+        margin: 0 5px;
+    }
 }
 
 .resto1, .resto2, .resto3, .resto4, .resto5  {

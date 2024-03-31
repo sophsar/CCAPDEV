@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
     dropdownLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const minRating = parseFloat(this.getAttribute('data-min-rating'));
+            const minRating = this.getAttribute('data-min-rating');
             filterRestaurants(minRating);
         });
     });
@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterRestaurants(minRating) {
         const restaurants = document.querySelectorAll('.resto1');
         restaurants.forEach(restaurant => {
-            const rating = parseFloat(restaurant.querySelector('.rating h3').textContent);
-            if (rating >= minRating && rating < (minRating + 1)) {
+            const ratingElement = restaurant.querySelector('.rating h3');
+            if (minRating === 'all' || parseFloat(ratingElement.textContent) >= parseFloat(minRating)) {
                 restaurant.style.display = 'block';
             } else {
                 restaurant.style.display = 'none';
@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
 /* from scripts.js */
 
@@ -128,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const allStar = document.querySelectorAll('.rating3 .star');
     const rating2 = document.getElementById('rating4');
 
-    // Function to update the review content and rating
     function updateReviewContent(reviewId, restoName) {
         const newReviewText = reviewText.value.trim();
         const newRating = rating2.textContent.trim();
@@ -140,12 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const year = currentDate.getFullYear();
         let hours = currentDate.getHours();
-        hours = (hours % 12 || 12); // Convert 0 to 12 for 12-hour format
+        hours = (hours % 12 || 12); 
         const minutes = String(currentDate.getMinutes()).padStart(2, '0');
         const ampm = hours >= 12 ?  'PM' : 'AM';
         const formattedDate2 = `${month}-${day}-${year} ${hours}:${minutes} ${ampm}`;
 
-        // Create formData object to send in AJAX request
         const formData = {
             reviewId: reviewId,
             reviewText: newReviewText,
@@ -154,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isEdited: true
         };
 
-        // Send AJAX request to update the review
         fetch('/edit-review', {
             method: 'POST',
             headers: {
@@ -169,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            // Update the review content and rating in the UI
             const reviewContent = document.querySelector(`.un-review[data-review-id="${reviewId}"] .rev-content`);
             const reviewRating = document.querySelector(`.un-review[data-review-id="${reviewId}"] .un-review1 strong`);
             const reviewTime = document.querySelector(`.un-review[data-review-id="${reviewId}"] .un-review1 p:last-child`);
@@ -220,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
             previewContainer.style.display = 'flex';
             previewBox.classList.add('active');
 
-            // Update stars to match current rating
             allStar.forEach((star, idx) => {
                 if (idx < currentRating) {
                     star.classList.add('active');
@@ -233,7 +229,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Store the current review ID and restaurant name in the submit button's dataset
             const submitBtn = document.getElementById('editReviewSubmit');
             submitBtn.dataset.reviewId = reviewId;
             submitBtn.dataset.restoName = restoName;
@@ -258,7 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Update the rating value input
             ratingValue.value = value;
         });
     });
@@ -268,8 +262,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (submitBtn && cancelBtn) {
         submitBtn.addEventListener('click', function(event) {
-            const reviewId = this.dataset.reviewId; // Retrieve the review ID from the submit button's dataset
-            const restoName = this.dataset.restoName; // Retrieve the restaurant name from the submit button's dataset
+            const reviewId = this.dataset.reviewId; 
+            const restoName = this.dataset.restoName; 
             updateReviewContent(reviewId, restoName);
             hideModal();
         });
@@ -379,16 +373,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (submitBtn && cancelBtn) {
         submitBtn.addEventListener('click', function(event) {
-            // Create a new FormData object
             var formData = new FormData($('#reviewForm')[0]);
         
-            // Perform AJAX request with FormData object
             $.ajax({
                 url: '/submit-review',
                 type: 'POST',
                 data: formData,
-                processData: false, // Prevent jQuery from processing the data
-                contentType: false, // Prevent jQuery from setting contentType
+                processData: false, 
+                contentType: false, 
                 success: function(data, status) {
                     if (status === 'success') {
                         hideModal();
@@ -553,13 +545,12 @@ document.addEventListener('DOMContentLoaded', function() {
     submitBtn.addEventListener("click", () => {
         var formData = new FormData($('#editProfile')[0]);
         
-        // Perform AJAX request with FormData object
         $.ajax({
             url: '/edit-profile',
             type: 'POST',
             data: formData,
-            processData: false, // Prevent jQuery from processing the data
-            contentType: false, // Prevent jQuery from setting contentType
+            processData: false, 
+            contentType: false, 
             success: function(data, status) {
                 if (status === 'success') {
                     previewContainer.style.display = 'none';
@@ -576,7 +567,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Move the cancel button event listener outside of the submit button event listener
     cancelBtn.addEventListener("click", () => {
         previewContainer.style.display = 'none';
     });    
@@ -615,7 +605,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     confirmDeleteBtn.addEventListener('click', function() {
         deleteModal.style.display = "none";
-        window.location.href = window.location.href;
+        location.reload();
     });
 
     cancelDeleteBtn.addEventListener('click', function() {
@@ -624,6 +614,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* pop-up after signing up */
+
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("myModal");
 

@@ -647,12 +647,18 @@ server.post('/delete-review', async (req, res) => {
     try {
         const reviewIdToDelete = req.body.reviewId;
 
+        console.log('Review ID to delete:', reviewIdToDelete);
+
+        if (!mongoose.Types.ObjectId.isValid(reviewIdToDelete)) {
+            return res.status(400).send('Invalid review ID');
+        }
+
         const deletedReview = await review.findByIdAndDelete(reviewIdToDelete);
 
         if (!deletedReview) {
             return res.status(404).send('Review not found');
         }
-
+        
     } catch (error) {
         console.error('Error deleting review:', error);
         res.status(500).send('Internal Server Error');
@@ -665,15 +671,12 @@ server.post('/edit-review', async (req, res) => {
         const reviewIdToEdit = req.body.reviewId;
         const formData = req.body;
 
-        // Update the review by its ID
         const updatedReview = await review.findByIdAndUpdate(reviewIdToEdit, formData, { new: true });
 
-        // If the review is not found, return an error response
         if (!updatedReview) {
             return res.status(404).json({ error: 'Review not found' });
         }
 
-        // Respond with a success message and the updated review data
         res.status(200).json({ message: 'Review successfully updated', review: updatedReview });
     } catch (error) {
         console.error('Error updating review:', error);

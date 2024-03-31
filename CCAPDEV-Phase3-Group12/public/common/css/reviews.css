@@ -508,6 +508,7 @@ textarea {
 
 .buttons {
     display: flex;
+    margin-top: 5px;
     gap: 5px;
 }
 t
@@ -625,4 +626,13 @@ t
 
 .fa-ellipsis {
     margin-left: 10px;
+}
+
+/* owner reply */
+
+.show-reply {
+    background-color: #e1e1e1;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 15px;
 }
