@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let hours = currentDate.getHours();
         hours = (hours % 12 || 12); // Convert 0 to 12 for 12-hour format
         const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-        const ampm = hours >= 12 ?  'AM' : 'PM';
+        const ampm = hours >= 12 ?  'PM' : 'AM';
         const formattedDate2 = `${month}-${day}-${year} ${hours}:${minutes} ${ampm}`;
 
         // Create formData object to send in AJAX request
