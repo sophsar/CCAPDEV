@@ -296,20 +296,16 @@ server.post('/edit-profile', upload.single('pfpUrl'), async (req, res) => {
         const userId = req.body.userId;
         const formData = req.body;
 
-        // If a new profile picture is uploaded, update the pfpUrl in formData
         if (req.file) {
             formData.pfpUrl = req.file.filename;
         }
 
-        // Find the user in the database by ID and update their profile information
         const updatedUser = await loginUser.findByIdAndUpdate(userId, formData, { new: true });
 
-        // If the user is not found, return an error response
         if (!updatedUser) {
             return res.status(404).send('User not found');
         }
 
-        // Respond with a success message or updated user data
         res.status(200).json({ message: 'Profile successfully updated', user: updatedUser });
     } catch (error) {
         console.error('Error updating profile:', error);
@@ -335,6 +331,49 @@ server.get('/owner', async function(req, res) {
         });
     } catch (err) {
         console.error('Error fetching user data:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+server.post('/delete-account', async (req, res) => {
+    try {
+        if (!req.user || !req.user.username) {
+            return res.status(401).send('Unauthorized');
+        }
+
+        const usernameToDelete = req.user.username;
+
+        const userToDelete = await loginUser.findOne({ username: usernameToDelete });
+
+        if (!userToDelete) {
+            return res.status(404).send('User not found');
+        }
+
+        await review.deleteMany({ username: usernameToDelete });
+
+        await loginUser.findOneAndDelete({ username: usernameToDelete });
+
+        res.status(200).send('User account and associated reviews deleted successfully');
+    } catch (error) {
+        console.error('Error deleting user account:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+server.post('/edit-owner-profile', async (req, res) => {
+    try {
+        const ownerId = req.body.ownerId;
+        const formData = req.body;
+
+        const updatedOwner = await loginOwner.findByIdAndUpdate(ownerId, formData, { new: true });
+
+        if (!updatedOwner) {
+            return res.status(404).send('Owner not found');
+        }
+
+        res.status(200).json({ message: 'Owner profile successfully updated', owner: updatedOwner });
+    } catch (error) {
+        console.error('Error updating owner profile:', error);
         res.status(500).send('Internal Server Error');
     }
 });

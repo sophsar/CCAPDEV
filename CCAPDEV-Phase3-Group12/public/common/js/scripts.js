@@ -516,8 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
-
-/* editing a profile */
+/* editing user profile */
 
 document.addEventListener('DOMContentLoaded', function() {
     const lol = document.querySelector('.editedpfp');
@@ -571,6 +570,46 @@ document.addEventListener('DOMContentLoaded', function() {
         previewContainer.style.display = 'none';
     });    
 });
+
+/* editing owner profile */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const openModalIcon = document.querySelector('.fa-gear');
+    const ownerEditModal = document.getElementById('ownerEditModal');
+
+    openModalIcon.addEventListener('click', function() {
+        ownerEditModal.style.display = 'block';
+    });
+
+    const submitBtn = document.getElementById("editOwnerSubmit");
+    const cancelBtn = document.getElementById("cancelOwnerEdit");
+
+    submitBtn.addEventListener("click", () => {
+        const formData = new FormData(document.getElementById('editOwnerProfile'));
+
+        fetch('/edit-owner-profile', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Profile successfully edited!');
+                ownerEditModal.style.display = 'none';
+                location.reload(); 
+            } else {
+                throw new Error('Failed to edit profile');
+            }
+        })
+        .catch(error => {
+            console.error('Error editing profile:', error);
+        });
+    });
+
+    cancelBtn.addEventListener("click", () => {
+        ownerEditModal.style.display = 'none';
+    });    
+});
+
 
 /* udpating profile picture */
 
@@ -706,4 +745,58 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error('Review container element not found.');
     }
+});
+
+/* delete account */
+
+document.addEventListener("DOMContentLoaded", function () {
+    var modal = document.getElementById("deleteAccountModal");
+    var editAccModal = document.querySelector(".edit-preview");
+
+    var deleteAccountButton = document.querySelector(".btn.submit.delete-account");
+
+    var cancelDeleteButton = document.getElementById("cancelDeleteAccount");
+
+    deleteAccountButton.onclick = function () {
+        modal.style.display = "block";
+        editAccModal.style.display = "none";
+    }
+
+    cancelDeleteButton.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    var confirmDeleteButton = document.getElementById("confirmDeleteAccount");
+    
+    confirmDeleteButton.onclick = function () {
+        var userId = ""; 
+        var username = ""; 
+    
+        fetch('/delete-account', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: userId, username: username })
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "/"; 
+            } else {
+                console.error('Error deleting account:', response.statusText);
+                alert('An error occurred while deleting the account. Please try again later.');
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting account:', error);
+            alert('An error occurred while deleting the account. Please try again later.');
+        });
+    }
+    
 });

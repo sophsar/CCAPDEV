@@ -71,13 +71,20 @@
                                 </div>
                                 
                                 <textarea id="description" name="description" cols="30" rows="5" placeholder="Edit description...">{{user-info.description}}</textarea>
-                                <div class="btn-group">
-                                    <button type="button" class="btn submit" id="editSubmit">Submit</button>
-                                    <button type="reset" class="btn cancel" id="cancel">Cancel</button>
+                                
+                                <div class="all-btns">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn submit" id="editSubmit">Submit</button>
+                                        <button type="reset" class="btn cancel" id="cancel">Cancel</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn submit delete-account">Delete Account</button>
+                                    </div>
                                 </div>
                         </form>
                     </div>
                 </div>
+                
                 {{#if isOwner}}
                 <div class="location">        
                     <i class="fa-solid fa-location-dot"></i>
@@ -199,7 +206,9 @@
                 </div>
             </div>
         </div>
+
         <!-- EDIT REVIEW BOX -->
+
         <div class="review-edit-preview">
             <div class="edit-wrapper" data-target="p-1">
                 <form id="editReview" name="editProfile">
@@ -243,6 +252,20 @@
                 </div>
             </div>
         </form>
+
+        <!-- DELETE ACCOUNT -->
+
+        <div id="deleteAccountModal" class="modal">
+            <div class="modal-content">
+                <h3>Confirm Account Deletion</h3>
+                <p>Are you sure you want to delete your account?<br>This action cannot be undone.</p>
+                <div class="modal-buttons">
+                    <button id="confirmDeleteAccount">Delete Account</button>
+                    <button id="cancelDeleteAccount">Cancel</button>
+                </div>
+            </div>
+        </div>
+
     </section>
     {{> footer}}
 </body>

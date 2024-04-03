@@ -14,6 +14,20 @@
 <section class="second">
         <div class="resto-page">
             <div class="resto-info">
+                <div class="edit-box">
+                    <div class="container">
+                        <div class="edit-container">
+                        <div class="edit-button" data-name="p-2">
+                            <div class="text1">
+                                {{#unless isView}}
+                                <i class="fa-solid fa-gear"></i>
+                                {{/unless}}
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="resto-name-n-logo">
                     <img src="uploads/{{owner-info.pfpUrl}}">
                     <h1>{{owner-info.restoName}}</h1>
@@ -97,7 +111,57 @@
                     {{/each}}
                 </div>
             </div>
-                
+            
+            <!-- EDIT OWNER BOX -->
+
+            <div id="ownerEditModal" class="modal">
+                <div class="modal-content">
+                    <form id="editOwnerProfile" name="editOwnerProfile">
+                        <h3 style="color: #12372A;">EDIT PROFILE</h3>
+                        <input type="hidden" id="ownerId" name="ownerId" value="{{owner-info._id}}">
+                        <div class="pfp">
+                            <img id="owner-profile-picture" src="uploads/{{owner-info.pfpUrl}}">
+                            <div class="uploadavatar-button">
+                                <input type="file" id="ownerPfpUrl" name="ownerPfpUrl" class="photoUpload" accept="image/*" onchange="updateOwnerProfilePicture(event)">
+                            </div>
+                        </div>
+                        <div class="label-input-pair">
+                            <label>Restaurant Name</label>
+                            <input value="{{owner-info.restoName}}" placeholder="Restaurant Name" type="text" id="restoName" name="restoName">
+                        </div>
+                        <div class="label-input-pair">
+                            <label>Location</label>
+                            <input value="{{owner-info.location}}" placeholder="Location" type="text" id="location" name="location">
+                        </div>
+                        <div class="label-input-pair">
+                            <label>Phone Number</label>
+                            <input value="{{owner-info.phoneNumber}}" placeholder="Phone Number" type="text" id="phoneNumber" name="phoneNumber">
+                        </div>
+                        <div class="label-input-pair">
+                            <label>Opening Time</label>
+                            <input value="{{owner-info.openingTime}}" placeholder="Opening Time" type="text" id="openingTime" name="openingTime">
+                        </div>
+                        <div class="label-input-pair">
+                            <label>Closing Time</label>
+                            <input value="{{owner-info.closingTime}}" placeholder="Closing Time" type="text" id="closingTime" name="closingTime">
+                        </div>
+                        <div class="label-input-pair">
+                            <label>Description</label>
+                            <textarea id="ownerDescription" name="ownerDescription" cols="30" rows="5" placeholder="Edit description...">{{owner-info.description}}</textarea>
+                        </div>
+                        <div class="all-btns">
+                            <div class="btn-group">
+                                <button type="button" class="btn submit" id="editOwnerSubmit">Submit</button>
+                                <button type="reset" class="btn cancel" id="cancelOwnerEdit">Cancel</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn submit delete-account">Delete Account</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
     </section>
 
 {{> footer}}

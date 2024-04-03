@@ -82,10 +82,6 @@ body {
     margin: 5px 0;
 }
 
-.label-input-pair #firstName, .label-input-pair #lastName {
-    width: 49% !important;
-}
-
 .label-input-pair .name {
     display: flex;
     width: 70% !important;
@@ -168,22 +164,6 @@ body {
   width: 0;
   padding: 0;
   margin: 0;
-}
-
-
-/*REVIEW*/
-.review-preview {
-    position: fixed;
-    top:0; 
-    left:0;
-    min-height: 100vh;
-    width: 100%;
-    background: rgba(84, 84, 84, 0.8);
-    display: none;
-    align-items: right;
-    justify-content: right;
-    position:fixed;
-    z-index: 4;
 }
 
 .edit-n-delete {
@@ -451,7 +431,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 
 /* REVIEW */
 
-.review-preview, .review-edit-preview {
+.review-edit-preview {
     position: fixed;
     top:0; 
     left:0;
@@ -625,7 +605,8 @@ textarea {
     color: white;
 }
 
-/**/
+/* */
+
 #all-reviews {
     padding: 0;
     margin-top: 20px;
@@ -750,4 +731,11 @@ textarea {
     &:hover {
         background-color:#436850;
     }
+}
+
+/* */
+
+.all-btns {
+    display: flex;
+    justify-content: space-between;
 }
