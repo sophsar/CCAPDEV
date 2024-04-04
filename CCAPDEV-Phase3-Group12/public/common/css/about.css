@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind&family=Montserrat:wght@300;400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Hind", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+:root {
+    --yellow: #FFBD13;
+    --bg-color: #E6E6E6;
+    --dark-green: #12372A;
+    --green: #436850;
+    --grayish-green: #ADBC9F;
+    --grayish-yellow: #FBFADA;
+	--light: #F5F5F5;
+	--white: #FFF;
+}
+
+.whole {
+    min-height: 100vh;
+}

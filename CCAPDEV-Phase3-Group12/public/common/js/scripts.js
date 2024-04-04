@@ -772,11 +772,50 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-/* delete account */
+/* delete user account */
+
+// Assuming you have a button with id="deleteAccountButton" to trigger the delete account modal
+document.addEventListener("DOMContentLoaded", function () {
+    var deleteAccountButton = document.getElementById("deleteAccountButton");
+    var confirmDeleteButton = document.getElementById("confirmDeleteAccount");
+
+    deleteAccountButton.onclick = function () {
+        var modal = document.getElementById("deleteAccountModal");
+        modal.style.display = "block";
+    }
+
+    confirmDeleteButton.onclick = function () {
+        fetch('/delete-account', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error('Failed to delete account');
+            }
+        })
+        .then(data => {
+            console.log(data); // Log success message
+            window.location.reload(); // Reload the page after successful deletion
+        })
+        .catch(error => {
+            console.error('Error deleting account:', error);
+            alert('An error occurred while deleting the account. Please try again later.');
+        });
+    }
+});
+
+
+/* delete owner account */
 
 document.addEventListener("DOMContentLoaded", function () {
-    var modal = document.getElementById("deleteAccountModal");
-    var editAccModal = document.querySelector(".edit-preview");
+    var modal = document.getElementById("deleteOwnerModal");
+    var editAccModal = document.getElementById("ownerEditModal");
 
     var deleteAccountButton = document.querySelector(".btn.submit.delete-account");
 
@@ -798,17 +837,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var confirmDeleteButton = document.getElementById("confirmDeleteAccount");
-    
+
     confirmDeleteButton.onclick = function () {
-        var userId = ""; 
-        var username = ""; 
-    
-        fetch('/delete-account', {
+        fetch('/delete-owner', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId: userId, username: username })
+            // Pass appropriate user data for deletion
+            body: JSON.stringify({ /* userId: userId, */ username: 'current_username' })
         })
         .then(response => {
             if (response.ok) {
@@ -823,5 +860,5 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('An error occurred while deleting the account. Please try again later.');
         });
     }
-    
 });
+

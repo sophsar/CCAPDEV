@@ -115,6 +115,22 @@ server.get('/', async function(req, res) {
     }
 });
 
+server.get('/about', async function(req, res) {
+    try {
+        const loggedInUser = req.user;
+        const guests = await loginGuest.find({});
+        let data = {
+            layout          : 'index',
+            title           : 'BON APPÉTaft - About Us',
+        };
+
+        res.render('about', data);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 server.get('/resto', async function(req, res) {
     try {
         const owners = await loginOwner.find({});
@@ -367,6 +383,32 @@ server.post('/delete-account', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+server.post('/delete-owner', async (req, res) => {
+    try {
+        if (!req.user || !req.user.username) {
+            return res.status(401).send('Unauthorized');
+        }
+
+        const usernameToDelete = req.user.username;
+
+        const userToDelete = await loginOwner.findOne({ username: usernameToDelete });
+
+        if (!userToDelete) {
+            return res.status(404).send('User not found');
+        }
+
+        await reply.deleteMany({ username: usernameToDelete });
+
+        await loginOwner.findOneAndDelete({ username: usernameToDelete });
+
+        res.status(200).send('User account and associated reviews deleted successfully');
+    } catch (error) {
+        console.error('Error deleting user account:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 server.post('/edit-owner-profile', upload.single('pfpUrl'),  async (req, res) => {
     try {

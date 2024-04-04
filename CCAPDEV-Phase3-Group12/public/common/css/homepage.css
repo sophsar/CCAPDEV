@@ -350,3 +350,9 @@ footer .logo, footer .logo span {
     font-size: 20px;
     color: #FBFADA;
 }
+
+footer a {
+    text-decoration: none;
+    color: #FBFADA;
+    list-style-type: none;
+}
