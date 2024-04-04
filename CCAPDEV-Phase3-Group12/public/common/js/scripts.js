@@ -774,14 +774,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* delete user account */
 
-// Assuming you have a button with id="deleteAccountButton" to trigger the delete account modal
 document.addEventListener("DOMContentLoaded", function () {
-    var deleteAccountButton = document.getElementById("deleteAccountButton");
+    var modal = document.getElementById("deleteAccountModal");
+    var editAccModal = document.querySelector(".edit-preview");
+
+    var deleteAccountButton = document.querySelector(".btn.submit.delete-user");
     var confirmDeleteButton = document.getElementById("confirmDeleteAccount");
 
+    var cancelDeleteButton = document.getElementById("cancelDeleteAccount");
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
     deleteAccountButton.onclick = function () {
-        var modal = document.getElementById("deleteAccountModal");
         modal.style.display = "block";
+        editAccModal.style.display = "none";
+    }
+
+    cancelDeleteButton.onclick = function () {
+        modal.style.display = "none";
     }
 
     confirmDeleteButton.onclick = function () {
@@ -794,14 +808,11 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => {
             if (response.ok) {
-                return response.text();
+                window.location.href = "/"; 
             } else {
-                throw new Error('Failed to delete account');
+                console.error('Error deleting account:', response.statusText);
+                alert('An error occurred while deleting the account. Please try again later.');
             }
-        })
-        .then(data => {
-            console.log(data); // Log success message
-            window.location.reload(); // Reload the page after successful deletion
         })
         .catch(error => {
             console.error('Error deleting account:', error);
