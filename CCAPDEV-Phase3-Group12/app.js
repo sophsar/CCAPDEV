@@ -316,9 +316,17 @@ server.post('/edit-profile', upload.single('pfpUrl'), async (req, res) => {
 server.get('/owner', async function(req, res) {
     try {
         const loggedInUser = req.user;
-        const reviews = await review.find({});
+        const reviews = await review.find({}).lean();
         const replies = await reply.find({});
         
+        for (let review of reviews) {
+            let user = await loginUser.findById(review.userId);
+            if (user) {
+                review.userPfp = user.pfpUrl; 
+                review.username = user.username;
+            }
+        }
+
         res.render('owner', { 
             layout          : 'index', 
             title           : 'Bon AppéTaft - My Restaurant',
@@ -360,10 +368,15 @@ server.post('/delete-account', async (req, res) => {
     }
 });
 
-server.post('/edit-owner-profile', async (req, res) => {
+server.post('/edit-owner-profile', upload.single('pfpUrl'),  async (req, res) => {
     try {
         const ownerId = req.body.ownerId;
         const formData = req.body;
+
+        // If a new profile picture is uploaded, update the pfpUrl in formData
+        if (req.file) {
+            formData.pfpUrl = req.file.filename;
+        }
 
         const updatedOwner = await loginOwner.findByIdAndUpdate(ownerId, formData, { new: true });
 
@@ -684,6 +697,7 @@ server.post('/logout', (req, res) => {
 /* delete a review */
 server.post('/delete-review', async (req, res) => {
     try {
+        console.log(req.body);
         const reviewIdToDelete = req.body.reviewId;
 
         console.log('Review ID to delete:', reviewIdToDelete);

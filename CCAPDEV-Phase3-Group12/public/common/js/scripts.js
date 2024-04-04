@@ -585,23 +585,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.getElementById("cancelOwnerEdit");
 
     submitBtn.addEventListener("click", () => {
-        const formData = new FormData(document.getElementById('editOwnerProfile'));
-
-        fetch('/edit-owner-profile', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Profile successfully edited!');
+        var formData = new FormData($('#editOwnerProfile')[0]);
+        
+        // Perform AJAX request with FormData object
+        $.ajax({
+            url: '/edit-owner-profile',
+            type: 'POST',
+            data: formData,
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Prevent jQuery from setting contentType
+            success: function(data, status) {
+                if (status === 'success') {
+                    ownerEditModal.style.display = 'none';
+                    console.log("Owner profile successfully edited!");
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+            },
+            complete: function() {
                 ownerEditModal.style.display = 'none';
-                location.reload(); 
-            } else {
-                throw new Error('Failed to edit profile');
+                location.reload();
             }
-        })
-        .catch(error => {
-            console.error('Error editing profile:', error);
         });
     });
 
@@ -632,19 +637,39 @@ document.addEventListener("DOMContentLoaded", function() {
     const deleteModal = document.getElementById('deleteModal');
     const confirmDeleteBtn = document.getElementById('confirmDelete');
     const cancelDeleteBtn = document.getElementById('cancelDelete');
-    const reviewIdInput = document.getElementById('reviewId');
+    let formData = '';
 
     trashIcons.forEach(trashIcon => {
         trashIcon.addEventListener('click', function() {
-            const reviewId = this.closest('.un-review').dataset.reviewId;
-            reviewIdInput.value = reviewId; 
+            // Create a new FormData object
+            formData = new FormData($('#deleteReview')[0]);
+
             deleteModal.style.display = "block";
         });
     });
 
     confirmDeleteBtn.addEventListener('click', function() {
-        deleteModal.style.display = "none";
-        location.reload();
+        // Perform AJAX request with FormData object
+        $.ajax({
+            url: '/delete-review',
+            type: 'POST',
+            data: formData,
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Prevent jQuery from setting contentType
+            success: function(data, status) {
+                if (status === 'success') {
+                    deleteModal.style.display = "none";
+                    console.log("Review successfully deleted!");
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+            },
+            complete: function() {
+                deleteModal.style.display = "none";
+                location.reload();
+            }
+        });
     });
 
     cancelDeleteBtn.addEventListener('click', function() {

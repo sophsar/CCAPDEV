@@ -659,7 +659,7 @@ textarea {
 
 .modal-content {
 	background: var(--white);
-    margin-top: 5%;
+    margin: 8% auto;
 	padding: 2rem;
 	max-width: 60vw;
 	width: 100%;
